@@ -1,0 +1,5 @@
+= WildFly Swarm Users Guide
+
+This guide will assist users of WildFly Swarm get started
+and use advanced features.
+
