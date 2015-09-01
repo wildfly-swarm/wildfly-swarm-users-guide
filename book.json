@@ -1,1 +1,6 @@
-{}
+{
+  "gitbook": ">=2.3.0",
+  "structure": {
+      "readme": "README.adoc"
+  }
+}
