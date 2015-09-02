@@ -2,5 +2,5 @@
 
 * [Introduction](README.adoc)
 * [Basics](basics.adoc)
-* Logging
+* [Logging](logging.adoc)
 
