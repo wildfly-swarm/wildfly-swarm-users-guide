@@ -5,4 +5,5 @@
 * [Maven Plugin](maven-plugin.adoc)
 * [Gradle Plugin](gradle-plugin.adoc)
 * [Logging](logging.adoc)
+* WAR Applications
 
