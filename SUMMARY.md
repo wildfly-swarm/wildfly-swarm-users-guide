@@ -3,5 +3,5 @@
 * [Introduction](README.adoc)
 * [Basics](basics.adoc)
 * [Logging](logging.adoc)
-* Maven Plugin
+* [Maven Plugin](maven-plugin.adoc)
 
