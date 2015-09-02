@@ -6,5 +6,5 @@
 * [Gradle Plugin](gradle-plugin.adoc)
 * [WAR Applications](war-applications.adoc)
 * [Logging](logging.adoc)
-* JAR Applications
+* [JAR Applications](jar-applications.adoc)
 
