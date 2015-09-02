@@ -5,6 +5,6 @@
 * [Maven Plugin](maven-plugin.adoc)
 * [Gradle Plugin](gradle-plugin.adoc)
 * [WAR Applications](war-applications.adoc)
-* [Logging](logging.adoc)
 * [JAR Applications](jar-applications.adoc)
+* [Logging](logging.adoc)
 
