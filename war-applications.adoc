@@ -10,7 +10,7 @@ For a Maven project, you already have a ```pom.xml``` with
 
     <packaging>war</packaging>
     
-Simply add configuration for the ```wildfly-swarm-maven-plugin```
+Simply add configuration for the ```wildfly-swarm-plugin```
 
 
     <build>
@@ -21,3 +21,10 @@ Simply add configuration for the ```wildfly-swarm-maven-plugin```
         </plugin>
       </plugins>
     </build>
+    
+When you perform a typical Maven build using ```mvn package```, your ```target`` directory will include a ```-swarm.jar``` version of your application.
+
+This artifact can then be executed using:
+
+    java -jar ./target/myapp-swarm.jar
+    
