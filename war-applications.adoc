@@ -10,8 +10,7 @@ For a Maven project, you already have a ```pom.xml``` with
 
     <packaging>war</packaging>
     
-Simply add configuration for the ```wildfly-swarm-plugin```
-
+Simply add configuration for the ```wildfly-swarm-plugin```:
 
     <build>
       <plugins>
