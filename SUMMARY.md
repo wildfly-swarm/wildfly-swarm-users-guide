@@ -7,4 +7,5 @@
 * [WAR Applications](war-applications.adoc)
 * [JAR Applications](jar-applications.adoc)
 * [Logging](logging.adoc)
+* Jolokia
 
