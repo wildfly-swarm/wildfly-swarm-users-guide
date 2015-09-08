@@ -1,0 +1,20 @@
+= JAR Applications
+
+If you desire to move away from traditionally-packaged `.war` applications, more options are available to you with WildFly Swarm.  Though a fluent API, you can fully configure the facilities brought to your application and control what gets deployed.
+
+== Writing your own `main(...)`
+
+When your application is packaged as a `.jar`, you can also (but are not required) to provide your own `main(...)` method. In your `main(...)` you can configure the container as much or as little as you require.  You can also `.deploy(...)` one or more deployments.
+
+The `main(...)` method should exactly match the typical requirements of a main method in Java, and is executable from your IDE.
+
+[source,java]
+----
+public class Main {
+
+  public static void main(String...args) {
+    ..
+  }
+  
+}
+----
