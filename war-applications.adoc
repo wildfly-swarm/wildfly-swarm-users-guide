@@ -24,7 +24,7 @@ Simply add configuration for the ```wildfly-swarm-plugin```:
 </build>
 ----
     
-When you perform a typical Maven build using ```mvn package```, your ```target`` directory will include a ```-swarm.jar``` version of your application.
+When you perform a typical Maven build using `mvn package`, your `target` directory will include a `_myapp_-swarm.jar` version of your application.
 
 This artifact can then be executed using:
 
