@@ -3,6 +3,6 @@
     border: 1px solid #999;
 }
 
-ol.loweralpha {
+.book .book-body .page-wrapper .page-inner section.normal ol ol.loweralpha {
     list-style-type: lower-alpha;
 }
