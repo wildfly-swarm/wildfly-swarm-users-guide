@@ -21,8 +21,14 @@ While the above dependency adds the capability of logging to Logstash, until the
 
 To configure _where_ the Logstash server is running, the following two properties need to be set, either through plugin configuration or on the command-line using `-D...`
 
+[cols=2, options="header"]
 |===
-| 0:0 | 1:0
-| 0:1, 1:1
-| 0:2, 1:2
+| Name
+| Description
+
+| swarm.logstash.hostname
+| The hostname of the Logstash server
+
+| swarm.logstash.port
+| The port of the Logstash server
 |===
