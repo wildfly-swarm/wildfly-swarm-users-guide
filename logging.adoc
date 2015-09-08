@@ -7,6 +7,10 @@ Logging is supported by WildFly Swarm using the typical JBoss-Logging systems. B
 
 Several of the higher-order fractions include logging by default. If you need to include it explicitly, though, you may use the following Maven coordinates.
 
-    <groupId>org.wildfly.swarm</groupId>
-    <artifactId>wildfly-swarm-logging</artifactId>
-
+[source,xml]
+----
+<dependency>
+  <groupId>org.wildfly.swarm</groupId>
+  <artifactId>wildfly-swarm-logging</artifactId>
+</dependency>
+----
