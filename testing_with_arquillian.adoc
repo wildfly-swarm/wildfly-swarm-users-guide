@@ -45,12 +45,13 @@ The contents of this method is similar to whatever you would do within your `mai
 
 For instance:
 
-    @Deployment
-    public static Archive createDeployment() {
-        JAXRSArchive deployment = ShrinkWrap.create( JAXRSArchive.class );
-        deployment.addResource( MyResource.class );
-        return deployment;
-    }
+[source,java]
+@Deployment
+public static Archive createDeployment() {
+    JAXRSArchive deployment = ShrinkWrap.create( JAXRSArchive.class );
+    deployment.addResource( MyResource.class );
+    return deployment;
+}
 
 By default, all methods annotated with `@Test` will run _inside_ the application.  Depending on the functionality you include, you can use annotations such as `@Inject` (if you're using CDI) to inject components into your test-case class.
 
