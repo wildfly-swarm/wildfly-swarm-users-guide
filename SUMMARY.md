@@ -9,5 +9,5 @@
 * [Logging](logging.adoc)
 * [Keycloak](keycloak.adoc)
 * [Jolokia](jolokia.adoc)
-* JAX-RS
+* [JAX-RS](jax-rs.adoc)
 
