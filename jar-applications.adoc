@@ -18,3 +18,8 @@ public class Main {
   
 }
 ----
+
+Within the main method, you can work with the `org.wildfly.swarm.Container` API to configure _fractions_ into the system and deploy components.
+
+The primary methods available are:
+
