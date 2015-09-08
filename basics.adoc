@@ -7,3 +7,10 @@ The point of these machinations is to support microservices while providing just
 Additionally, WildFly Swarm brings other state-of-the-art components to your application, integrating them seamlessly.  This includes authentication/authorization from Keycloak, client-side load-balancing via NetflixOSS Ribbon/Hystrix, and log aggregation using Logstash.
 
 
+== Monolithic Application Server
+
+image:monolithic-as.png[alt=""]
+
+== Uberjar WildFly Swarm
+
+image:swarm-as.png[alt=""]
