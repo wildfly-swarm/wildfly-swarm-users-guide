@@ -58,27 +58,27 @@ If you wish to test your application from _outside_ (for instance, with a web cl
 
 === Example with CDI
 
-  @RunWith(Arquillian.class)
-  public class MyTest {
+    @RunWith(Arquillian.class)
+    public class MyTest {
   
-      @Inject
-      private MyComponent component;
+        @Inject
+        private MyComponent component;
   
-      @Test
-      public void testMyComponent() {
-        // Runs within the application, CDI injects MyComponent
-        
-        // assert something about this.component
-      }
+        @Test
+        public void testMyComponent() {
+          // Runs within the application, CDI injects MyComponent
+          
+          // assert something about this.component
+        }
       
-      @Deployment
-      public static Archive createDeployment() {
-        JARArchive archive = ShrinkWrap.create( JARArchive.class );
-         
-        // ... set up archive ...
-        
-        return archive;
-      }
-  }
+        @Deployment
+        public static Archive createDeployment() {
+          JARArchive archive = ShrinkWrap.create( JARArchive.class );
+           
+          // ... set up archive ...
+          
+          return archive;
+        }
+    }
   
 
