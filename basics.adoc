@@ -13,8 +13,8 @@ When using a traditional monolithic application server, you first install the en
 
 image:monolithic-as.png[alt=""]
 
-== Uberjar WildFly Swarm
+== WildFly Swarm Uberjar
 
 In the WildFly Swarm "uberjar" scenario, _just enough application server_ is wrapped around your application.  Any un-needed parts are simply excluded.  This results in a much smaller usage of resources.  Additionally, a single artifact is produced which can be shuffled along a _continuous deployment_ pipeline.
 
-image:swarm-as.png[alt="", width=200]
+image:swarm-uberjar.png[alt="", width=200]
