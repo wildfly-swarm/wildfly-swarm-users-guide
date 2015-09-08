@@ -1,0 +1,65 @@
+= Maven Plugin
+
+To assist in building WildFly Swarm projects, a Maven plugin is available.  This plugin creates the ```-swarm.jar``` uberjar which contains your application along with the necessary parts of WildFly to support it.
+
+== Configuration
+
+To use the plugin, you must add it to your `pom.xml`:
+
+    <plugins>
+      <plugin>
+        <groupId>org.wildfly.swarm</groupId>
+        <artifactId>wildfly-swarm-plugin</artifactId>
+        <executions>
+          <execution>
+            <goals>
+              <goal>package</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+    
+== Running your application
+
+To execute your application, you may use the `wildfly-swarm:run` goal:
+
+    mvn wildfly-swarm:run
+    
+This will execute your application within the WildFly Swarm runtime directly from the Maven command-line.
+
+== Packaging your application
+
+To produce the `_myapp_-swarm.jar`, simply perform a typical `mvn package` command.
+
+    mvn package
+    
+== Properties
+
+Many properties may be used to configuration execution and affect the packaging of your application.
+
+By adding a `<properties>` section to the `<configuration>` of the plugin, the properties will be used when running your application via `mvn wildfly-swarm:run`.  Additionally, those same properties will be added to your `_myapp_-swarm.jar` to affect subsequent executions of the uberjar.  
+
+Any properties added to the uberjar can of course be overridden at runtime using the traditional `-Dname=value` mechanism of `java`.
+
+By default, only properties that start with `jboss.`, `wildfly.` or `swarm.` are added to the uberjar.
+
+Useful properties include, but are not limited to:
+
+[options="header"]
+|===
+| Name | Description
+| jboss.http.port | Sets the port for the HTTP server
+| jboss.socket.binding.port-offset | Sets a global port adjustment
+|===
+
+
+
+
+
+
+
+
+
+
+
