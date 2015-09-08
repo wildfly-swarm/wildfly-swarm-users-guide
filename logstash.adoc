@@ -7,7 +7,7 @@ The Logstash project from https://www.elastic.co/[Elastic] provides for a centra
 === Dependency
 To add Logstash integration to your WildFly Swarm application, you need to add a dependency:
 
-[source,maven]
+[source,xml]
 ----
 <dependency>
   <groupId>org.wildfly.swarm</groupId>
