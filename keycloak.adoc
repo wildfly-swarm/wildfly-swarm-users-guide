@@ -8,15 +8,21 @@ WildFly Swarm provides easy integration with Keycloak.
 
 To bring Keycloak integration to your application, you need the following dependency:
 
-    <dependency>
-      <groupId>org.wildfly.swarm</groupId>
-      <artifactId>wildfly-swarm-keycloak</artifactId>
-    </dependency>
+[source,xml]
+----
+<dependency>
+  <groupId>org.wildfly.swarm</groupId>
+  <artifactId>wildfly-swarm-keycloak</artifactId>
+</dependency>
+----
     
 Once this is added, you can use the ```Secured``` archive type to secure your application.  The easiest way to integrate is by providing a ```keycloak.json``` file in your application classpath and use ```.as(Secured.class)```.
 
-    JAXRSArchive deployment = new JAXRSArchive();
-    deployment.as(Secured.class);
+[source,java]
+----
+JAXRSArchive deployment = new JAXRSArchive();
+deployment.as(Secured.class);
+----
     
 By default, this only adds support, but not a requirement, on Keycloak. Anonymous users can still access the entire application.  If they are authenticated, the ```SecurityContext``` will be populated with the user's information.
 
@@ -24,10 +30,13 @@ By default, this only adds support, but not a requirement, on Keycloak. Anonymou
 
 You can also protect various aspects of your application after using ```.as(Secured.class)``` by chaining calls to ```.protect(_path_)```
 
-    deployment.as(Secured.class)
-      .protect( "/some-resource" )
-        .withMethod( "GET" )
-        .withRoles( "admin" )
+[source,java]
+----
+deployment.as(Secured.class)
+  .protect( "/some-resource" )
+    .withMethod( "GET" )
+    .withRoles( "admin" );
+----
 
 
 
