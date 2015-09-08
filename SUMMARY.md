@@ -7,7 +7,7 @@
 * [WAR Applications](war-applications.adoc)
 * [JAR Applications](jar-applications.adoc)
 * [Logging](logging.adoc)
-* Logstash
+* [Logstash](logstash.adoc)
 * [JAX-RS](jax-rs.adoc)
 * [Keycloak](keycloak.adoc)
 * [Jolokia](jolokia.adoc)
