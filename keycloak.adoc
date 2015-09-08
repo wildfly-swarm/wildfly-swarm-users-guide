@@ -16,7 +16,7 @@ To bring Keycloak integration to your application, you need the following depend
 </dependency>
 ----
     
-Once this is added, you can use the ```Secured``` archive type to secure your application.  The easiest way to integrate is by providing a ```keycloak.json``` file in your application classpath and use ```.as(Secured.class)```.
+Once this is added, you can use the `Secured` archive type to secure your application.  The easiest way to integrate is by providing a `keycloak.json` file in your application classpath and use `.as(Secured.class)`.
 
 [source,java]
 ----
@@ -24,7 +24,7 @@ JAXRSArchive deployment = new JAXRSArchive();
 deployment.as(Secured.class);
 ----
     
-By default, this only adds support, but not a requirement, on Keycloak. Anonymous users can still access the entire application.  If they are authenticated, the ```SecurityContext``` will be populated with the user's information.
+By default, this only adds support, but not a requirement, on Keycloak. Anonymous users can still access the entire application.  If they are authenticated, the `SecurityContext` will be populated with the user's information.
 
 == Protecting your application
 
