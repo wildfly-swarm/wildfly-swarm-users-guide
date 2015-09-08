@@ -1,6 +1,6 @@
 = WAR Applications
 
-If you have an existing WAR-based application, you can construct a self-contained ```-swarm.jar``` from it with ease. By using the plugin of your choice (Maven or Gradle), the resulting uberjar will contain your application along with enough of the application-server to support it.
+If you have an existing WAR-based application, you can construct a self-contained `_myapp_-swarm.jar` from it with ease. By using the plugin of your choice (Maven or Gradle), the resulting uberjar will contain your application along with enough of the application-server to support it.
 
 When building a WAR-based application, you currently can not supply a `main(...)` method to launch it.
 
