@@ -58,9 +58,11 @@ If you wish to test your application from _outside_ (for instance, with a web cl
 
 === Example with CDI
 
+[listing]
+----
     @RunWith(Arquillian.class)
     public class MyTest {
-  
+      
         @Inject
         private MyComponent component;
   
@@ -80,5 +82,5 @@ If you wish to test your application from _outside_ (for instance, with a web cl
           return archive;
         }
     }
-  
+----
 
