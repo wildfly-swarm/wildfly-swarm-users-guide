@@ -1,0 +1,34 @@
+= Keycloak
+
+Keycloak is an authentication and authorization server created by JBoss. It runs separate from any particular application. It acts as the primary authentication/authorization database of record and can also provide social-login capabilities.
+
+WildFly Swarm provides easy integration with Keycloak.
+
+== Adding Keycloak support
+
+To bring Keycloak integration to your application, you need the following dependency:
+
+    <dependency>
+      <groupId>org.wildfly.swarm</groupId>
+      <artifactId>wildfly-swarm-keycloak</artifactId>
+    </dependency>
+    
+Once this is added, you can use the ```Secured``` archive type to secure your application.  The easiest way to integrate is by providing a ```keycloak.json``` file in your application classpath and use ```.as(Secured.class)```.
+
+    JAXRSArchive deployment = new JAXRSArchive();
+    deployment.as(Secured.class);
+    
+By default, this only adds support, but not a requirement, on Keycloak. Anonymous users can still access the entire application.  If they are authenticated, the ```SecurityContext``` will be populated with the user's information.
+
+== Protecting your application
+
+You can also protect various aspects of your application after using ```.as(Secured.class)``` by chaining calls to ```.protect(_path_)```
+
+    deployment.as(Secured.class)
+      .protect( "/some-resource" )
+        .withMethod( "GET" )
+        .withRoles( "admin" )
+
+
+
+    
