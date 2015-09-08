@@ -52,3 +52,33 @@ For instance:
         return deployment;
     }
 
+By default, all methods annotated with `@Test` will run _inside_ the application.  Depending on the functionality you include, you can use annotations such as `@Inject` (if you're using CDI) to inject components into your test-case class.
+
+If you wish to test your application from _outside_ (for instance, with a web client), you can use the `@RunAsClient` annotation on your method.
+
+=== Example with CDI
+
+  @RunWith(Arquillian.class)
+  public class MyTest {
+  
+      @Inject
+      private MyComponent component;
+  
+      @Test
+      public void testMyComponent() {
+        // Runs within the application, CDI injects MyComponent
+        
+        // assert something about this.component
+      }
+      
+      @Deployment
+      public static Archive createDeployment() {
+        JARArchive archive = ShrinkWrap.create( JARArchive.class );
+         
+        // ... set up archive ...
+        
+        return archive;
+      }
+  }
+  
+
