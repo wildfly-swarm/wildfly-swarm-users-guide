@@ -46,17 +46,45 @@ By default, only properties that start with `jboss.`, `wildfly.` or `swarm.` are
 
 Useful properties include, but are not limited to:
 
-[cols=2, options="header"]
+[cols=3, options="header"]
 |===
 |Name 
 |Description
+|Default
+
+|jboss.bind.address
+|Interface to bind servers
+|0.0.0.0
 
 |jboss.http.port
 |Sets the port for the HTTP server
+|8080
 
 |jboss.socket.binding.port-offset 
 |Sets a global port adjustment
+|0
 |===
+
+=== Example
+
+    <plugins>
+      <plugin>
+        <groupId>org.wildfly.swarm</groupId>
+        <artifactId>wildfly-swarm-plugin</artifactId>
+        <executions>
+          <execution>
+            <goals>
+              <goal>package</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <properties>
+            <jboss.bind.address>127.0.0.1</jboss.bind.address>
+          </properties>
+        </configuration>
+      </plugin>
+    </plugins>
 
 
 
