@@ -9,7 +9,7 @@ Additionally, WildFly Swarm brings other state-of-the-art components to your app
 
 == Monolithic Application Server
 
-image:monolithic-as.png[alt=""]
+image:monolithic-as.png[alt="",scaledwidth=50%]
 
 == Uberjar WildFly Swarm
 
