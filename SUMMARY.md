@@ -10,5 +10,5 @@
 * [JAX-RS](jax-rs.adoc)
 * [Keycloak](keycloak.adoc)
 * [Jolokia](jolokia.adoc)
-* Testing with Arquillian
+* [Testing with Arquillian](testing_with_arquillian.adoc)
 
