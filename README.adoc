@@ -2,9 +2,4 @@
 
 image:swarm_logo_final.png[alt="WildFly Swarm"]
 
-This guide will assist users of WildFly Swarm get started
-and use advanced features.
-
-
-
-
+This is the _Users Guide_ for WildFly Swarm.
