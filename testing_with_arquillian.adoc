@@ -12,46 +12,57 @@ Once it is running, test code may run outside of the uberjar or within it, repor
 
 To use the WildFly Swarm Arquillian adapter, you need to add a two dependencies to your project:
 
-    <dependency>
-      <groupId>org.wildfly.swarm</groupId>
-      <artifactId>wildfly-swarm-arquillian</artifactId>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.jboss.arquillian.junit</groupId>
-      <artifactId>arquillian-junit-container</artifactId>
-      <scope>test</scope>
-    </dependency>
+[source,xml]
+----
+<dependency>
+  <groupId>org.wildfly.swarm</groupId>
+  <artifactId>wildfly-swarm-arquillian</artifactId>
+  <scope>test</scope>
+</dependency>
+<dependency>
+  <groupId>org.jboss.arquillian.junit</groupId>
+  <artifactId>arquillian-junit-container</artifactId>
+  <scope>test</scope>
+</dependency>
+----
 
 == Writing a Test
 
 To integrate Arquillian into your test, you need to use the JUnit `@RunWith` annotation and the `Arquillian.class` test-runner:
 
-    @RunWith(Arquillian.class)
-    public class MyTest {
-      ...
-    }
+[source,java]
+----
+@RunWith(Arquillian.class)
+public class MyTest {
+  ...
+}
+----
 
 This integrates the Arquillian lifecycle with the test-case.
 
 Next, you need to specify the deployment that should be wrapped up in the WildFly Swarm mechanism.  This is accomplished by using the `@Deployment` Arquillian annotation on a public static method that returns a ShrinkWrap archive.
 
-    @Deployment
-    public static Archive createDeployment() {
-      ...
-    }
+[source,java]
+----
+@Deployment
+public static Archive createDeployment() {
+  ...
+}
+----
     
 The contents of this method is similar to whatever you would do within your `main(...)` method.  
 
 For instance:
 
 [source,java]
+----
 @Deployment
 public static Archive createDeployment() {
     JAXRSArchive deployment = ShrinkWrap.create( JAXRSArchive.class );
     deployment.addResource( MyResource.class );
     return deployment;
 }
+----
 
 By default, all methods annotated with `@Test` will run _inside_ the application.  Depending on the functionality you include, you can use annotations such as `@Inject` (if you're using CDI) to inject components into your test-case class.
 
