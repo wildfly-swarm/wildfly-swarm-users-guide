@@ -195,7 +195,8 @@ conditions.
 
 === Section 1 -- Definitions.
 
-  a. Adapted Material means material subject to Copyright and Similar
+[loweralpha]
+. Adapted Material means material subject to Copyright and Similar
      Rights that is derived from or based upon the Licensed Material
      and in which the Licensed Material is translated, altered,
      arranged, transformed, or otherwise modified in a manner requiring
@@ -205,15 +206,15 @@ conditions.
      Adapted Material is always produced where the Licensed Material is
      synched in timed relation with a moving image.
 
-  b. Adapter's License means the license You apply to Your Copyright
+. Adapter's License means the license You apply to Your Copyright
      and Similar Rights in Your contributions to Adapted Material in
      accordance with the terms and conditions of this Public License.
 
-  c. BY-SA Compatible License means a license listed at
+. BY-SA Compatible License means a license listed at
      creativecommons.org/compatiblelicenses, approved by Creative
      Commons as essentially the equivalent of this Public License.
 
-  d. Copyright and Similar Rights means copyright and/or similar rights
+. Copyright and Similar Rights means copyright and/or similar rights
      closely related to copyright including, without limitation,
      performance, broadcast, sound recording, and Sui Generis Database
      Rights, without regard to how the rights are labeled or
@@ -221,33 +222,33 @@ conditions.
      specified in Section 2(b)(1)-(2) are not Copyright and Similar
      Rights.
 
-  e. Effective Technological Measures means those measures that, in the
+. Effective Technological Measures means those measures that, in the
      absence of proper authority, may not be circumvented under laws
      fulfilling obligations under Article 11 of the WIPO Copyright
      Treaty adopted on December 20, 1996, and/or similar international
      agreements.
 
-  f. Exceptions and Limitations means fair use, fair dealing, and/or
+. Exceptions and Limitations means fair use, fair dealing, and/or
      any other exception or limitation to Copyright and Similar Rights
      that applies to Your use of the Licensed Material.
 
-  g. License Elements means the license attributes listed in the name
+. License Elements means the license attributes listed in the name
      of a Creative Commons Public License. The License Elements of this
      Public License are Attribution and ShareAlike.
 
-  h. Licensed Material means the artistic or literary work, database,
+. Licensed Material means the artistic or literary work, database,
      or other material to which the Licensor applied this Public
      License.
 
-  i. Licensed Rights means the rights granted to You subject to the
+. Licensed Rights means the rights granted to You subject to the
      terms and conditions of this Public License, which are limited to
      all Copyright and Similar Rights that apply to Your use of the
      Licensed Material and that the Licensor has authority to license.
 
-  j. Licensor means the individual(s) or entity(ies) granting rights
+. Licensor means the individual(s) or entity(ies) granting rights
      under this Public License.
 
-  k. Share means to provide material to the public by any means or
+. Share means to provide material to the public by any means or
      process that requires permission under the Licensed Rights, such
      as reproduction, public display, public performance, distribution,
      dissemination, communication, or importation, and to make material
@@ -255,13 +256,13 @@ conditions.
      public may access the material from a place and at a time
      individually chosen by them.
 
-  l. Sui Generis Database Rights means rights other than copyright
+. Sui Generis Database Rights means rights other than copyright
      resulting from Directive 96/9/EC of the European Parliament and of
      the Council of 11 March 1996 on the legal protection of databases,
      as amended and/or succeeded, as well as other essentially
      equivalent rights anywhere in the world.
 
-  m. You means the individual or entity exercising the Licensed Rights
+. You means the individual or entity exercising the Licensed Rights
      under this Public License. Your has a corresponding meaning.
 
 
