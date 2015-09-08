@@ -12,14 +12,17 @@ For a Maven project, you already have a ```pom.xml``` with
     
 Simply add configuration for the ```wildfly-swarm-plugin```:
 
-    <build>
-      <plugins>
-        <plugin>
-          <groupId>org.wildfly.swarm</groupId>
-          <artifactId>wildfly-swarm-plugin</artifactId>
-        </plugin>
-      </plugins>
-    </build>
+[source,xml]
+----
+<build>
+  <plugins>
+    <plugin>
+      <groupId>org.wildfly.swarm</groupId>
+      <artifactId>wildfly-swarm-plugin</artifactId>
+    </plugin>
+  </plugins>
+</build>
+----
     
 When you perform a typical Maven build using ```mvn package```, your ```target`` directory will include a ```-swarm.jar``` version of your application.
 
