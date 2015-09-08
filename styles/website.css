@@ -2,3 +2,8 @@ section .listingblock pre.highlight {
     border: 1px solid #999;
     background-color: red;
 }
+
+.book .book-body .page-wrapper .page-inner section.normal .highlight {
+    border: 1px solid #999;
+    background-color:red;
+}
