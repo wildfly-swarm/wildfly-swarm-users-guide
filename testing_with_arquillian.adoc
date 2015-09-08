@@ -60,27 +60,27 @@ If you wish to test your application from _outside_ (for instance, with a web cl
 
 [listing]
 ----
-    @RunWith(Arquillian.class)
-    public class MyTest {
-      
-        @Inject
-        private MyComponent component;
+@RunWith(Arquillian.class)
+public class MyTest {
   
-        @Test
-        public void testMyComponent() {
-          // Runs within the application, CDI injects MyComponent
-          
-          // assert something about this.component
-        }
+    @Inject
+    private MyComponent component;
+ 
+    @Test
+    public void testMyComponent() {
+      // Runs within the application, CDI injects MyComponent
       
-        @Deployment
-        public static Archive createDeployment() {
-          JARArchive archive = ShrinkWrap.create( JARArchive.class );
-           
-          // ... set up archive ...
-          
-          return archive;
-        }
+      // assert something about this.component
     }
+  
+    @Deployment
+    public static Archive createDeployment() {
+      JARArchive archive = ShrinkWrap.create( JARArchive.class );
+       
+      // ... set up archive ...
+      
+      return archive;
+    }
+}
 ----
 
