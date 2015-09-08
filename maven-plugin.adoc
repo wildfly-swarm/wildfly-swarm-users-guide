@@ -6,19 +6,22 @@ To assist in building WildFly Swarm projects, a Maven plugin is available.  This
 
 To use the plugin, you must add it to your `pom.xml`:
 
-    <plugins>
-      <plugin>
-        <groupId>org.wildfly.swarm</groupId>
-        <artifactId>wildfly-swarm-plugin</artifactId>
-        <executions>
-          <execution>
-            <goals>
-              <goal>package</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
-    </plugins>
+[source,xml]
+----
+<plugins>
+  <plugin>
+    <groupId>org.wildfly.swarm</groupId>
+    <artifactId>wildfly-swarm-plugin</artifactId>
+    <executions>
+      <execution>
+        <goals>
+          <goal>package</goal>
+        </goals>
+      </execution>
+    </executions>
+  </plugin>
+</plugins>
+----
     
 == Running your application
 
@@ -68,25 +71,27 @@ Useful properties include, but are not limited to:
 
 === Example
 
-    <plugins>
-      <plugin>
-        <groupId>org.wildfly.swarm</groupId>
-        <artifactId>wildfly-swarm-plugin</artifactId>
-        <executions>
-          <execution>
-            <goals>
-              <goal>package</goal>
-            </goals>
-          </execution>
-        </executions>
-        <configuration>
-          <properties>
-            <jboss.bind.address>127.0.0.1</jboss.bind.address>
-          </properties>
-        </configuration>
-      </plugin>
-    </plugins>
-
+[source,xml]
+----
+<plugins>
+  <plugin>
+    <groupId>org.wildfly.swarm</groupId>
+    <artifactId>wildfly-swarm-plugin</artifactId>
+    <executions>
+      <execution>
+        <goals>
+          <goal>package</goal>
+        </goals>
+      </execution>
+    </executions>
+    <configuration>
+      <properties>
+        <jboss.bind.address>127.0.0.1</jboss.bind.address>
+      </properties>
+    </configuration>
+  </plugin>
+</plugins>
+----
 
 
 
