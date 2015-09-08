@@ -8,4 +8,5 @@
 * [JAR Applications](jar-applications.adoc)
 * [Logging](logging.adoc)
 * [Jolokia](jolokia.adoc)
+* Keycloak
 
