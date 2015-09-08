@@ -1,0 +1,54 @@
+= Testing with Arquillian
+
+Arquillian is a test-harness from JBoss that facilitates launching applications and executing test code both from outside and within the running application.
+
+Under traditional usage, Arquillian first launches the application server, then deploys an archive created within your unit test to it.  When used with WildFly Swarm, there is obviously no separate _launch the application server_ phase.
+
+Instead, your test-case creates your application, and the Arquillian adapter wraps it with the WildFly Swarm bits and executes the resulting uberjar.
+
+Once it is running, test code may run outside of the uberjar or within it, reporting the test results back to the testing framework.
+
+== Configuring
+
+To use the WildFly Swarm Arquillian adapter, you need to add a two dependencies to your project:
+
+    <dependency>
+      <groupId>org.wildfly.swarm</groupId>
+      <artifactId>wildfly-swarm-arquillian</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.jboss.arquillian.junit</groupId>
+      <artifactId>arquillian-junit-container</artifactId>
+      <scope>test</scope>
+    </dependency>
+
+== Writing a Test
+
+To integrate Arquillian into your test, you need to use the JUnit `@RunWith` annotation and the `Arquillian.class` test-runner:
+
+    @RunWith(Arquillian.class)
+    public class MyTest {
+      ...
+    }
+
+This integrates the Arquillian lifecycle with the test-case.
+
+Next, you need to specify the deployment that should be wrapped up in the WildFly Swarm mechanism.  This is accomplished by using the `@Deployment` Arquillian annotation on a public static method that returns a ShrinkWrap archive.
+
+    @Deployment
+    public static Archive createDeployment() {
+      ...
+    }
+    
+The contents of this method is similar to whatever you would do within your `main(...)` method.  
+
+For instance:
+
+    @Deployment
+    public static Archive createDeployment() {
+        JAXRSArchive deployment = ShrinkWrap.create( JAXRSArchive.class );
+        deployment.addResource( MyResource.class );
+        return deployment;
+    }
+
