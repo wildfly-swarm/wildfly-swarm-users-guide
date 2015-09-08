@@ -1,6 +1,6 @@
 = Jolokia
 
-Jolokia is a small utility which provides a JSON-based JMX connector over HTTP.  WildFly Swarm supports a simple method for adding Jolokia to your application.
+https://jolokia.org/[Jolokia] is a small utility which provides a JSON-based JMX connector over HTTP.  WildFly Swarm supports a simple method for adding Jolokia to your application.
 
 
 == Adding Jolokia
@@ -15,9 +15,9 @@ To bring Jolokia to your application, you need to add a dependency on the Joloki
 </dependency>
 ----
 
-This is sufficient to bind an unsecured Jolokia to the context root of ```/jolokia```.
+This is sufficient to bind an unsecured Jolokia to the context root of `/jolokia`.
 
-If you would like to configure where Jolokia is mounted, you can override the defaults within your ```main(...)``` method:
+If you would like to configure where Jolokia is mounted, you can override the defaults within your `main(...)` method:
 
 [source,java]
 ----
