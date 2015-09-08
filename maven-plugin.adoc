@@ -46,11 +46,16 @@ By default, only properties that start with `jboss.`, `wildfly.` or `swarm.` are
 
 Useful properties include, but are not limited to:
 
-[options="header"]
+[cols=2, options="header"]
 |===
-| Name | Description
-| jboss.http.port | Sets the port for the HTTP server
-| jboss.socket.binding.port-offset | Sets a global port adjustment
+|Name 
+|Description
+
+|jboss.http.port
+|Sets the port for the HTTP server
+
+|jboss.socket.binding.port-offset 
+|Sets a global port adjustment
 |===
 
 
