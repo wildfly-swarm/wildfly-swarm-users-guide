@@ -28,7 +28,7 @@ By default, this only adds support, but not a requirement, on Keycloak. Anonymou
 
 == Protecting your application
 
-You can also protect various aspects of your application after using ```.as(Secured.class)``` by chaining calls to ```.protect(_path_)```
+You can also protect various aspects of your application after using `.as(Secured.class)` by chaining calls to `.protect(_path_)`
 
 [source,java]
 ----
