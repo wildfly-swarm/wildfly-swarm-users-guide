@@ -6,3 +6,11 @@
 .book .book-body .page-wrapper .page-inner section.normal ol ol.loweralpha {
     list-style-type: lower-alpha;
 }
+
+.book .book-body .page-wrapper .page-inner section.normal ol.upperalpha {
+    list-style-type: upper-alpha;
+}
+
+.book .book-body .page-wrapper .page-inner section.normal ol.arabic {
+    list-style-type: decimal;
+}
