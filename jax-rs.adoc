@@ -8,37 +8,51 @@ WildFly Swarm supports JAX-RS with both ```.war``` and ```.jar``` deployments.
 
 To bring JAX-RS functionality to your application, you need the following dependency:
 
-    <dependency>
-      <groupId>org.wildfly.swarm</groupId>
-      <artifactId>wildfly-swarm-jaxrs</artifactId>
-    </dependency>
+[source,xml]
+----
+<dependency>
+  <groupId>org.wildfly.swarm</groupId>
+  <artifactId>wildfly-swarm-jaxrs</artifactId>
+</dependency>
+----
     
 == Usage
 
 The ```wildfly-swarm-jaxrs``` fraction brings the JAX-RS APIs to your application through a transitive dependency.  It also provides a ```JAXRSArchive``` archive type for easily creating JAX-RS-based deployments if you provide your own ```main(...)``` method.
 
-    JAXRSArchive deployment = ShrinkWrap.create( JAXRSArchive.class );
-    deployment.addResource( SomeResource.class );
+[source,java]
+----
+JAXRSArchive deployment = ShrinkWrap.create( JAXRSArchive.class );
+deployment.addResource( SomeResource.class );
+----
     
-Additionally, the ```JAXRSArchive``` can provide a default ```Application``` with the ```@ApplicationPath``` annotation if you do not provide one when creating the deployment.  If you do provide an ```Application``` it will take precendence.
+Additionally, the `JAXRSArchive` can provide a default `Application` with the `@ApplicationPath` annotation if you do not provide one when creating the deployment.  If you do provide an `Application` it will take precedence.
+
+If you are building a `.war`-based application, you must provide the `Application` implementation with the appropriate `@ApplicationPath` annotation.
 
 == Using JAX-RS with CDI
 
 By default, JAX-RS does not provide CDI support.  To bring CDI support to your application, an additional dependency is required:
 
-    <dependency>
-      <groupId>org.wildfly.swarm</groupId>
-      <artifactId>wildfly-swarm-jaxrs-weld</artifact>
-    </dependency>
+[source,xml]
+----
+<dependency>
+  <groupId>org.wildfly.swarm</groupId>
+  <artifactId>wildfly-swarm-jaxrs-weld</artifact>
+</dependency>
+----
     
-In reality, this dependency will transitively bring in the core ```wildfly-swarm-jaxrs``` dependency.
+In reality, this dependency will transitively bring in the core `wildfly-swarm-jaxrs` dependency.
 
 == Using JAX-RS with multipart forms
 
 To use JAX-RS with multipart forms (to support file uploads, for instance), another dependency is required:
 
-    <dependency>
-      <groupId>org.wildfly.swarm</groupId>
-      <artifactId>wildfly-swarm-jaxrs-multipart</artifact>
-    </dependency>
+[source,xml]
+----
+<dependency>
+  <groupId>org.wildfly.swarm</groupId>
+  <artifactId>wildfly-swarm-jaxrs-multipart</artifact>
+</dependency>
+----
     
