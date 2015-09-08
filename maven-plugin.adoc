@@ -44,6 +44,7 @@ Any properties added to the uberjar can of course be overridden at runtime using
 
 By default, only properties that start with `jboss.`, `wildfly.` or `swarm.` are added to the uberjar.
 
+
 Useful properties include, but are not limited to:
 
 [cols=3, options="header"]
