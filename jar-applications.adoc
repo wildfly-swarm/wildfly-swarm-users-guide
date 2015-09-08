@@ -21,5 +21,25 @@ public class Main {
 
 Within the main method, you can work with the `org.wildfly.swarm.Container` API to configure _fractions_ into the system and deploy components.
 
-The primary methods available are:
+The primary methods on `Container` are:
 
+[cols=2, options="header"]
+|===
+|Name 
+|Description
+
+| `fraction(...)`
+| Add an explicitly-configured fraction
+
+| `start(...)`
+| Start the configured container
+
+| `deploy(...)`
+| Deploy a ShrinkWrap archive
+|===
+
+=== Default Configuration
+
+When you add dependencies to your project, they automatically activate the related fraction. For instance, simply having the `wildfly-swarm-logging` dependency adds the _logging_ fraction to the container and initializes it.
+
+You only need to call `.fraction(new LoggingFraction())` if you want to _change_ the configuration to be different from the default.  Any fraction that has been brought in through the dependency mechanism but has not been explicitly configured will be added with its default configuration.
