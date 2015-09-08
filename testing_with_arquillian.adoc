@@ -58,7 +58,7 @@ If you wish to test your application from _outside_ (for instance, with a web cl
 
 === Example with CDI
 
-[listing]
+[source,java]
 ----
 @RunWith(Arquillian.class)
 public class MyTest {
