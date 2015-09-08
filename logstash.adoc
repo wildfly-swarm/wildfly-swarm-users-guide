@@ -1,0 +1,28 @@
+= Logstash
+
+The Logstash project from https://www.elastic.co/[Elastic] provides for a centralized server to accumulate logs from a multitude of applications.  WildFly Swarm makes it easy to have each of your applications or services dump their logs into it.
+
+== Configure
+
+=== Dependency
+To add Logstash integration to your WildFly Swarm application, you need to add a dependency:
+
+[source,maven]
+----
+<dependency>
+  <groupId>org.wildfly.swarm</groupId>
+  <artifactId>wildfly-swarm-logstash</artifatId>
+</dependency>
+----
+
+=== Configuration
+
+While the above dependency adds the capability of logging to Logstash, until the Logstash server's hostname and port is set, the integration remains inactive.
+
+To configure _where_ the Logstash server is running, the following two properties need to be set, either through plugin configuration or on the command-line using `-D...`
+
+|===
+| 0:0 | 1:0
+| 0:1, 1:1
+| 0:2, 1:2
+|===
