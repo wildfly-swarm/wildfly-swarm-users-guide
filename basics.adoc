@@ -9,8 +9,12 @@ Additionally, WildFly Swarm brings other state-of-the-art components to your app
 
 == Monolithic Application Server
 
+When using a traditional monolithic application server, you first install the entire server, and then deploy your application on top of it. In the case of microservices, you might end up with an app-server that supports significantly more functionality than your application requires.  This can lead to an excess use of resources.
+
 image:monolithic-as.png[alt=""]
 
 == Uberjar WildFly Swarm
+
+In the WildFly Swarm "uberjar" scenario, _just enough application server_ is wrapped around your application.  Any un-needed parts are simply excluded.  This results in a much smaller usage of resources.  Additionally, a single artifact is produced which can be shuffled along a _continuous deployment_ pipeline.
 
 image:swarm-as.png[alt="", width=200]
