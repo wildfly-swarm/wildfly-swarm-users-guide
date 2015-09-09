@@ -1,0 +1,19 @@
+= NetflixOSS
+
+Netflix, the online movie streaming company, has invested heavily in microservices. To support their architectures, they have created many projects that have been integrated into WildFly Swarm.
+
+== Ribbon
+
+https://github.com/Netflix/ribbon[Ribbon] provides a method for registering services by name, and allowing clients to invoke those services.  One of the primary facilities of Ribbon is _client-side load-balancing_. With Ribbon, each client discovers possibly many instances of a given service, and uses a strategy (such as round-robin) to balance requests to the service across the many providers.
+
+Additionally, Ribbon provides a method for wrapping an HTTP/REST invocation in an easy-to-use Java interface.
+
+Ribbon makes heavy use of both RxJava and Netty.
+
+== Hystrix
+
+Part of the Netflix strategy for using microservices involves being able to satisfy (for some value of "satisfy") requests even if remote services are unavailable.  Sometimes called a _circuit breaker_, this pattern allows for providing locally-derived fallback responses when the bonafide service fails to respond.
+
+For instance, in the case of Netflix's own consumer product, the "recommendations" for a given movie or television show may be provided by a specific service.  If that service is unavailable, the UI can still provide some default list of recommendations.  Everybody loves _The Big Lebowksi_, so it could be returned by the Hystrix component if the intelligent recommendation service is unavailable.
+
+== RxJava
