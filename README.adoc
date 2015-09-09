@@ -1,5 +1,5 @@
-= WildFly Swarm Users Guide
+= WildFly Swarm User's Guide
 
 image:swarm_logo_final.png[alt="WildFly Swarm"]
 
-This is the _Users Guide_ for WildFly Swarm.
+*WildFly Swarm* _User's Guide_
