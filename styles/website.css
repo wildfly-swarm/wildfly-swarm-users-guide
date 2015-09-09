@@ -11,6 +11,14 @@
     list-style-type: upper-alpha;
 }
 
+.book .book-body .page-wrapper .page-inner section.normal ol.lowerroman {
+    list-style-type: lower-roman;
+}
+
+.book .book-body .page-wrapper .page-inner section.normal ol.upperroman {
+    list-style-type: upper-roman;
+}
+
 .book .book-body .page-wrapper .page-inner section.normal ol.arabic {
     list-style-type: decimal;
 }
