@@ -397,10 +397,9 @@ following conditions.
           reasonably practicable.
 
 . *ShareAlike.*
-
      In addition to the conditions in Section 3(a), if You Share
      Adapted Material You produce, the following conditions also apply.
-
+[arabic]
 .. The Adapter's License You apply must be a Creative Commons
           license with the same License Elements, this version or
           later, or a BY-SA Compatible License.
