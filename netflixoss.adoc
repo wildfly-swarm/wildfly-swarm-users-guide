@@ -41,3 +41,31 @@ To use the Netflix OSS stack within your WildFly Swarm application, you need to 
 ----
 
 The necessary components for RxJava, Hystrix and Netty will be transitively made available to your code.
+
+== Usage
+
+In order for your service to participate in the Ribbon service discovery (as a service to be discovered, a client performing discovery, or both), your deployment should be converted to a `RibbonArchive` at some point.
+
+In the event your deployment has a service you wish to advertise, you subsequently need to `setServiceName(_name_)` on the resulting `RibbonArchive`.
+
+=== A client not advertising a service
+
+An example of a client that ultimately might discover and use other services but does not advertise itself for external usage:
+
+[source,java]
+----
+JAXRSArchive deployment = ShrinkWrap.create(JAXRSArchive.class);
+deployment.as(RibbonArchive.class);
+container.deploy( deployment );
+----
+
+=== A service advertising itself
+
+[source,java]
+----
+JAXRSArchive deployment = ShrinkWrap.create(JAXRSArchive.class);
+deployment.as(RibbonArchive.class)
+  .setServiceName( "recommendations" );
+container.deploy( deployment );
+----
+
