@@ -498,7 +498,7 @@ of this Public License.
 
 
 === Section 7 -- Other Terms and Conditions.
-
+[loweralpha]
 . The Licensor shall not be bound by any additional or different
      terms or conditions communicated by You unless expressly agreed.
 
@@ -508,7 +508,7 @@ of this Public License.
 
 
 === Section 8 -- Interpretation.
-
+[loweralpha]
 . For the avoidance of doubt, this Public License does not, and
      shall not be interpreted to, reduce, limit, restrict, or impose
      conditions on any use of the Licensed Material that could lawfully
