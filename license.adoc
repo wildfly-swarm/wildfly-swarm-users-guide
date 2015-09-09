@@ -531,9 +531,7 @@ of this Public License.
      processes of any jurisdiction or authority.
 
 
-=======================================================================
-
-Creative Commons is not a party to its public licenses.
+NOTE: Creative Commons is not a party to its public licenses.
 Notwithstanding, Creative Commons may elect to apply one of its public
 licenses to material it publishes and in those instances will be
 considered the "Licensor." Except for the limited purpose of indicating
