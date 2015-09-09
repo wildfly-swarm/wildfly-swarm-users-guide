@@ -22,11 +22,11 @@ For instance, in the case of Netflix's own consumer product, the "recommendation
 
 === RxJava
 
-RxJava provides a framework for working with asynchronous & reactive components. If one service needs to invoke an additional 3 services, RxJava provides the way to fire off the three additional requests and perform work as each completes (or once all have completed).
+https://github.com/ReactiveX/RxJava[RxJava] provides a framework for working with asynchronous & reactive components. If one service needs to invoke an additional 3 services, RxJava provides the way to fire off the three additional requests and perform work as each completes (or once all have completed).
 
 === Netty
 
-Netty is an asynchronous I/O framework maintained by Trustin Lee of Twitter (formerly of Red Hat). Ribbon uses Netty underneath the covers to perform its network actions.  The primary way that Netty is exposed to users of Ribbon is through the `ByteBuf` interface, which provides interaction with bytes sent or received from an I/O stream.
+http://netty.io/[Netty] is an asynchronous I/O framework maintained by Trustin Lee of Twitter (formerly of Red Hat). Ribbon uses Netty underneath the covers to perform its network actions.  The primary way that Netty is exposed to users of Ribbon is through the `http://netty.io/5.0/api/io/netty/buffer/ByteBuf.html[ByteBuf]` interface, which provides interaction with bytes sent or received from an I/O stream.
 
 == Configuration
 
