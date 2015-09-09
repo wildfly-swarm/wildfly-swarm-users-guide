@@ -10,7 +10,42 @@ WildFly Swarm additionally makes other types of archives available, depending on
 
 The types of archives that WildFly Swarm makes available includes, but is not limited to:
 
+[cols=2, options="header"]
 |===
+|Type
+|Description
+
+|`JARArchive` 
+| An enhanced version of `.jar` which provides easy methods for adding dependencies.
+
+|`WARArchive`
+| An enhanced version of a `.war` which provides easy methods for serving static content or adding dependencies.
+
 |`JAXRSArchive`
-| Web archive 
+| Web archive which can automatically create the necessary default `Application`/`@ApplicationPath` bindings.
+
+|`Secured`
+|Archive type which injects `keycloak.json` and sets up security constraints
+
+|`RibbonArchive`
+|Archive which can register Ribbon-based services or clients
+
 |===
+
+== Using Several Types of Archives
+
+Each ShrinkWrap archive type is effectively a _view_ onto the underlying archive.  Using the archive's own `.as(_class_)` method, the view can be changed several times while constructing it.
+
+[source,java]
+----
+// First create and use generic JAX-RS archive
+JAXRSArchive deployment = ShrinkWrap.create( JAXRSArchive.class );
+deployment.addResource( MyResource.class );
+
+// Next, view it as a Secured archive, which activated Keycloak 
+deployment.as( Secured.class )
+
+// Then, view it as a RibbonArchive, and set its service name for discovery
+deployment.as( RibbonArchive.class ).setApplicationName( "my-service" );
+----
+
