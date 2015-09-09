@@ -1,0 +1,16 @@
+= ShrinkWrap
+
+ShrinkWrap is an open-source project sponsored by Red Hat.  It provides an API and SPI for easily creating, importing, exporting and manipulating _archives_.  ShrinkWrap works in-memory, but can also be used to create archives on disk.
+
+== ShrinkWrap Basics
+
+The primary entry-point into ShrinkWrap is the `ShrinkWrap` class and its `create(_class_)` method.  You can create simple Java or Web archives (`.jar` and `.war`, respectively) by passing `JavaArchive.class` or `WebArchive.class` to the `create(...)` method.
+
+WildFly Swarm additionally makes other types of archives available, depending on which fractions you include in your application.  While they all ultimately produce a Java archive, they provide additional logic to make building certain types of archives easier.
+
+The types of archives that WildFly Swarm makes available includes, but is not limited to:
+
+|===
+|`JAXRSArchive`
+| Web archive 
+|===
