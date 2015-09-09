@@ -46,4 +46,4 @@ You only need to call `.fraction(new LoggingFraction())` if you want to _change_
 
 == Deployments
 
-Once a container is created, one or more _deployments_ may be created using ShrinkWrap and deployed into the container.  Please see the <<shrinkwrap.adoc,chapter on ShrinkWrap>> for general details on how to create deployments.
+Once a container is created, one or more _deployments_ may be created using ShrinkWrap and deployed into the container.  Please see the <<shrinkwrap#,chapter on ShrinkWrap>> for general details on how to create deployments.
