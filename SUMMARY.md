@@ -11,9 +11,9 @@
 * [Logstash](logstash.adoc)
 * [JAX-RS](jax-rs.adoc)
 * [Keycloak](keycloak.adoc)
+* NetflixOSS
 * [Jolokia](jolokia.adoc)
 * [Testing with Arquillian](testing_with_arquillian.adoc)
 * [Getting Involved](getting_involved.adoc)
 * [License](license.adoc)
-* NetflixOSS
 
