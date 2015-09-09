@@ -355,7 +355,7 @@ following conditions.
 
 [loweralpha]
 . *Attribution.*
-
+[arabic]
 .. If You Share the Licensed Material (including in modified
           form), You must:
 
