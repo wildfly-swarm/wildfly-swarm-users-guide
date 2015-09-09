@@ -55,7 +55,9 @@ An example of a client that ultimately might discover and use other services but
 [source,java]
 ----
 JAXRSArchive deployment = ShrinkWrap.create(JAXRSArchive.class);
+
 deployment.as(RibbonArchive.class);
+
 container.deploy( deployment );
 ----
 
@@ -64,8 +66,28 @@ container.deploy( deployment );
 [source,java]
 ----
 JAXRSArchive deployment = ShrinkWrap.create(JAXRSArchive.class);
+
 deployment.as(RibbonArchive.class)
   .setServiceName( "recommendations" );
+
 container.deploy( deployment );
 ----
 
+NOTE: The Ribbon discovery mechanism uses the traditional WildFly Clustering capabilities, which are based upon JGroups.  By default, JGroups uses _multicast_ to discover other peers. In some environments, multicast is not supported.  Different configuration of the clustering fraction will be required. 
+
+== Secured Ribbon
+
+If your application is using <<keycloak#,Keycloak>> to secure your services, and you are using Ribbon to invoke those services, you'll want to use the secured variant of Ribbon.  This requires a slightly different dependency:
+
+[source,xml]
+<dependency>
+  <groupId>org.wildfly.swarm</groupId>
+  <artifactId>wildfly-swarm-ribbon-secured</artifactId>
+</dependency>
+
+In addition to your normal usage of `.as(RibbonArchive)` and `.as(Secured)`, instead of using the Netflix-provided `Ribbon` class, you should use the WildFly Swarm-provided `SecuredRibbon` class to construct your clients.
+
+[source,java]
+RecommendationService recommendations = SecuredRibbon.from(RecommendationService.class);
+
+By using the `SecuredRibbon` factory, any Keycloak security token will propagate across invocations of the services using an HTTP `Authorization` header and a bearer token.
