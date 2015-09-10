@@ -28,3 +28,5 @@ container.fraction(
 ----
 
 The above would make Jolokia available at the path of ```/jmx```.
+
+Adding the Jolokia fraction to your application will bring in the Undertow fraction implicitly if you have not already included it.
