@@ -10,11 +10,11 @@
 * [Logging](logging.adoc)
 * [Logstash](logstash.adoc)
 * [JAX-RS](jax-rs.adoc)
+* Messaging
 * [Keycloak](keycloak.adoc)
 * [NetflixOSS](netflixoss.adoc)
 * [Jolokia](jolokia.adoc)
 * [Testing with Arquillian](testing_with_arquillian.adoc)
 * [Getting Involved](getting_involved.adoc)
 * [License](license.adoc)
-* Messaging
 
