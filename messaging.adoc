@@ -1,0 +1,25 @@
+= Messaging
+
+The Messaging fraction brings support for JMS to your application. Currently, the messaging capability does _not_ span across multiple independent WildFly Swarm-based services, but is only available within a single service.
+
+The WildFly Swarm messaging broker is based upon ActiveMQ.
+
+== Configuration
+
+To enable messaging for your application, you need to include the following dependency:
+
+[source,xml]
+----
+<dependency>
+  <groupId>org.wildfly.swarm</groupId>
+  <artifactId>wildfly-swarm-messaging</artifactId>
+</dependency>
+----
+
+Additionally, you _must_ configure some destinations for the messaging broker to be useful.  This is done through your `main(...)` function.
+
+[source,java]
+----
+container.fraction( new MessagingFraction()
+  
+----
