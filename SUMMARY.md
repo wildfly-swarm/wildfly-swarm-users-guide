@@ -10,6 +10,7 @@
 * [Logging](logging.adoc)
 * [Logstash](logstash.adoc)
 * [JAX-RS](jax-rs.adoc)
+* [Weld (CDI)](weld_cdi.adoc)
 * [Messaging](messaging.adoc)
 * [Keycloak](keycloak.adoc)
 * [NetflixOSS](netflixoss.adoc)
@@ -17,5 +18,4 @@
 * [Testing with Arquillian](testing_with_arquillian.adoc)
 * [Getting Involved](getting_involved.adoc)
 * [License](license.adoc)
-* [Weld (CDI)](weld_cdi.adoc)
 
