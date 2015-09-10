@@ -3,3 +3,5 @@
 image:swarm_logo_final.png[alt="WildFly Swarm"]
 
 *WildFly Swarm* _User's Guide_
+
+http://wildfly.org/swarm
