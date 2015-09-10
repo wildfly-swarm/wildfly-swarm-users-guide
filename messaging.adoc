@@ -8,7 +8,6 @@ The WildFly Swarm messaging broker is based upon ActiveMQ.
 
 To enable messaging for your application, you need to include the following dependency:
 
-[source,xml]
 ----
 <dependency>
   <groupId>org.wildfly.swarm</groupId>
@@ -20,6 +19,12 @@ Additionally, you _must_ configure some destinations for the messaging broker to
 
 [source,java]
 ----
-container.fraction( new MessagingFraction()
-  
+container.subsystem(new MessagingFraction()
+    .server(
+            new MessagingServer()
+                    .enableInVMConnector()
+                    .topic("my-topic")
+                    .queue("my-queue")
+    )
+);
 ----
