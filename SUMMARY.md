@@ -10,7 +10,7 @@
 * [Logging](logging.adoc)
 * [Logstash](logstash.adoc)
 * [JAX-RS](jax-rs.adoc)
-* Messaging
+* [Messaging](messaging.adoc)
 * [Keycloak](keycloak.adoc)
 * [NetflixOSS](netflixoss.adoc)
 * [Jolokia](jolokia.adoc)
