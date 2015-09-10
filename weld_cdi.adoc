@@ -1,0 +1,15 @@
+= Weld (CDI)
+
+The Weld fraction supports CDI (Content & Dependency Injection) which is a handy method for weaving components together.  The primary part of CDI is the `@Inject` annotation.
+
+== Configuration
+
+To use CDI in your application, you need to add the following dependency:
+
+[source,xml]
+----
+<dependency>
+  <groupId>org.wildfly.swarm</groupId>
+  <artifactId>wildfly-swarm-weld</artifactId>
+</dependency>
+----
