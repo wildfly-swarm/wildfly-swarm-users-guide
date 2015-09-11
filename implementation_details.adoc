@@ -1,0 +1,19 @@
+= Implementation Details
+
+This chapter mostly serves as a road-map for users who are curious about the actual inner workings of WildFly Swarm.
+
+== `_myapp_-swarm.jar`
+
+The layout of the generated `_myapp_-swarm.jar` looks roughly like:
+
+`wildfly-swarm.properties` :: File containing the version of WildFly Swarm used in the construction.
+
+`META-INF/wildfly-swarm.properties` :: File containing all user-specified (or default) properties to be used when executing the uberjar.  Examples include:
++
+* `jboss.http.port`
+* `jboss.bind.address`
+* `swarm.logstash.hostname`
+
+`m2repo/` :: Maven-style repository of all jars
+
+`modules/` :: JBoss-Modules tree of `module.xml` files which reference jars by Maven GAV
