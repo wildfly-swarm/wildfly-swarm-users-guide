@@ -19,4 +19,5 @@
 * [Testing with Arquillian](testing_with_arquillian.adoc)
 * [Getting Involved](getting_involved.adoc)
 * [License](license.adoc)
+* Implementation Details
 
