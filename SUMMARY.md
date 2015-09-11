@@ -12,11 +12,11 @@
 * [JAX-RS](jax-rs.adoc)
 * [Weld (CDI)](weld_cdi.adoc)
 * [Messaging](messaging.adoc)
+* [Clustering](clustering.adoc)
 * [Keycloak](keycloak.adoc)
 * [NetflixOSS](netflixoss.adoc)
 * [Jolokia](jolokia.adoc)
 * [Testing with Arquillian](testing_with_arquillian.adoc)
 * [Getting Involved](getting_involved.adoc)
 * [License](license.adoc)
-* [Clustering](clustering.adoc)
 
