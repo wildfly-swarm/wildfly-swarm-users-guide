@@ -23,3 +23,5 @@ To enable clustering, the following dependency is required:
 == JGroups
 
 The WildFly clustering functionality is built upon JGroups, a reliable group communications stack. By default, it uses _IP multicast_ to locate other members of the cluster. In environments where multicast is not supported, other components may be used.
+
+NOTE: When using clustering with multicast, JGroups must know which interface to use for multicast packets.  By default, your WildFly Swarm application binds to `0.0.0.0` which means _all available interfaces_.  This is ambiguous to JGroups.  Therefore, when clustering you _must_ explicitly bind to some non-ambiguous interface.  You can do this by setting the `jboss.bind.address` property through the Maven or Gradle plugins, or via the command-line using `-Djboss.bind.address=w.x.y.z`.
