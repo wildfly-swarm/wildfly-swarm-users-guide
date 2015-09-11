@@ -64,6 +64,26 @@ Main-Class: org.wildfly.swarm.bootstrap.Main
 Wildfly-Swarm-Main-Class: org.mycorp.myapp.Main
 ----
 
+`_bootstrap/` :: Directory containing the `.jar` or `.war` of the application.
+
 `m2repo/` :: Maven-style repository of all jars
 
 `modules/` :: JBoss-Modules tree of `module.xml` files which reference jars by Maven GAV
+
+== Bootstrap
+
+When the `_myapp_-swarm.jar` is executed through `java -jar`, the `org.wildfly.swarm.bootstrap.Main` class is always executed initially.  It initializes the JBoss-Modules module system and sets up the modules listed in `META-INF/wildfly-swarm-bootstrap.conf`
+
+It then loads the user-provided main-class from the artifact in the `_bootstrap/` directory and executes it.
+
+== ClassLoaders
+
+Conceptually there are 3 classloader spaces in a WildFly Swarm uberjar.  
+
+The first is the system classloader, which is used initially when bootstrapping the core `Main`. 
+
+Second, the user-provided main-class is executed in a relatively vanilla classloader to perform the `Container` and fraction configuration. 
+
+Thirdly, the `Container` configuration is passed to the _back-end_ classloader which then converts the simple POJO configuration objects into the appropriate control structures used to initialize the WildFly container.
+
+When a user-provided main-class is executed directly from an IDE, the first two conceptual classloaders are actually both satisfied by the system `ClassLoader`.
