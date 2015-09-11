@@ -14,6 +14,20 @@ The layout of the generated `_myapp_-swarm.jar` looks roughly like:
 * `jboss.bind.address`
 * `swarm.logstash.hostname`
 
+`META-INF/wildfly-swarm-bootstrap.conf`:: Lists all WildFly Swarm module dependencies in Mave GAV format.  Examples include:
++
+[source]
+----
+org.wildfly.swarm:wildfly-swarm-logging-modules:1.0.0.Alpha4
+org.wildfly.swarm:wildfly-swarm-security-modules:1.0.0.Alpha4
+org.wildfly.swarm:wildfly-swarm-hystrix:1.0.0.Alpha4
+org.wildfly.swarm:wildfly-swarm-rxnetty:1.0.0.Alpha4
+org.wildfly.swarm:wildfly-swarm-rxjava:1.0.0.Alpha4
+org.wildfly.swarm:wildfly-swarm-ee-modules:1.0.0.Alpha4
+org.wildfly.swarm:wildfly-swarm-logstash-modules:1.0.0.Alpha4
+org.wildfly.swarm:wildfly-swarm-ribbon-secured-modules:1.0.0.Alpha4
+----
+
 `m2repo/` :: Maven-style repository of all jars
 
 `modules/` :: JBoss-Modules tree of `module.xml` files which reference jars by Maven GAV
