@@ -5,4 +5,17 @@ Hawkular is a monitoring and metrics server from Red Hat. It provides a centrali
 
 image:http://design.jboss.org/hawkular/logo/final/hawkular_logo_200x200.png[alt=""]
 
-==
+== Configuration
+
+To add Hawkular support to your application you need the following dependency:
+
+[source,xml]
+----
+<dependency>
+  <groupId>org.wildfly.swarm</groupId>
+  <artifactId>wildfly-swarm-hawkular</artifactId>
+</dependency>
+----
+
+Additionally, you need to set at least four pieces of information, which can be set through Java properties or through the API on `HawkularFraction`:
+
