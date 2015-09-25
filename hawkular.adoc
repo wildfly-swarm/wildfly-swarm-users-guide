@@ -17,5 +17,33 @@ To add Hawkular support to your application you need the following dependency:
 </dependency>
 ----
 
-Additionally, you need to set at least four pieces of information, which can be set through Java properties or through the API on `HawkularFraction`:
+Additionally, you need to set at least four pieces of information, which can be set through Java properties or through the API on `HawkularFraction` in order to connect to and authenticate with the Hawkular server.
 
+
+[cols=4, options="header"]
+|===
+| Description
+| Property
+| Java API
+| Default value
+
+| Username
+| `swarm.hawkular.username`
+| `hawkular.username(_username_)`
+| _none_
+
+| Password
+| `swarm.hawkular.password`
+| `hawkular.password(_password_)`
+| _none_
+
+| Server Host
+| `swarm.hawkular.host`
+| `hawkular.host(_host_)`
+| localhost
+
+| Server Port
+| `swarm.hawkular.port`
+| `hawkular.port(_port_)`
+| 8080
+|===
