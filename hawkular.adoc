@@ -47,3 +47,37 @@ Additionally, you need to set at least four pieces of information, which can be 
 | `hawkular.port(_port_)`
 | 8080
 |===
+
+== Metrics
+
+By default, all reasonably applicable metrics are installed into the Hawkular agent. As with other fractions, you can configure which metrics, availability-checkers, and resource-types you'd like.
+
+Many static constants have been defined to make it easier to mix in the bits you wish to use.
+
+[cols=2, options="header"]
+|===
+| Description
+| Class
+
+| Metrics
+| `org.wildfly.swarm.hawkular.Metrics`
+
+| Metric-sets
+| `org.wildfly.swarm.hawkular.MetricSets`
+
+| Availability checkers
+| `org.wildfly.swarm.hawkular.Avails`
+
+| Avail-sets
+| `org.wildfly.swarm.hawkular.AvailSets`
+
+| Resource types
+| `org.wildfly.swarm.hawkular.ResourceTypes`
+
+| Resource type sets
+| `org.wildfly.swarm.hawkular.ResourceTypeSets`
+
+|===
+
+Of course, additional custom metrics, metric-sets, availability-checkers, avail-sets, resource-types, and resource-type-sets can be created and installed using relevant Java classes.
+
