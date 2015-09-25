@@ -15,10 +15,10 @@
 * [Clustering](clustering.adoc)
 * [Keycloak](keycloak.adoc)
 * [NetflixOSS](netflixoss.adoc)
+* Hawkular
 * [Jolokia](jolokia.adoc)
 * [Testing with Arquillian](testing_with_arquillian.adoc)
 * [Implementation Details](implementation_details.adoc)
 * [Getting Involved](getting_involved.adoc)
 * [License](license.adoc)
-* Hawkular
 
