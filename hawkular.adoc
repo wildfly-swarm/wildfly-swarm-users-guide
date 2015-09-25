@@ -1,0 +1,8 @@
+= Hawkular
+
+
+Hawkular is a monitoring and metrics server from Red Hat. It provides a centralized place for many processes to report their status and internal state.
+
+image:http://design.jboss.org/hawkular/logo/final/hawkular_logo_200x200.png[alt=""]
+
+==
