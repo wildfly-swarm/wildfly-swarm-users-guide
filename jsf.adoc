@@ -1,0 +1,46 @@
+= JSF
+
+JavaServer Faces (JSF) is a standard JavaEE API for developing component based user interfaces in web applications. It utilizes Facelets as the default templating system, though JSP is still supported.
+
+WildFly Swarm supports JSF with both ```.war``` and ```.jar``` deployments.
+
+== Configuration
+
+To use JSF in your application, you need to add the following dependency:
+
+[source,xml]
+----
+<dependency>
+  <groupId>org.wildfly.swarm</groupId>
+  <artifactId>wildfly-swarm-jsf</artifactId>
+</dependency>
+----
+
+== Usage
+
+The `wildfly-swarm-jsf` fraction makes the JSF APIs available to your application through a transitive dependency. There is no need to add them yourself.
+
+== Usage in JAR Application
+
+As the web resources JSF needs are not automatically added to the generated archive, we need to explicitly add them though our custom `main(...)`.
+
+[source,java]
+----
+Container container = new Container();
+
+WARArchive deployment = ShrinkWrap.create( WARArchive.class );
+
+<!-- Add Beans and other Java classes -->
+deployment.addClass(Message.class);
+
+<!-- Add Web resources -->
+deployment.addAsWebResource(
+        new ClassLoaderAsset("index.html", Main.class.getClassLoader()), "index.html");
+deployment.addAsWebResource(
+        new ClassLoaderAsset("index.xhtml", Main.class.getClassLoader()), "index.xhtml");
+
+deployment.addAsWebInfResource(
+        new ClassLoaderAsset("WEB-INF/web.xml", Main.class.getClassLoader()), "web.xml");
+deployment.addAsWebInfResource(
+        new ClassLoaderAsset("WEB-INF/template.xhtml", Main.class.getClassLoader()), "template.xhtml");
+----
