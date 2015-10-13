@@ -4,7 +4,9 @@
       "readme": "README.adoc"
   },
   "variables": {
-      "version.swarm": "1.0.0.Alpha4",
-      "version.keycloak": "1.5.1.Final"
+      "versions": {
+          "swarm": "1.0.0.Alpha4",
+          "keycloak": "1.5.1.Final",
+      }
   }
 }
