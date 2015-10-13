@@ -4,7 +4,7 @@ Keycloak is an authentication and authorization server created by JBoss. It runs
 
 WildFly Swarm provides easy integration with Keycloak.
 
-Currently, WildFly Swarm supports version {% book.versions.keycloak %}.
+Currently, WildFly Swarm supports version {{ book.versions.keycloak }}.
 
 == Adding Keycloak support
 
