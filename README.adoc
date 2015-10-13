@@ -2,6 +2,6 @@
 
 image:swarm_logo_final.png[alt="WildFly Swarm"]
 
-*WildFly Swarm* _User's Guide_
+*WildFly Swarm* _User's Guide_ for {{book.versions.swarm}}
 
 http://wildfly.org/swarm
