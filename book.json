@@ -6,7 +6,7 @@
   "variables": {
       "versions": {
           "swarm": "1.0.0.Alpha4",
-          "keycloak": "1.5.1.Final",
+          "keycloak": "1.5.1.Final"
       }
   }
 }
