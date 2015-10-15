@@ -2,7 +2,7 @@
 
 Logging is supported by WildFly Swarm using the typical JBoss-Logging systems. By default, logging occurs to the console. Advanced configuration can adjust the amount of information logged and where the log ends up (files or console or other locations).
 
-({{book.javadoc}}/Logging.html)[JavaDocs for the Logging API].
+({book.javadoc}}/Logging.html)[JavaDocs for the Logging API].
 
 = Including Logging Capabilities
 
