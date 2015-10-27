@@ -29,9 +29,28 @@ To customize the configuration of your Infinispan fraction, you may use the http
 
 [source,java]
 ----
-Container container = new Container();
-container.fraction( InfinispanFraction.createDefaultFraction() );
-container.start();
+public class Main {
+
+  public static void main(String...args) {
+    InfinispanFraction fraction = InfinispanFraction.createDefaultFraction();
+    
+    CacheContainer webCache = new CacheContainer("web")
+        .defaultCache("dist")
+        .jgroupsTransport(new JGroupsTransport().lockTimeout(60000L))
+        .distributedCache(new DistributedCache("dist")
+            .mode("ASYNC")
+            .l1Lifespan(0L)
+            .owners(2)
+            .lockingComponent(new LockingComponent().isolation("REPEATABLE_READ"))
+                .transactionComponent(new TransactionComponent().mode("BATCH"))
+                .fileStore(new FileStore()));
+
+    Container container = new Container();
+    container.fraction( InfinispanFraction.createDefaultFraction() );
+    container.start();
+  }
+  
+}
 ----
 
 Infinispan is a fairly complex caching system with plenty of knobs and buttons for programmers and administrators to twiddle. For more information on Infinispan and how its runtime configuration may be customized, please also see the https://docs.jboss.org/author/display/WFLY9/Infinispan+Subsystem[WildFly documentation] and the official http://infinispan.org/documentation/[Infinispan Documentation].
