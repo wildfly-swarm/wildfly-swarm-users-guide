@@ -4,4 +4,24 @@ The Infinispan subsystem provides high-performance, clustered, transactional cac
 
 To use the Infinispan fraction, just add it to your Swarm Container.
 
+[source,java]
+----
+Container container = new Container();
+container.fraction( InfinispanFraction.createDefaultFraction() );
+container.start();
+----
+
+By default, the Infinispan fraction is configured with four cache containers.
+
+|===
+| | *Name* | *Type* | *Mode*
+| *Default* | 1:1 |  2:1 | 3:1
+| 0:2| 1:2| 2:2| 3:2
+| 0:3| 1:3| 2:3| 3:3
+| 0:4| 1:4| 2:4| 3:4
+| 0:5| 1:5| 2:5| 3:5
+|===
+
+
+
 Infinispan is a fairly complex caching system with plenty of knobs and buttons for programmers and administrators to twiddle. For more information on Infinispan and how its runtime configuration may be customized, please also see the https://docs.jboss.org/author/display/WFLY9/Infinispan+Subsystem[WildFly documentation] and the official http://infinispan.org/documentation/[Infinispan Documentation].
