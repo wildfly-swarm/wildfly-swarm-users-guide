@@ -8,4 +8,4 @@ allows definition and configuration of named cache containers and caches
 view run-time metrics associated with cache container and cache instances
 In the following sections, we describe the Infinispan subsystem.
 
-Infinispan is a fairly complex caching system, with plenty of knobs and buttons for programmers and administrators to twiddle. For more information on Infinispan and how its runtime configuration may be customized, please also see the official http://infinispan.org/documentation/[Infinispan Documentation].
+Infinispan is a fairly complex caching system with plenty of knobs and buttons for programmers and administrators to twiddle. For more information on Infinispan and how its runtime configuration may be customized, please also see the official http://infinispan.org/documentation/[Infinispan Documentation].
