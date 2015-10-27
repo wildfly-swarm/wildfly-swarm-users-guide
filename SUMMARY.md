@@ -14,6 +14,7 @@
 * [JSF](jsf.adoc)
 * [Messaging](messaging.adoc)
 * [Clustering](clustering.adoc)
+* [Infinispan](infinispan.adoc)
 * [Keycloak](keycloak.adoc)
 * [NetflixOSS](netflixoss.adoc)
 * [Hawkular](hawkular.adoc)
