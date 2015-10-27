@@ -43,8 +43,8 @@ public class Main {
             .l1Lifespan(0L)
             .owners(2)
             .lockingComponent(new LockingComponent().isolation("REPEATABLE_READ"))
-                .transactionComponent(new TransactionComponent().mode("BATCH"))
-                .fileStore(new FileStore()));
+            .transactionComponent(new TransactionComponent().mode("BATCH"))
+            .fileStore(new FileStore()));
     
     // Create a default fraction, and add the container
     InfinispanFraction fraction = InfinispanFraction.createDefaultFraction();
