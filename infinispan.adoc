@@ -38,7 +38,7 @@ public class Main {
     CacheContainer webCache = new CacheContainer("web")
         .defaultCache("dist")
         .jgroupsTransport(new JGroupsTransport().lockTimeout(60000L))
-        .distributedCache(new DistributedCache("dist")
+        .distributedCache("dist", distCache -> distCache
             .mode("ASYNC")
             .l1Lifespan(0L)
             .owners(2)
@@ -47,8 +47,8 @@ public class Main {
             .fileStore(new FileStore()));
     
     // Create a default fraction, and add the container
-    InfinispanFraction fraction = InfinispanFraction.createDefaultFraction();
-    fraction.cacheContainers( Arrays.asList( webCache ) );
+    InfinispanFraction fraction = new InfinispanFraction();
+    fraction.cacheContainer( webCache );
 
     // Instantiate the swarm container and add our fraction
     Container container = new Container();
