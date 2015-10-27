@@ -46,7 +46,9 @@ public class Main {
             .transactionComponent(new TransactionComponent().mode("BATCH"))
             .fileStore(new FileStore()));
     
-    // Create a default fraction, and add the cache container
+    // Create a new fraction, and add the cache container.
+    // Using the public constructor to create a new `InfinispanFraction`
+    // will provide no default caches.
     InfinispanFraction fraction = new InfinispanFraction();
     fraction.cacheContainer( webCache );
 
