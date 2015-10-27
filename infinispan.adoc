@@ -1,9 +1,11 @@
 = Infinispan
 
-The Infinispan subsystem provides caching support for HA services. These high-performance, transactional caches operate in both non-distributed and distributed scenarios. Distributed caching support is used in the provision of many key HA services. For example, the failover of a session-oriented client HTTP request from a failing node to a new (failover) node depends on session data for the client being available on the new node. In other words, the client session data needs to be replicated across nodes in the cluster. This is effectively achieved via a distributed Infinispan cache. This approach to providing fail-over also applies to EJB SFSB sessions. Over and above providing support for fail-over, an underlying cache is also required when providing second-level caching for entity beans using Hibernate, and this case is also handled through the use of an Infinispan cache.
+The Infinispan subsystem provides high-performance, clustered, transactional caching. For example, in a clustered web application, client session identifiers and/or data may need to be replicated across all nodes in the cluster. The failure of a session-oriented HTTP request requires that client session data is available on the new failover node. 
 
 The Infinispan subsystem provides the following features:
 
 allows definition and configuration of named cache containers and caches
 view run-time metrics associated with cache container and cache instances
 In the following sections, we describe the Infinispan subsystem.
+
+http://infinispan.org/documentation/[Infinispan Documentation]
