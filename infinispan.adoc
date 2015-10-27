@@ -5,6 +5,13 @@ The Infinispan subsystem provides high-performance, clustered, transactional cac
 == Including Infinispan Capabilities
 To use the Infinispan fraction, just add it to your `pom.xml`.
 
+[source,xml]
+----
+<dependency>
+  <groupId>org.wildfly.swarm</groupId>
+  <artifactId>wildfly-swarm-infinispan</artifactId>
+</dependency>
+----
 
 [source,java]
 ----
