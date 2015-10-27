@@ -32,8 +32,9 @@ To customize the configuration of your Infinispan fraction, you may use the http
 public class Main {
 
   public static void main(String...args) {
-    InfinispanFraction fraction = InfinispanFraction.createDefaultFraction();
-    
+
+    // Configure a cache container using the wildfly
+    // swarm configuration API
     CacheContainer webCache = new CacheContainer("web")
         .defaultCache("dist")
         .jgroupsTransport(new JGroupsTransport().lockTimeout(60000L))
@@ -44,9 +45,14 @@ public class Main {
             .lockingComponent(new LockingComponent().isolation("REPEATABLE_READ"))
                 .transactionComponent(new TransactionComponent().mode("BATCH"))
                 .fileStore(new FileStore()));
+    
+    // Create a default fraction, and add the container
+    InfinispanFraction fraction = InfinispanFraction.createDefaultFraction();
+    fraction.cacheContainers( Arrays.asList( webCache ) );
 
+    // Instantiate the swarm container and add our fraction
     Container container = new Container();
-    container.fraction( InfinispanFraction.createDefaultFraction() );
+    container.fraction( fraction );
     container.start();
   }
   
