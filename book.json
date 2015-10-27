@@ -4,7 +4,7 @@
       "readme": "README.adoc"
   },
   "variables": {
-      "javadoc": "http://wildfly-swarm.github.io/wildfly-config-api/0.3.4/apidocs/org/wildfly/swarm/config",
+      "javadoc": "http://wildfly-swarm.github.io/wildfly-config-api/0.3.8/apidocs/org/wildfly/swarm/config",
       "versions": {
           "swarm": "1.0.0.Alpha5-SNAPSHOT",
           "configuration": "0.3.4",
