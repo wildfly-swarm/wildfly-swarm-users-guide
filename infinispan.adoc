@@ -13,13 +13,6 @@ To use the Infinispan fraction, just add it to your `pom.xml`.
 </dependency>
 ----
 
-[source,java]
-----
-Container container = new Container();
-container.fraction( InfinispanFraction.createDefaultFraction() );
-container.start();
-----
-
 By default, the Infinispan fraction is configured with four cache containers.
 
 |===
@@ -30,6 +23,8 @@ By default, the Infinispan fraction is configured with four cache containers.
 | *Hibernate Container* | `hibernate` | `local-query`, `entity`, `timestamps` | local, invalidation, replicated | default, `SYNC`, `ASYNC`
 |===
 
+== Customizing the Infinispan Configuration
+
 To customize the configuration of your Infinispan fraction, you may use the http://wildfly-swarm.github.io/wildfly-config-api/[configuration API] in a `main()` method. For example:
 
 [source,java]
@@ -38,6 +33,5 @@ Container container = new Container();
 container.fraction( InfinispanFraction.createDefaultFraction() );
 container.start();
 ----
-
 
 Infinispan is a fairly complex caching system with plenty of knobs and buttons for programmers and administrators to twiddle. For more information on Infinispan and how its runtime configuration may be customized, please also see the https://docs.jboss.org/author/display/WFLY9/Infinispan+Subsystem[WildFly documentation] and the official http://infinispan.org/documentation/[Infinispan Documentation].
