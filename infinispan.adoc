@@ -2,7 +2,9 @@
 
 The Infinispan subsystem provides high-performance, clustered, transactional caching. For example, in a clustered web application, client session identifiers and/or data may need to be replicated across all nodes in the cluster. The failure of a session-oriented HTTP request requires that client session data is available on the new failover node. 
 
-To use the Infinispan fraction, just add it to your Swarm Container.
+== Including Infinispan Capabilities
+To use the Infinispan fraction, just add it to your `pom.xml`.
+
 
 [source,java]
 ----
