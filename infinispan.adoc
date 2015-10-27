@@ -55,6 +55,8 @@ public class Main {
     // Instantiate the swarm container and add our fraction
     Container container = new Container();
     container.fraction( fraction );
+    
+    // Start the container
     container.start();
   }
   
