@@ -33,3 +33,6 @@ ManagementFraction.createDefaultFraction()
             });
         })
 ----
+
+If you wish to perform more advanced configuration, please see the
+{{book.javadoc}}/Management.html[JavaDocs for the Management API].
