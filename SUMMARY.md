@@ -11,6 +11,7 @@
 * [Logstash](logstash.adoc)
 * [JAX-RS](jax-rs.adoc)
 * [Weld (CDI)](weld_cdi.adoc)
+* Management
 * [JSF](jsf.adoc)
 * [Messaging](messaging.adoc)
 * [Clustering](clustering.adoc)
