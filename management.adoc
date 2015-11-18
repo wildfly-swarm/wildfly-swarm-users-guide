@@ -13,3 +13,23 @@ To use the management fraction in your application, you need to add the followin
   <artifactId>wildfly-swarm-management</artifactId>
 </dependency>
 ----
+
+By default, the HTTP-upgrade-based management interface is exposed. You will probably desire to provide a security-realm at least for the `ManagementRealm` to secure the management interface.
+
+You may use the `InMemoryAuthentication` and `InMemoryAuthorization` plugins for simple compile-time definition of security-realms.  Each of these can be specified programattically or through user-defined loading of `.properties` files similar to the default `mgmt-users.properties` and `mgmt-groups.properties` that WildFly normally uses.
+
+[source,java]
+----
+ManagementFraction.createDefaultFraction()
+        .httpInterfaceManagementInterface((iface) -> {
+            iface.securityRealm("ManagementRealm");
+        })
+        .securityRealm("ManagementRealm", (realm) -> {
+            realm.inMemoryAuthentication( (authn)->{
+                authn.add( "bob", "tacos!", true );
+            });
+            realm.inMemoryAuthorization( (authz)->{
+                authz.add( "bob", "admin" );
+            });
+        })
+----
