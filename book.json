@@ -6,8 +6,8 @@
   "variables": {
       "javadoc": "http://wildfly-swarm.github.io/wildfly-config-api/0.3.8/apidocs/org/wildfly/swarm/config",
       "versions": {
-          "swarm": "1.0.0.Alpha5-SNAPSHOT",
-          "configuration": "0.3.4",
+          "swarm": "1.0.0.Alpha6-SNAPSHOT",
+          "configuration": "0.3.9-SNAPSHOT",
           "keycloak": "1.5.1.Final"
       }
   }
