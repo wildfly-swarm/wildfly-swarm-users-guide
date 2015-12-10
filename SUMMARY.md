@@ -17,6 +17,7 @@
 * [Clustering](clustering.adoc)
 * [Infinispan](infinispan.adoc)
 * [Keycloak](keycloak.adoc)
+   * Keycloak Server
 * [NetflixOSS](netflixoss.adoc)
 * [Hawkular](hawkular.adoc)
 * [Jolokia](jolokia.adoc)
