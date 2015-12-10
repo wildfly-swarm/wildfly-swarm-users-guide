@@ -35,5 +35,5 @@ Download or otherwise obtain the `-swarm.jar` and simply execute it as any other
 
 [source]
 ----
-java -jar keycloak-server-service-VERSION-swarm.jar
+java -jar keycloak-server-service-${book.versions.swarm}-swarm.jar
 ----
