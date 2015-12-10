@@ -1,2 +1,3 @@
-# Keycloak Server
+= Keycloak Server
 
+Generally intended to be used as a standalone service, the Keycloak Server is a fraction like any other in the WildFly Swarm ecosystem.
