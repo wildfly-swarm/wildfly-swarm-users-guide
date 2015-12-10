@@ -8,7 +8,7 @@
       "versions": {
           "swarm": "1.0.0.Alpha6-SNAPSHOT",
           "configuration": "0.3.9",
-          "keycloak": "1.5.1.Final"
+          "keycloak": "1.7.0.Final"
       }
   }
 }
