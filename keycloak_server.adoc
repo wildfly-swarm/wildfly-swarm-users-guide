@@ -1,3 +1,38 @@
 = Keycloak Server
 
 Generally intended to be used as a standalone service, the Keycloak Server is a fraction like any other in the WildFly Swarm ecosystem.
+
+== Adding Keycloak Server support
+
+To bring a Keycloak Server to your application, you need the following dependency:
+
+[source,xml]
+----
+<dependency>
+  <groupId>org.wildfly.swarm</groupId>
+  <artifactId>wildfly-swarm-keycloak-server</artifactId>
+</dependency>
+----
+
+There is currently no configuration required beyond this. The Keycloak Server will launch with your application, and be available at the `/auth/admin` context path.
+
+== Standalone Keycloak Server
+
+The WildFly Swarm project has built a standalone uberjar for running Keycloak Server.
+
+It's Maven coordinates are:
+
+[source,xml]
+----
+<dependency>
+  <groupId>org.wildfly.swarm</groupId>
+  <artifactId>keycloak-server-service</artifactId>
+  <classifier>swarm</classifier>
+</dependency>
+----
+
+Download or otherwise obtain the `-swarm.jar` and simply execute it as any other service created with WildFly Swarm.
+
+[source]
+----
+java -jar keycloak-server-service-swarm.jar
