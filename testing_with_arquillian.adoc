@@ -131,7 +131,7 @@ The Arquillian container for WildFly Swarm supports the following system propert
 |false
 
 |swarm.arquillian.debug
-|if true, the swarm process will pause for debugging on port 8787. You can optionally provide an alternate port number
+|If true, the swarm process will pause for debugging on port 8787. You can optionally provide an alternate port number
 |false
 
 |===
