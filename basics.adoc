@@ -19,6 +19,12 @@ In the WildFly Swarm "uberjar" scenario, _just enough application server_ is wra
 
 image:swarm-uberjar.png[alt="",width=200,align="center"]
 
+== Prerequisites
+
+In all cases, WildFly Swarm requires JDK8 or higher.
+
+If you're using Maven, version 3.2.5 or higher is recommended.
+
 == Terminology
 
 Fraction:: A well-defined collection of capabilities to add.  In some cases, a _fraction_ maps directly to a _subsystem_ from WildFly, but in other cases (e.g. <<jolokia#,Jolokia>>) a fraction may involve different functionality.
