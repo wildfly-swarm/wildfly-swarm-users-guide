@@ -9,7 +9,7 @@ To use the Infinispan fraction, just add it to your `pom.xml`.
 ----
 <dependency>
   <groupId>org.wildfly.swarm</groupId>
-  <artifactId>wildfly-swarm-infinispan</artifactId>
+  <artifactId>infinispan</artifactId>
 </dependency>
 ----
 

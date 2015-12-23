@@ -12,13 +12,13 @@ To use JSF in your application, you need to add the following dependency:
 ----
 <dependency>
   <groupId>org.wildfly.swarm</groupId>
-  <artifactId>wildfly-swarm-jsf</artifactId>
+  <artifactId>jsf</artifactId>
 </dependency>
 ----
 
 == Usage
 
-The `wildfly-swarm-jsf` fraction makes the JSF APIs available to your application through a transitive dependency. There is no need to add them yourself.
+The `jsf` fraction makes the JSF APIs available to your application through a transitive dependency. There is no need to add them yourself.
 
 == Usage in JAR Application
 

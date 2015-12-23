@@ -10,7 +10,7 @@ To bring a Keycloak Server to your application, you need the following dependenc
 ----
 <dependency>
   <groupId>org.wildfly.swarm</groupId>
-  <artifactId>wildfly-swarm-keycloak-server</artifactId>
+  <artifactId>keycloak-server</artifactId>
 </dependency>
 ----
 

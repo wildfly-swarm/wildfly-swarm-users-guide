@@ -12,7 +12,7 @@ https://github.com/wildfly-swarm/wildfly-swarm
 
 This documentation is also maintained on GitHub and published using GitBooks.io.
 
-https://github.com/wildfly-swarm/wildfly-swarm-users-guide
+https://github.com/wildfly-swarm/users-guide
 
 === Bugs & Feature Requests
 

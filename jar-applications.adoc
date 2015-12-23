@@ -40,7 +40,7 @@ The primary methods on `Container` are:
 
 === Default Configuration
 
-When you add dependencies to your project, they automatically activate the related fraction. For instance, simply having the `wildfly-swarm-logging` dependency adds the _logging_ fraction to the container and initializes it.
+When you add dependencies to your project, they automatically activate the related fraction. For instance, simply having the `logging` dependency adds the _logging_ fraction to the container and initializes it.
 
 You only need to call `.fraction(new LoggingFraction())` if you want to _change_ the configuration to be different from the default.  Any fraction that has been brought in through the dependency mechanism but has not been explicitly configured will be added with its default configuration.
 

@@ -13,7 +13,7 @@ To add Hawkular support to your application you need the following dependency:
 ----
 <dependency>
   <groupId>org.wildfly.swarm</groupId>
-  <artifactId>wildfly-swarm-hawkular</artifactId>
+  <artifactId>hawkular</artifactId>
 </dependency>
 ----
 

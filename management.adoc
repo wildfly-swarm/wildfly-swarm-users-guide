@@ -10,7 +10,7 @@ To use the management fraction in your application, you need to add the followin
 ----
 <dependency>
   <groupId>org.wildfly.swarm</groupId>
-  <artifactId>wildfly-swarm-management</artifactId>
+  <artifactId>management</artifactId>
 </dependency>
 ----
 

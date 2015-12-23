@@ -11,7 +11,7 @@ To add Logstash integration to your WildFly Swarm application, you need to add a
 ----
 <dependency>
   <groupId>org.wildfly.swarm</groupId>
-  <artifactId>wildfly-swarm-logstash</artifactId>
+  <artifactId>logstash</artifactId>
 </dependency>
 ----
 

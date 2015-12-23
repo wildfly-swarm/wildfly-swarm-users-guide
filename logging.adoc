@@ -10,7 +10,7 @@ Several of the higher-order fractions include logging by default. If you need to
 ----
 <dependency>
   <groupId>org.wildfly.swarm</groupId>
-  <artifactId>wildfly-swarm-logging</artifactId>
+  <artifactId>logging</artifactId>
 </dependency>
 ----
 

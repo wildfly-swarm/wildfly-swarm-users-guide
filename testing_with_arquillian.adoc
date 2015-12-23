@@ -16,7 +16,7 @@ To use the WildFly Swarm Arquillian adapter, you need to add a two dependencies 
 ----
 <dependency>
   <groupId>org.wildfly.swarm</groupId>
-  <artifactId>wildfly-swarm-arquillian</artifactId>
+  <artifactId>arquillian</artifactId>
   <scope>test</scope>
 </dependency>
 <dependency>

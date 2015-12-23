@@ -36,7 +36,7 @@ To use the Netflix OSS stack within your WildFly Swarm application, you need to 
 ----
 <dependency>
   <groupId>org.wildfly.swarm</groupId>
-  <artifactId>wildfly-swarm-ribbon</artifactId>
+  <artifactId>ribbon</artifactId>
 </dependency>
 ----
 
@@ -82,7 +82,7 @@ If your application is using <<keycloak#,Keycloak>> to secure your services, and
 [source,xml]
 <dependency>
   <groupId>org.wildfly.swarm</groupId>
-  <artifactId>wildfly-swarm-ribbon-secured</artifactId>
+  <artifactId>ribbon-secured</artifactId>
 </dependency>
 
 In addition to your normal usage of `.as(RibbonArchive)` and `.as(Secured)`, instead of using the Netflix-provided `Ribbon` class, you should use the WildFly Swarm-provided `SecuredRibbon` class to construct your clients.

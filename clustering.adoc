@@ -16,7 +16,7 @@ To enable clustering, the following dependency is required:
 ----
 <dependency>
   <groupId>org.wildfly.swarm</groupId>
-  <artifactId>wildfly-swarm-clustering</artifactId>
+  <artifactId>clustering</artifactId>
 </dependency>
 ----
 

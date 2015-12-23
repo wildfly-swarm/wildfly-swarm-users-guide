@@ -11,7 +11,7 @@ To bring Jolokia to your application, you need to add a dependency on the Joloki
 ----
 <dependency>
   <groupId>org.wildfly.swarm</groupId>
-  <artifactId>wildfly-swarm-jolokia</artifactId>
+  <artifactId>jolokia</artifactId>
 </dependency>
 ----
 

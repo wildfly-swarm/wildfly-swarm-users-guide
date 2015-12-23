@@ -1,6 +1,6 @@
 = Servers
 
-The WildFly Swarm project has pre-built some standalone servers. The source for these reside in the https://github.com/wildfly-swarm/wildfly-swarm-servers[WildFly Swarm Servers repository].
+The WildFly Swarm project has pre-built some standalone servers. The source for these reside in the https://github.com/wildfly-swarm/servers[WildFly Swarm Servers repository].
 
 
 == Keycloak Server
