@@ -22,7 +22,38 @@ To use the plugin, you must add it to your `pom.xml`:
   </plugin>
 </plugins>
 ----
-    
+
+== Packaging your application
+
+To produce the `_myapp_-swarm.jar`, simply perform a typical `mvn package` command after setting the `package` goal on the plugin:
+
+    mvn package
+
+=== Example
+
+[source,xml]
+----
+<plugins>
+  <plugin>
+    <groupId>org.wildfly.swarm</groupId>
+    <artifactId>wildfly-swarm-plugin</artifactId>
+    <executions>
+      <execution>
+        <goals>
+          <goal>package</goal>
+        </goals>
+      </execution>
+    </executions>
+    <configuration>
+      <bundleDependencies>false</bundleDependencies>
+      <properties>
+        <jboss.bind.address>127.0.0.1</jboss.bind.address>
+      </properties>
+    </configuration>
+  </plugin>
+</plugins>
+----
+
 == Running your application
 
 To execute your application, you may use the `wildfly-swarm:run` goal:
@@ -83,36 +114,6 @@ You can start multiple swarm applications at once using the `wildfly-swarm:multi
 
 If you have started any applications with either `wildfly-swarm:start` or `wildfly-swarm:multistart`, they can be stopped by executing the `wildfly-swarm:stop` goal.
 
-== Packaging your application
-
-To produce the `_myapp_-swarm.jar`, simply perform a typical `mvn package` command after setting the `package` goal on the plugin:
-
-    mvn package
-
-=== Example
-
-[source,xml]
-----
-<plugins>
-  <plugin>
-    <groupId>org.wildfly.swarm</groupId>
-    <artifactId>wildfly-swarm-plugin</artifactId>
-    <executions>
-      <execution>
-        <goals>
-          <goal>package</goal>
-        </goals>
-      </execution>
-    </executions>
-    <configuration>
-      <bundleDependencies>false</bundleDependencies>
-      <properties>
-        <jboss.bind.address>127.0.0.1</jboss.bind.address>
-      </properties>
-    </configuration>
-  </plugin>
-</plugins>
-----
 
 == Configuration Options
 
