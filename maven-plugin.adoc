@@ -33,7 +33,9 @@ This will execute your application within the WildFly Swarm runtime directly fro
 
 === Starting multiple applications at once
 
-You can start multiple swarm applications at once using the `wildfly-swarm:multistart` goal (this is useful for integration testing a set of applications). Each application is specified as a `<process>` containing an optional `<groupId>`, an `<artifactId>`, and an optional `<executionId>` (useful if you need to launch multiple copies of the same application). Each `<process>` can also include any configuration that is valid for the `wildfly-swarm:start` goal. For example:
+You can start multiple swarm applications at once using the `wildfly-swarm:multistart` goal (this is useful for integration testing a set of applications). Each application is specified as a `<process>` containing an optional `<groupId>`, an `<artifactId>`, and an optional `<executionId>` (useful if you need to launch multiple copies of the same application). Each `<process>` can also include any configuration that is valid for the `wildfly-swarm:start` goal.
+
+==== Example
 
 [source,xml]
 ----
@@ -87,6 +89,31 @@ To produce the `_myapp_-swarm.jar`, simply perform a typical `mvn package` comma
 
     mvn package
 
+=== Example
+
+[source,xml]
+----
+<plugins>
+  <plugin>
+    <groupId>org.wildfly.swarm</groupId>
+    <artifactId>wildfly-swarm-plugin</artifactId>
+    <executions>
+      <execution>
+        <goals>
+          <goal>package</goal>
+        </goals>
+      </execution>
+    </executions>
+    <configuration>
+      <bundleDependencies>false</bundleDependencies>
+      <properties>
+        <jboss.bind.address>127.0.0.1</jboss.bind.address>
+      </properties>
+    </configuration>
+  </plugin>
+</plugins>
+----
+
 == Configuration Options
 
 The plugin accepts the following options:
@@ -129,17 +156,17 @@ The plugin accepts the following options:
 |`package`
 
 |processes
-|Application configurations to start (see above)
+|Application configurations to start (see multistart section above)
 |
 |`multistart`
 
 |properties
-|(see below)
+|(see properties section below)
 |
 |`package`, `run`, `start`
 
 |propertiesFile
-|(see below)
+|(see properties section below)
 |
 |`package`, `run`, `start`
 
@@ -195,31 +222,6 @@ Useful properties include, but are not limited to:
 |Sets the context path for the deployed application
 |/
 |===
-
-
-=== Example
-
-[source,xml]
-----
-<plugins>
-  <plugin>
-    <groupId>org.wildfly.swarm</groupId>
-    <artifactId>wildfly-swarm-plugin</artifactId>
-    <executions>
-      <execution>
-        <goals>
-          <goal>package</goal>
-        </goals>
-      </execution>
-    </executions>
-    <configuration>
-      <properties>
-        <jboss.bind.address>127.0.0.1</jboss.bind.address>
-      </properties>
-    </configuration>
-  </plugin>
-</plugins>
-----
 
 
 
