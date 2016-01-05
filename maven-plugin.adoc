@@ -154,7 +154,7 @@ The plugin accepts the following options:
 |modules
 |Paths to a directory containing additional module definitions
 |./modules
-|`package`
+|`package`, `run`, `start`
 
 |processes
 |Application configurations to start (see multistart section above)
