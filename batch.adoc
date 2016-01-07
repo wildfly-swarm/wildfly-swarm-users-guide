@@ -1,0 +1,54 @@
+== Batch (JSR-352)
+
+Batch is a standard JavaEE API for defining batch processing applications.
+
+WildFly Swarm supports batch applications with both ```.war``` and ```.jar``` deployments.
+
+== Configuration
+
+To bring batch functionality to your application, you need the following dependency:
+
+[source,xml]
+----
+<dependency>
+  <groupId>org.wildfly.swarm</groupId>
+  <artifactId>batch-jberet</artifactId>
+</dependency>
+----
+
+The WildFly Swarm batch API allows you to use an in-memory or JDBC job repository to store job details. By default an in-memory job repository is used and a thread-pool with a calculated maximum pool size is used.
+
+== Usage
+
+The ```batch-jberet``` fraction brings the batch APIs to your application through a transitive dependency. This should also include the CDI API's.
+
+== Example Usage in JAR Application
+
+[source,java]
+----
+final Container container = new Container();
+// Create a the default fraction
+final BatchFraction fraction = BatchFraction.createDefaultFraction();
+// Create a datasource for the default job repository
+final DatasourcesFraction datasource = new DatasourcesFraction()
+        .jdbcDriver(new JDBCDriver("h2")
+                .driverName("h2")
+                .driverDatasourceClassName("org.h2.driver")
+                .driverXaDatasourceClassName("org.h2.jdbcx.JdbcDataSource")
+                .driverModuleName("com.h2database.h2"))
+        .dataSource(new DataSource("ExampleDS")
+                .connectionUrl("jdbc:h2:mem:test;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE")
+                .userName("sa")
+                .password("sa")
+                .driverName("h2"));
+// Create a new JDBC job repository and set it as the default job repository
+fraction.defaultJobRepository(datasource);
+
+// Create the batch deployment with an empty beans.xml file
+final JARArchive deployment = ShrinkWrap.create(JARArchive.class)
+                .addAsResource("job.xml", "/META-INF/batch-jobs/job.xml")
+                .addClasses(MyItemReader.class, MyItemWriter.class)
+                .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
+
+container.start().deploy(deployment);
+----
