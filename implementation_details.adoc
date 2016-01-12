@@ -16,11 +16,11 @@ The layout of the generated `_myapp_-swarm.jar` looks roughly like:
 #Tue Aug 25 11:38:12 BRT 2015
 jboss.socket.binding.port-offset=3
 swarm.logstash.hostname=localhost
-wildfly.swarm.context.path=/
+swarm.context.path=/
 jboss.bind.address=127.0.0.1
 java.net.preferIPv4Stack=true
 jboss.node.name=booker-pricing
-wildfly.swarm.app.artifact=booker-pricing-1.0.0.Alpha01-SNAPSHOT.jar
+swarm.app.artifact=booker-pricing-1.0.0.Alpha01-SNAPSHOT.jar
 swarm.logstash.port=8000
 ----
 

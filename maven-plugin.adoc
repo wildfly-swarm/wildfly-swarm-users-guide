@@ -219,7 +219,7 @@ Useful properties include, but are not limited to:
 |Sets a global port adjustment
 |0
 
-|wildfly.swarm.context.path
+|swarm.context.path
 |Sets the context path for the deployed application
 |/
 |===
