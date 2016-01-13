@@ -196,7 +196,7 @@ By adding a `<properties>` or `<propertiesFile>` section to the `<configuration>
 
 Any properties added to the uberjar can of course be overridden at runtime using the traditional `-Dname=value` mechanism of `java`.
 
-By default, only properties that start with `jboss.`, `wildfly.` or `swarm.` are added to the uberjar.
+Only properties specified outside of `<properties>` or `<propertiesFile>` that start with `jboss.`, `wildfly.`, or `swarm.`, or override a property specified in `<properties>` or `<propertiesFile>` are added to the uberjar at package time.
 
 
 Useful properties include, but are not limited to:
