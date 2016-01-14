@@ -47,7 +47,7 @@ To produce the `_myapp_-swarm.jar`, simply perform a typical `mvn package` comma
     <configuration>
       <bundleDependencies>false</bundleDependencies>
       <properties>
-        <jboss.bind.address>127.0.0.1</jboss.bind.address>
+        <swarm.bind.address>127.0.0.1</swarm.bind.address>
       </properties>
     </configuration>
   </plugin>
@@ -89,14 +89,14 @@ You can start multiple swarm applications at once using the `wildfly-swarm:multi
             <process>
               <artifactId>my-auth-app</artifactId>
               <properties>
-                <jboss.http.port>8081</jboss.http.port>
+                <swarm.http.port>8081</swarm.http.port>
               </properties>
               <mainClass>com.example.auth.Main</mainClass>
             </process>
             <process>
               <artifactId>my-indexing-app</artifactId>
               <properties>
-                <jboss.http.port>8082</jboss.http.port>
+                <swarm.http.port>8082</swarm.http.port>
               </properties>
               <environment>
                 <ENV>test</ENV>
@@ -190,13 +190,13 @@ The plugin accepts the following options:
 
 === Properties
 
-Many properties may be used to configuration execution and affect the packaging of your application.
+Many properties may be used to configuration execution and affect the packaging or running of your application.
 
 By adding a `<properties>` or `<propertiesFile>` section to the `<configuration>` of the plugin, the properties will be used when running your application via `mvn wildfly-swarm:run`.  Additionally, those same properties will be added to your `_myapp_-swarm.jar` to affect subsequent executions of the uberjar.  Any properties loaded from `<propertiesFile>` will override same-named properties from `<properties>`.
 
 Any properties added to the uberjar can of course be overridden at runtime using the traditional `-Dname=value` mechanism of `java`.
 
-Only properties specified outside of `<properties>` or `<propertiesFile>` that start with `jboss.`, `wildfly.`, or `swarm.`, or override a property specified in `<properties>` or `<propertiesFile>` are added to the uberjar at package time.
+Only properties specified outside of `<properties>` or `<propertiesFile>` that start with `jboss.`, `wildfly.`, `swarm.`, or `maven.`, or override a property specified in `<properties>` or `<propertiesFile>` are added to the uberjar at package time.
 
 
 Useful properties include, but are not limited to:
@@ -207,21 +207,34 @@ Useful properties include, but are not limited to:
 |Description
 |Default
 
-|jboss.bind.address
+|swarm.bind.address
 |Interface to bind servers
 |0.0.0.0
 
-|jboss.http.port
+|swarm.http.port
 |Sets the port for the HTTP server
 |8080
 
-|jboss.socket.binding.port-offset 
+|swarm.https.port
+|Sets the port for the HTTPS server
+|8443
+
+|swarm.port.offset
 |Sets a global port adjustment
 |0
 
 |swarm.context.path
 |Sets the context path for the deployed application
 |/
+
+|swarm.export.deployment
+|Causes a deployed artifact to be dumped to disk when swarm starts, for debugging
+|false
+
+|swarm.debug.port
+|If provided, the swarm process will pause for debugging on the given port
+|
+
 |===
 
 

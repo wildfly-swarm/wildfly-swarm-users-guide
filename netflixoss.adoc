@@ -91,3 +91,19 @@ In addition to your normal usage of `.as(RibbonArchive)` and `.as(Secured)`, ins
 RecommendationService recommendations = SecuredRibbon.from(RecommendationService.class);
 
 By using the `SecuredRibbon` factory, any Keycloak security token will propagate across invocations of the services using an HTTP `Authorization` header and a bearer token.
+
+== Properties
+
+The following properties control ribbon options:
+
+[cols=3, options="header"]
+|===
+|Name 
+|Description
+|Default
+
+|swarm.ribbon.context.path
+| ?
+| ?
+
+|===

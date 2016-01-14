@@ -36,3 +36,23 @@ ManagementFraction.createDefaultFraction()
 
 If you wish to perform more advanced configuration, please see the
 {{book.javadoc}}/Management.html[JavaDocs for the Management API].
+
+== Properties
+
+The following properties control options for the management interface:
+
+[cols=3, options="header"]
+|===
+|Name 
+|Description
+|Default
+
+|swarm.management.http.port
+|The HTTP port management will listen on
+|9990
+
+|swarm.management.https.port
+|The HTTPS port management will listen on
+|9993
+
+|===

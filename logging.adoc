@@ -16,7 +16,7 @@ Several of the higher-order fractions include logging by default. If you need to
 
 = Configuration
 
-Including the above dependency will automatically configure reasonable INFO-level logging to the console.
+Including the above dependency will automatically configure reasonable INFO-level logging to the console. You can control the logging level with the `swarm.logging` sysprop: `-Dswarm.logging=DEBUG`.
 
 If you wish to perform more advanced configuration, please see the
 {{book.javadoc}}/Logging.html[JavaDocs for the Logging API].

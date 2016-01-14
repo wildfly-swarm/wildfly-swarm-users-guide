@@ -98,25 +98,14 @@ public class MyTest {
 
 === Passing additional options to the -swarm.jar
 
-The Arquillian container for WildFly Swarm supports the following system properties:
+The Arquillian container for WildFly Swarm supports the following system properties in addition to those listed in 
+the <<maven-plugin#,plugin chapter>>:
 
 [cols=3, options="header"]
 |===
 |Name 
 |Description
 |Default
-
-|jboss.bind.address
-|Interface to bind servers
-|0.0.0.0
-
-|jboss.http.port
-|Sets the port for the HTTP server
-|8080
-
-|jboss.socket.binding.port-offset 
-|Sets a global port adjustment
-|0
 
 |swarm.build.modules
 |':' separated list of paths to module directories to include
@@ -126,12 +115,8 @@ The Arquillian container for WildFly Swarm supports the following system propert
 |',' separated list of repo urls to include when resolving dependencies
 |
 
-|swarm.export.swarmjar
+|swarm.export.uberjar
 |If true, the test -swarm.jar will be exported to disk to aid debugging
-|false
-
-|swarm.arquillian.debug
-|If true, the swarm process will pause for debugging on port 8787. You can optionally provide an alternate port number
 |false
 
 |===
