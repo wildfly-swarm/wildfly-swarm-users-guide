@@ -134,7 +134,30 @@ Each of these functions returns a promise. Here is some example usage.
 
 [source, javascript]
 ----
-Ribbon.getJSON("time")
+// Call the time service
+// activate a browser alert on response 
+Ribbon.getJSON("time").then(alert);
+
+// Post to the events service a new event
+// Activate a browser alert on response
+Ribbon.postJSON(this.props.serviceName, {name: 'my-event-name'}).then(alert);
+
+// Call a remote event service and provide a custom header
+// alert on response
+var headers = {
+  'Pragma': 'no-cache'
+  }
+  
+Ribbon.ajax( "events", '/', {
+        method: 'POST',
+        data: {
+            name: 'event-name',
+            value: 'event-value'
+        },
+        headers: {
+            Pragma: 'no-cache'
+        }
+      })
       .then(alert);
 ----
 
