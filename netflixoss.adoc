@@ -28,6 +28,7 @@ https://github.com/ReactiveX/RxJava[RxJava] provides a framework for working wit
 
 http://netty.io/[Netty] is an asynchronous I/O framework maintained by Trustin Lee of Twitter (formerly of Red Hat). Ribbon uses Netty underneath the covers to perform its network actions.  The primary way that Netty is exposed to users of Ribbon is through the `http://netty.io/5.0/api/io/netty/buffer/ByteBuf.html[ByteBuf]` interface, which provides interaction with bytes sent or received from an I/O stream.
 
+
 == Configuration
 
 To use the Netflix OSS stack within your WildFly Swarm application, you need to add the following dependency:
@@ -74,6 +75,20 @@ container.deploy( deployment );
 ----
 
 NOTE: The Ribbon discovery mechanism uses the traditional WildFly Clustering capabilities, which are based upon JGroups.  By default, JGroups uses _multicast_ to discover other peers. In some environments, multicast is not supported.  Different configuration of the clustering fraction will be required. 
+
+=== Ribbon Webapp
+
+WildFly Swarm also brings Ribbon services to the browser through the `ribbon-webapp` fraction. The fraction enables Javascript clients to maintain an asynchronously updated list of ribbon-based services and their respective URLs, as well as a simple API for communicating with those services.
+
+To include the ribbon-webapp fraction in your application, you'll need to add an additional dependency.
+
+[source,xml]
+----
+<dependency>
+  <groupId>org.wildfly.swarm</groupId>
+  <artifactId>ribbon-webapp</artifactId>
+</dependency>
+----
 
 == Secured Ribbon
 
