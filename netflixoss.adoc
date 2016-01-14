@@ -90,6 +90,18 @@ To include the ribbon-webapp fraction in your application, you'll need to add an
 </dependency>
 ----
 
+This will add an implicit deployment to your application's container which provides a web resource at `/ribbon/ribbon.js`. The default context for this URL can be changed by setting the `swarm.ribbon.context.path` system property in your application. For example,
+
+[source,java]
+----
+// Make ribbon.js available at /tape/ribbon.js
+System.setProperty("swarm.ribbon.context.path", '/tape');
+----
+
+
+==== Javascript API
+
+
 == Secured Ribbon
 
 If your application is using <<keycloak#,Keycloak>> to secure your services, and you are using Ribbon to invoke those services, you'll want to use the secured variant of Ribbon.  This requires a slightly different dependency:
