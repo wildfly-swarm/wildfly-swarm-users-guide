@@ -144,10 +144,6 @@ Ribbon.postJSON(this.props.serviceName, {name: 'my-event-name'}).then(alert);
 
 // Call a remote event service and provide a custom header
 // alert on response
-var headers = {
-  'Pragma': 'no-cache'
-  }
-  
 Ribbon.ajax( "events", '/', {
         method: 'POST',
         data: {
