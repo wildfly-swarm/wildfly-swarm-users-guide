@@ -4,11 +4,11 @@
       "readme": "README.adoc"
   },
   "variables": {
-      "javadoc": "http://wildfly-swarm.github.io/wildfly-config-api/0.3.9/apidocs/org/wildfly/swarm/config",
+      "javadoc": "http://wildfly-swarm.github.io/wildfly-config-api/0.3.25/apidocs/org/wildfly/swarm/config",
       "versions": {
           "swarm": "1.0.0.Alpha6-SNAPSHOT",
-          "configuration": "0.3.9",
-          "keycloak": "1.7.0.Final"
+          "configuration": "0.3.25",
+          "keycloak": "1.8.0.Final"
       }
   }
 }
