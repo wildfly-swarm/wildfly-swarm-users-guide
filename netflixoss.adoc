@@ -76,7 +76,7 @@ container.deploy( deployment );
 
 NOTE: The Ribbon discovery mechanism uses the traditional WildFly Clustering capabilities, which are based upon JGroups.  By default, JGroups uses _multicast_ to discover other peers. In some environments, multicast is not supported.  Different configuration of the clustering fraction will be required. 
 
-=== Ribbon Webapp
+== Ribbon Webapp
 
 WildFly Swarm also brings Ribbon services to the browser through the `ribbon-webapp` fraction. The fraction enables Javascript clients to maintain an asynchronously updated list of ribbon-based services and their respective URLs, as well as a simple API for communicating with those services.
 
@@ -90,7 +90,7 @@ To include the ribbon-webapp fraction in your application, you'll need to add an
 </dependency>
 ----
 
-This will add an implicit deployment to your application's container which provides a web resource at `/ribbon/ribbon.js`. The default context for this URL can be changed by setting the `swarm.ribbon.context.path` system property in your application. For example,
+This will add an implicit deployment to your application's container which provides a web resource at `/ribbon/ribbon.js`, and a servlet for retrieving the service topology. The default context for the javascript URL can be changed by setting the `swarm.ribbon.context.path` system property in your application. For example,
 
 [source,java]
 ----
@@ -98,8 +98,45 @@ This will add an implicit deployment to your application's container which provi
 System.setProperty("swarm.ribbon.context.path", '/tape');
 ----
 
+=== Javascript API
 
-==== Javascript API
+The Javascript API provided by `ribbon-webapp` allows clients to open a persistent connection to the provided servlet. The known service topology is fed to clientsn as JSON data, and updated automatically via Server Sent Events as services come up and go down. Clients can register listeners to respond to these change events. When you include the ribbon.js script in your client application, a `ribbon` object is added to the global scope. Example usage:
+
+[source,javascript]
+----
+var Ribbon = ribbon(),
+    component = someReactComponent;
+
+// listen for changes to the service topology
+// and update our component on change
+Ribbon.onTopologyChange(function(topology) {
+    component.setState({data: JSON.parse(topology)});
+});
+----
+
+The JSON received from this request will look similar to this.
+
+[source,json]
+----
+{
+    "time": ["http://server.com:9000", "http://server.com:9001"],
+    "events": ["http://server.com:9002", "http://server.com:9003"]
+}
+----
+
+That is, the client will receive a JSON object that has service names as keys, and a list of available servers as values. To call these services, however, clients do not need to know the host names and ports. Ribbon Webapp manages these for you. You simply need to know the service names. The Javascript API makes 3 asynchronous functions available.
+
+** `getJSON` Makes an asynchronous HTTP GET request to a known service.
+** `postJSON` Makes an asynchronous HTTP POST request to a known service.
+** `ajax` Makes an AJAX request to a known service. This function allows for customizable AJAX settings.
+
+Each of these functions returns a promise. Here is some example usage.
+
+[source, javascript]
+----
+Ribbon.getJSON("time")
+      .then(alert);
+----
 
 
 == Secured Ribbon
