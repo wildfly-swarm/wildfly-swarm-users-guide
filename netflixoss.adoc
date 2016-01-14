@@ -94,7 +94,7 @@ This will add an implicit deployment to your application's container which provi
 
 [source,java]
 ----
-// Make ribbon.js available at /tape/ribbon.js
+// Makes ribbon.js available at /tape/ribbon.js
 System.setProperty("swarm.ribbon.context.path", '/tape');
 ----
 
