@@ -1,1 +1,40 @@
 = Swagger
+
+== Introduction
+Swagger is a formal specification for a language-agnostic interface to REST APIs. This interface lets both humans and computers understand an API's capabilities such that a consumer of the API can interact with the service. In simple terms, swagger is a JSON representation of a RESTful API, typically made available over HTTP at `/swagger.json`.
+
+A simple `swagger.json` will look something like this.
+
+[code,json]
+----
+{
+    "swagger":"2.0",
+    "info":{},
+    "basePath":"/",
+    "tags":[{"name":"time"}],
+    "paths":{
+        "/time/now":{
+            "get":{
+                "tags":["time"],
+                "summary":"Get the current time",
+                "description":"Returns the time as a string",
+                "operationId":"get",
+                "produces":["application/json"],
+                "parameters":[],
+                "responses":{
+                    "200":{
+                        "description":"successful operation",
+                        "schema":{"type":"string"}
+                    }
+                }
+            }
+        }
+    }
+}
+----
+
+WildFly Swarm provides a `swagger` fraction that enables JAX-RS API developers to easily publish a `/swagger.json` describing the API.
+
+== Usage
+
+Swagger is a simple yet powerful representation of your RESTful API. With the largest ecosystem of API tooling on the planet, thousands of developers are supporting Swagger in almost every modern programming language and deployment environment. With a Swagger-enabled API, you get interactive documentation, client SDK generation and discoverability.
