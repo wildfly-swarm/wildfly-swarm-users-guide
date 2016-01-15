@@ -133,8 +133,8 @@ The JSON received from this request will look similar to this.
 [source,json]
 ----
 {
-    "time": ["http://server.com:9000", "http://server.com:9001"],
-    "events": ["http://server.com:9002", "http://server.com:9003"]
+    "time": ["http://192.168.0.5m:9000", "http://192.168.0.5:9001"],
+    "events": ["http://192.168.0.6:9000", "http://192.168.0.6:9001"]
 }
 ----
 
