@@ -212,7 +212,7 @@ The following properties control ribbon options:
 |Default
 
 |swarm.ribbon.context.path
-| ?
-| ?
+| Can be used to override the default `/ribbon` context for Ribbon Webapp
+| /ribbon
 
 |===
