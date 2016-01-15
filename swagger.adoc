@@ -73,3 +73,5 @@ The `swagger` fraction pulls in the required dependencies, and when your applica
     }
 }
 ----
+
+The packages are recursively scanned, so if you have a package heirarchy, you just need to set the top level package name.
