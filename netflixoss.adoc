@@ -100,7 +100,7 @@ System.setProperty("swarm.ribbon.context.path", '/tape');
 
 === Javascript API
 
-The Javascript API provided by `ribbon-webapp` allows clients to open a persistent connection to the provided servlet. The known service topology is fed to clients as JSON data, and updated automatically via Server Sent Events as services come up and go down. Clients can register listeners to respond to these change events. When you include the ribbon.js script in your client application, a `ribbon` object is added to the global scope. Example usage:
+The Javascript API provided by `ribbon-webapp` allows clients to open a persistent connection to the provided servlet. The known service topology is fed to clients as JSON data, and updated automatically via Server Sent Events as services come up and go down. Clients can register listeners to respond to these change events. When you include the ribbon.js script in your client application, a `ribbon` constructor function is added to the global scope. Example usage:
 
 [source,javascript]
 ----
