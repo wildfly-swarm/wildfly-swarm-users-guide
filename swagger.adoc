@@ -49,4 +49,27 @@ To enable Swagger in your application, you need to add a dependency to your `pom
 ----
 
 == Usage
-The `swagger` fraction works by utilizing does most of the configuration required, but you still need to tell Swagger what package(s) to scan.
+The `swagger` fraction pulls in the required dependencies, and when your application is deployed, the underlying Swagger system is automatically configured and initialized. Most of the configuration required by swagger is handled by default, but you still need to tell Swagger what package(s) to scan. Configure this in the `main()` method for your application.
+
+[source,java]
+----
+    public static void main(String[] args) throws Exception {
+
+        Container container = new Container();
+
+        JAXRSArchive deployment = ShrinkWrap.create(JAXRSArchive.class, "swagger-app.war");
+        deployment.addClass(TimeResource.class);
+
+        // Enable the swagger bits
+        SwaggerArchive archive = deployment.as(SwaggerArchive.class);
+        // Tell swagger where our resources are
+        archive.setResourcePackages("org.wildfly.swarm.examples");
+
+        deployment.addAllDependencies();
+        container
+                .fraction(LoggingFraction.createDefaultLoggingFraction())
+                .start()
+                .deploy(deployment);
+    }
+}
+----
