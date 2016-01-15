@@ -37,4 +37,6 @@ WildFly Swarm provides a `swagger` fraction that enables JAX-RS API developers t
 
 == Usage
 
+To enable Swagger in your application, you need to add a dependency to your `pom.xml`.
+
 Swagger is a simple yet powerful representation of your RESTful API. With the largest ecosystem of API tooling on the planet, thousands of developers are supporting Swagger in almost every modern programming language and deployment environment. With a Swagger-enabled API, you get interactive documentation, client SDK generation and discoverability.
