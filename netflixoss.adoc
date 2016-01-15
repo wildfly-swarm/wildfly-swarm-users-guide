@@ -140,7 +140,7 @@ Ribbon.getJSON("time").then(alert);
 
 // Post to the events service a new event
 // Activate a browser alert on response
-Ribbon.postJSON(this.props.serviceName, {name: 'my-event-name'}).then(alert);
+Ribbon.postJSON("events" 'my-event-name'}).then(alert);
 
 // Call a remote event service and provide a custom header
 // alert on response
