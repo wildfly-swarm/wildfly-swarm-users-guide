@@ -64,12 +64,26 @@ container.deploy( deployment );
 
 === A service advertising itself
 
+There are a couple of ways to advertise a service's name.  By default the `advertise()` method on `RibbonArchive` will advertise the simplified name of the archive without the extension.
+
+[source,java]
+----
+JAXRSArchive deployment = ShrinkWrap.create(JAXRSArchive.class, "recommendations.war");
+
+deployment.as(RibbonArchive.class)
+  .advertise();
+
+container.deploy( deployment );
+----
+
+If you haven't named the archive, or wish to advetise it with a distinct service-name, there is a version of `advertise(...)` which can take the service name as an argument.
+
 [source,java]
 ----
 JAXRSArchive deployment = ShrinkWrap.create(JAXRSArchive.class);
 
 deployment.as(RibbonArchive.class)
-  .setServiceName( "recommendations" );
+  .advertise( "recommendations" );
 
 container.deploy( deployment );
 ----
