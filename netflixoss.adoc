@@ -175,6 +175,18 @@ RecommendationService recommendations = SecuredRibbon.from(RecommendationService
 
 By using the `SecuredRibbon` factory, any Keycloak security token will propagate across invocations of the services using an HTTP `Authorization` header and a bearer token.
 
+Ribbon Webapp can be used on the client side to secure calls to ribbon services as well. Just include the `keycloak.js` Javascript that is provided with the Keycloak server in your HTML file and call the `ribbon` constructor function with a keycloak object.
+
+[source,html]
+----
+<script src="/ribbon/ribbon.js"></script>
+<script src="http://keycloak-server:9191/auth/js/keycloak.js"></script>
+<script>
+  var keycloak = new Keycloak( '/keycloak.json' );
+  var Ribbon   = ribbon( {keycloak: keycloak} );
+</script>
+----
+
 == Properties
 
 The following properties control ribbon options:
