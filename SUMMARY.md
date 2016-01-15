@@ -21,6 +21,7 @@
 * [NetflixOSS](netflixoss.adoc)
 * [Hawkular](hawkular.adoc)
 * [Jolokia](jolokia.adoc)
+* [Swagger](swagger.adoc)
 * [Servers](servers.adoc)
 * [Testing with Arquillian](testing_with_arquillian.adoc)
 * [Implementation Details](implementation_details.adoc)
