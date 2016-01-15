@@ -35,7 +35,7 @@ A simple `swagger.json` will look something like this.
 
 WildFly Swarm provides a `swagger` fraction that enables JAX-RS API developers to easily publish a `/swagger.json` describing the API.
 
-To learn more about Swagger's capabilities, see the [Swagger website](http://swagger.io/)
+To learn more about Swagger's capabilities, see the (http://swagger.io/)[Swagger website].
 
 == Configuration
 To enable Swagger in your application, you need to add a dependency to your `pom.xml`.
