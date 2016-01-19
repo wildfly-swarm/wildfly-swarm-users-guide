@@ -16,6 +16,6 @@ To bring a Keycloak Server to your application, you need the following dependenc
 
 There is currently no configuration required beyond this. The Keycloak Server will launch with your application, and be available at the `/auth/admin` context path.
 
-== Stanadlone Keycloak Server
+== Standalone Keycloak Server
 
 Please see the chapter on <<servers#,Servers>>.
