@@ -14,7 +14,7 @@
 * [Management](management.adoc)
 * [JSF](jsf.adoc)
 * [Messaging](messaging.adoc)
-* Topology
+* [Topology](topology.adoc)
 * [Clustering](clustering.adoc)
 * [Infinispan](infinispan.adoc)
 * [Keycloak](keycloak.adoc)
