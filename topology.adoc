@@ -1,2 +1,99 @@
-# Topology
+= Topology
+
+When building systems of many microservices, being able to locate, discovery and interact with them in an ever-changing deployment environment can become a challenge.  There are many solutions to managing a topology of services, each with this own trade-offs.
+
+In a pure WildFly scenario, in an environment where multicast is available, many users rely upon JGroups to handle discovery and reliable communications between nodes.  In other scenarios, either due to the lack of multicast, heterogenuity of services, or scaling concerns, different service-discovery mechanisms are used.  These may include services such as Apache Zookeeper or Hashicorp's Consul.
+
+WildFly Swarm attempts to abstract away the many ways of handling service registration and discovery through its `topology` fraction.  The `topology` fraction only provides the abstractions and APIs.  It must work in concert with other specific implementations to actually provide information about the layout of your concrete services.
+
+At the moment, two topology implementations are available:
+
+* JGroups
+* Consul
+
+Additionally, regardless of the topology implementation selected, WildFly Swarm provides a `topology-webapp` which helps bring the topology abstraction to your Javascript-centric applications running in the browser.
+
+== General Usage
+
+=== Advertising Services
+
+When using `topology` in your application, your various archives can be turned into a `TopologyArchive` and subsequently `advertise()` themselves under a variety of names.  By default, a no-arg version of `advertise()` will advertise the deployed service using the base name of the archive.
+
+[source,java]
+----
+JAXRSArchive deployment = ShrinkWrap.create(JAXRSArchive.class, "events.war");
+
+// advertise this deployment as `events`
+deployment.as(TopologyArchive.class).advertise();
+----
+
+Additionally, archives an advertise different names, especially in the case where you do not provide a name when creating the archive.
+
+[source,java]
+----
+JAXRSArchive deployment = ShrinkWrap.create(JAXRSArchive.class);
+
+// advertise this deployment as `events`
+deployment.as(TopologyArchive.class).advertise("events");
+----
+
+=== Accessing Topology Information inside a WildFly Swarm Application
+
+The `Topology` is made available through JNDI, and provides a simple method for performing the retrieval of it from within your running application.
+
+[source,java]
+----
+Topology topology = Topology.lookup();
+----
+
+Once retrieved, your application and add or remove a `TopologyListener` in order to be informed about changes in the topology as services start and stop.
+
+Additionally, the `Topology` class provides an `asMap()` method which returns the full current topology in a `Map` where the keys are the service names, and the values are a list of `Topology.Entry` items, providing access to the host and port.
+
+=== Accessing Topology Information outside of a WildFly Swarm Application
+
+The chief use of accessing topology information outside of a WildFly Swarm application is in the case of a Javascript-centric browser-based application.  In the event your various services are publicly routable and directly exposed to a single-page application, being able to discover them from the user's browser is useful.
+
+The `topology-webapp` fraction can be added to a service, and it exposes a URL where external clients can retrieve a `topology.js` script which will provide topology access within the browser.  The `topology.js` script also takes advantage of a Server-Sent-Events (SSE) endpoint that is also published, in order to push changes of the topology in real-time to the browser.
+
+[source,xml]
+----
+<dependency>
+  <groupId>org.wildfly.swarm</groupId>
+  <artifactId>topology-webapp</artifactId>
+</dependency>
+----
+
+By including the above dependency, the `topology.js` script, along with the SSE endpoint will automatically be mounted under the context-path of `/topology` in your application.
+
+== Topology using JGroups
+
+By including the `topology-jgroups` dependency in your application, and optionally configuring the `jgroups` fraction, all of your WildFly Swarm instances can discover one another without having to run any additional servers.  The JGroups topology management infrastructure is server-less and is peer-to-peer in mosts cases.
+
+=== Configuration
+
+[source,xml]
+----
+<dependency>
+  <groupId>org.wildfly.swarm</groupId>
+  <artifactId>topology-jgroups</artifactId>
+</dependency>
+----
+
+== Topology using Hashicorp Consul
+
+By including the `topology-consul` dependency in your application, your WildFly Swarm instances can register themselves within your Consul catalog.  Additionally, they can look up any other services that are registered, even if they are not WildFly Swarm applications.
+
+Using Consul requires having a Consul server and agent strategy already in place. Further documentation about Consul can be found at https://www.consul.io/.
+
+=== Configuration
+
+[source,xml]
+----
+<dependency>
+  <groupId>org.wildfly.swarm</groupId>
+  <artifactId>topology-consul</artifactId>
+</dependency>
+
+
 
