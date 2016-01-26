@@ -1,10 +1,10 @@
-= Clustering
+= JGroups
 
 Traditional WildFly includes a subsystem for _clustering_, so that many instances can work together to distribute load. Typically, in a WildFly cluster, each node is homogeneous, serving the same applications.
 
 image:wildfly-cluster.png[alt=""]
 
-WildFly Swarm uses the same subsystem but to a different end. With a cluster of WildFly Swarm services, each service may be unique and distinct.  Clustering, in tandem with the <<netflixoss#,NetflixOSS>> stack, serves to assist in discovery of other services.
+WildFly Swarm uses the same subsystem but to a different end. With a cluster of WildFly Swarm services, each service may be unique and distinct.  Clustering, in tandem with the <<topology#,Topology>> fraction, serves to assist in discovery of other services.
 
 image:swarm-cluster.png[alt=""]
 
@@ -16,7 +16,7 @@ To enable clustering, the following dependency is required:
 ----
 <dependency>
   <groupId>org.wildfly.swarm</groupId>
-  <artifactId>clustering</artifactId>
+  <artifactId>jgroups</artifactId>
 </dependency>
 ----
 
