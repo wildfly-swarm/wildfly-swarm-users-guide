@@ -15,7 +15,7 @@
 * [JSF](jsf.adoc)
 * [Messaging](messaging.adoc)
 * [Topology](topology.adoc)
-* [Clustering](clustering.adoc)
+* [Clustering](jgroups.adoc)
 * [Infinispan](infinispan.adoc)
 * [Keycloak](keycloak.adoc)
 * [Keycloak Server](keycloak_server.adoc)
