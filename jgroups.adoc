@@ -1,0 +1,45 @@
+= JGroups
+
+Traditional WildFly includes a subsystem for _clustering_, so that many instances can work together to distribute load. Typically, in a WildFly cluster, each node is homogeneous, serving the same applications.
+
+image:wildfly-cluster.png[alt=""]
+
+WildFly Swarm uses the same subsystem but to a different end. With a cluster of WildFly Swarm services, each service may be unique and distinct.  Clustering, in tandem with the <<topology#,Topology>> fraction, serves to assist in discovery of other services.
+
+image:swarm-cluster.png[alt=""]
+
+== Configuration
+
+To enable clustering, the following dependency is required:
+
+[source,xml]
+----
+<dependency>
+  <groupId>org.wildfly.swarm</groupId>
+  <artifactId>jgroups</artifactId>
+</dependency>
+----
+
+== JGroups
+
+The WildFly clustering functionality is built upon JGroups, a reliable group communications stack. By default, it uses _IP multicast_ to locate other members of the cluster. In environments where multicast is not supported, other components may be used.
+
+NOTE: When using clustering with multicast, JGroups must know which interface to use for multicast packets.  By default, your WildFly Swarm application binds to `0.0.0.0` which means _all available interfaces_.  This is ambiguous to JGroups.  Therefore, when clustering you _must_ explicitly bind to some non-ambiguous interface.  You can do this by setting the `swarm.bind.address` property through the Maven or Gradle plugins, or via the command-line using `-Dswarm.bind.address=w.x.y.z`.
+
+Other properties that affect clustering:
+
+[cols=3, options="header"]
+|===
+|Name 
+|Description
+|Default
+
+|swarm.node.id
+|The id of this node in a cluster
+|<a uuid>
+
+|swarm.default.multicast.address
+|The multicast address that will be used by JGroups
+|230.0.0.4
+
+|===
