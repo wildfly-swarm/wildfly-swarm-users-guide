@@ -45,32 +45,19 @@ The necessary components for RxJava, Hystrix and Netty will be transitively made
 
 == Usage
 
-In order for your service to participate in the Ribbon service discovery (as a service to be discovered, a client performing discovery, or both), your deployment should be converted to a `RibbonArchive` at some point.
+In order for your service to participate in the service discovery (as a service to be discovered, a client performing discovery, or both), your deployment should be converted to a `TopologyArchive` at some point.
 
-In the event your deployment has a service you wish to advertise, you subsequently need to `setServiceName(_name_)` on the resulting `RibbonArchive`.
-
-=== A client not advertising a service
-
-An example of a client that ultimately might discover and use other services but does not advertise itself for external usage:
-
-[source,java]
-----
-JAXRSArchive deployment = ShrinkWrap.create(JAXRSArchive.class);
-
-deployment.as(RibbonArchive.class);
-
-container.deploy( deployment );
-----
+In the event your deployment has a service you wish to advertise, you subsequently need to `advertise(_name_)` on the resulting `TopologyArchive`.
 
 === A service advertising itself
 
-There are a couple of ways to advertise a service's name.  By default the `advertise()` method on `RibbonArchive` will advertise the simplified name of the archive without the extension.
+There are a couple of ways to advertise a service's name.  By default the `advertise()` method on `TopologyArchive` will advertise the simplified name of the archive without the extension.
 
 [source,java]
 ----
 JAXRSArchive deployment = ShrinkWrap.create(JAXRSArchive.class, "recommendations.war");
 
-deployment.as(RibbonArchive.class)
+deployment.as(TopologyArchive.class)
   .advertise();
 
 container.deploy( deployment );
@@ -82,34 +69,10 @@ If you haven't named the archive, or wish to advetise it with a distinct service
 ----
 JAXRSArchive deployment = ShrinkWrap.create(JAXRSArchive.class);
 
-deployment.as(RibbonArchive.class)
+deployment.as(TopologyArchive.class)
   .advertise( "recommendations" );
 
 container.deploy( deployment );
-----
-
-NOTE: The Ribbon discovery mechanism uses the traditional WildFly Clustering capabilities, which are based upon JGroups.  By default, JGroups uses _multicast_ to discover other peers. In some environments, multicast is not supported.  Different configuration of the clustering fraction will be required. 
-
-== Ribbon Webapp
-
-WildFly Swarm also brings Ribbon services to the browser through the `ribbon-webapp` fraction. The fraction enables Javascript clients to maintain an asynchronously updated list of ribbon-based services and their respective URLs, as well as a simple API for communicating with those services.
-
-To include the ribbon-webapp fraction in your application, you'll need to add an additional dependency.
-
-[source,xml]
-----
-<dependency>
-  <groupId>org.wildfly.swarm</groupId>
-  <artifactId>ribbon-webapp</artifactId>
-</dependency>
-----
-
-This will add an implicit deployment to your application's container which provides a web resource at `/ribbon/ribbon.js`, and a servlet for retrieving the service topology. The default context for the javascript URL can be changed by setting the `swarm.ribbon.context.path` system property in your application. For example,
-
-[source,java]
-----
-// Makes ribbon.js available at /tape/ribbon.js
-System.setProperty("swarm.ribbon.context.path", '/tape');
 ----
 
 == Secured Ribbon
