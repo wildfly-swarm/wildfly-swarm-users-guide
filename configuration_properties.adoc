@@ -1,2 +1,38 @@
 = Configuration Properties
 
+
+[cols=3, options="header"]
+|===
+|Name 
+|Description
+|Default
+
+|swarm.bind.address
+|Interface to bind servers
+|0.0.0.0
+
+|swarm.http.port
+|Sets the port for the HTTP server
+|8080
+
+|swarm.https.port
+|Sets the port for the HTTPS server
+|8443
+
+|swarm.port.offset
+|Sets a global port adjustment
+|0
+
+|swarm.context.path
+|Sets the context path for the deployed application
+|/
+
+|swarm.export.deployment
+|Causes a deployed artifact to be dumped to disk when swarm starts, for debugging
+|false
+
+|swarm.debug.port
+|If provided, the swarm process will pause for debugging on the given port
+|
+
+|===
