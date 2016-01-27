@@ -27,6 +27,10 @@
 |Sets the context path for the deployed application
 |/
 
+|swarm.deployment.timeout
+|Timeout, in seconds, to wait for a deployment to occur
+|30
+
 |swarm.export.deployment
 |Causes a deployed artifact to be dumped to disk when swarm starts, for debugging
 |false
