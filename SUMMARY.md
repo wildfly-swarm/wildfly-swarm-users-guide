@@ -24,7 +24,7 @@
 * [Jolokia](jolokia.adoc)
 * [Swagger](swagger.adoc)
 * [Servers](servers.adoc)
-* Configuration Properties
+* [Configuration Properties](configuration_properties.adoc)
 * [Testing with Arquillian](testing_with_arquillian.adoc)
 * [Implementation Details](implementation_details.adoc)
 * [Getting Involved](getting_involved.adoc)
