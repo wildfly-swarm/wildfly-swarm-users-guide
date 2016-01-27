@@ -37,6 +37,6 @@
 
 |swarm.debug.port
 |If provided, the swarm process will pause for debugging on the given port
-|
+|_none_
 
 |===
