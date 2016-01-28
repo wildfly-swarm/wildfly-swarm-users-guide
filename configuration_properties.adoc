@@ -2,28 +2,52 @@
 
 Below is a non-exhaustive set of useful properties, which may be available depending on which fractions your application uses.
 
+== General
 
-[cols=4, options="header"]
+[cols=3, options="header"]
+|===
+|Name 
+|Description
+|Default
+
+|swarm.bind.address
+|Interface to bind servers
+|0.0.0.0
+
+|swarm.port.offset
+|Sets a global port adjustment
+|0
+
+|swarm.deployment.timeout
+|Timeout, in seconds, to wait for a deployment to occur
+|30
+
+|swarm.export.deployment
+|Causes a deployed artifact to be dumped to disk when swarm starts, for debugging
+|false
+
+|swarm.debug.port
+|If provided, the swarm process will pause for debugging on the given port
+|_none_
+
+|===
+
+== Undertow
+
+[cols=3, options="header"]
 |===
 |Name 
 |Description
 |Default
 |Fraction
 
-|swarm.bind.address
-|Interface to bind servers
-|0.0.0.0
-|_All_
-
 |swarm.http.port
 |Sets the port for the HTTP server
 |8080
-|`undertow`
 
 |swarm.https.port
 |Sets the port for the HTTPS server
 |8443
-|`undertow`
 
 |swarm.port.offset
 |Sets a global port adjustment
@@ -33,21 +57,5 @@ Below is a non-exhaustive set of useful properties, which may be available depen
 |swarm.context.path
 |Sets the context path for the deployed application
 |/
-|`undertow`
-
-|swarm.deployment.timeout
-|Timeout, in seconds, to wait for a deployment to occur
-|30
-|_All_
-
-|swarm.export.deployment
-|Causes a deployed artifact to be dumped to disk when swarm starts, for debugging
-|false
-|_All_
-
-|swarm.debug.port
-|If provided, the swarm process will pause for debugging on the given port
-|_none_
-|_All_
 
 |===
