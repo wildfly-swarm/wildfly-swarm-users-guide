@@ -49,11 +49,6 @@ Below is a non-exhaustive set of useful properties, which may be available depen
 |Sets the port for the HTTPS server
 |8443
 
-|swarm.port.offset
-|Sets a global port adjustment
-|0
-|_All_
-
 |swarm.context.path
 |Sets the context path for the deployed application
 |/
