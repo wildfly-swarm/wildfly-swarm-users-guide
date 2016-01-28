@@ -78,7 +78,7 @@ var Topology = topology(),
 // listen for changes to the service topology
 // and update our component on change
 Topology.onTopologyChange(function(topology) {
-    component.setState({data: JSON.parse(topology)});
+    component.setState({data: topology});
 });
 ----
 
