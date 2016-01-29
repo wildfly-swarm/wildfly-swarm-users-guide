@@ -6,6 +6,7 @@
 * [Gradle Plugin](gradle-plugin.adoc)
 * [WAR Applications](war-applications.adoc)
 * [JAR Applications](jar-applications.adoc)
+* Container
 * [ShrinkWrap](shrinkwrap.adoc)
 * [Logging](logging.adoc)
 * [Logstash](logstash.adoc)
@@ -29,5 +30,4 @@
 * [Implementation Details](implementation_details.adoc)
 * [Getting Involved](getting_involved.adoc)
 * [License](license.adoc)
-* Container
 
