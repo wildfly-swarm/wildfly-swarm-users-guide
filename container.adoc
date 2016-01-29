@@ -14,7 +14,20 @@ Because of some initialization timing issues, you should construct the `Containe
 
 [source,java]
 ----
-
+public class MyMain {
+    public static void main(String...args) {
+    
+        // Instantiate the container
+        Container container = new Container();
+        
+        // Create one or more deployments
+        JAXRSArchive deployment = ShrinkWrap.create(JAXRSArchive.class);
+        ...
+        
+        container.start();
+        container.deploy(deployment);
+    }
+}
 ----
 
 
