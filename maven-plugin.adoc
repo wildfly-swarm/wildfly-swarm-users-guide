@@ -147,7 +147,7 @@ The plugin accepts the following options:
 |`multistart`, `run`, `start`
 
 |jvmArguments
-|A list of <jvmArgument> elements specifyin additional JVM arguments (such as `-Xmx32m`)
+|A list of <jvmArgument> elements specifying additional JVM arguments (such as `-Xmx32m`)
 |
 |`multistart`, `run`, `start`
 
