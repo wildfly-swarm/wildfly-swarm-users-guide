@@ -8,5 +8,7 @@ The container can either be instantiated inside your own `main(...)`, or if you 
 
 == User-Provided `main(...)`
 
-If you provide a `main(...)` and configure it in <<maven-plugin.adoc#Maven Plugin>>
+If you provide a `main(...)` and configure it in using the <<maven-plugin.adoc#,Maven Plugin>> or <<gradle-plugin.adoc#,Gradle Plugin>>, it should simply be a regular Java `main(...)` method.
+
+
 
