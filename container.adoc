@@ -30,4 +30,9 @@ public class MyMain {
 }
 ----
 
+== No User-Provided `main(...)`
+
+If you choose not to provide a main, `org.wildfly.swarm.Swarm#main(...)` will be used by default.  It boots the default container (based upon your dependencies) and deploys your project artifact.
+
+The `org.wildfly.swarm.Swarm` class is also suitable for executing directly from your IDE if you have no requirement of providing a customized `main(...)`.
 
