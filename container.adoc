@@ -1,2 +1,12 @@
-# Container
+= Container
+
+At the root of every WildFly Swarm application is the _container_.
+
+The container provides an API for instantiating an embedded WildFly Swarm container, starting and stopping it, and deploying.
+
+The container can either be instantiated inside your own `main(...)`, or if you don't provide a `main(...)`, then WildFly Swarm will handle the construction of the container and subsequent deployment of your project artifact.
+
+== User-Provided `main(...)`
+
+If you provide a `main(...)` and configure it in <<maven-plugin.adoc#Maven Plugin>>
 
