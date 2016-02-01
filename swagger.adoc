@@ -80,4 +80,4 @@ By default, `swagger` can be used with zero-configuration. This means you can si
 The packages are recursively scanned, so if you have a package heirarchy, you just need to set the top level package name. See the https://github.com/wildfly-swarm/wildfly-swarm/blob/master/swagger/api/src/main/java/org/wildfly/swarm/swagger/SwaggerArchive.java[`SwaggerArchive`] interface for additional configuration options.
 
 == Swagger UI
-The folks over at http://swagger.io have also created an HTML5/JavaScript application for querying and interacting with swagger-enabled REST APIs. WildFly Swarm provides a simple way to deploy this application using the Swagger-UI server. See the <<servers#,Servers> documentation for more information.
+The folks over at http://swagger.io have also created an HTML5/JavaScript application for querying and interacting with swagger-enabled REST APIs. WildFly Swarm provides a simple way to deploy this application using the Swagger-UI server. See the <<servers#,Servers>> documentation for more information.
