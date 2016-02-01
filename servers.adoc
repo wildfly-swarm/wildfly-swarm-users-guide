@@ -43,7 +43,7 @@ Download the `-swarm.jar` and execute it with the `java` command.
 
 [source]
 ----
-$ java -jar swarm-ui-{{book.version.swarm}}-swarm.jar
+$ java -jar swarm-ui-{{book.versions.swarm}}-swarm.jar
 ----
 
 You can customize any of the HTML, CSS, JavaScript or image assets provided by the server by specifying these on the command line. The command line will accept a path to a `jar` or `war` file on disk, a path to a directory on disk containing your web resources, or maven coordinates to a `jar` file.
@@ -57,7 +57,7 @@ $ jar tvf my-custom-project.jar
      68 Mon Feb 01 11:42:08 EST 2016 META-INF/MANIFEST.MF
     312 Mon Feb 01 11:41:58 EST 2016 index.html
     
-$ java -jar swarm-ui-{{book.version.swarm}}-swarm.jar ./my-custom-resources.jar
+$ java -jar swarm-ui-{{book.versions.swarm}}-swarm.jar ./my-custom-resources.jar
 ----
 
 This will cause the `index.html` file provided in `my-custom-resources.jar` to be served instead of the default provided by `swagger-ui`.
