@@ -39,3 +39,19 @@ It's maven coordinates are:
 </dependency>
 ----
 
+Download the `-swarm.jar` and execute it with the `java` command.
+
+[source]
+----
+$ java -jar swarm-ui-{{book.version.swarm}}-swarm.jar
+----
+
+You can customize any of the HTML, CSS, JavaScript or image assets provided by the server by specifying these on the command line. The command line will accept a path to a `jar` or `war` file on disk, a path to a directory on disk containing your web resources, or maven coordinates to a `jar` file.
+
+The `jar` file provided (or the directory on disk) will be overlaid on to the resources provided by `swagger-ui`. For example, to customize the main page, provide an `index.html` file at the root of the `jar` or `war` file, or in the top level of the directory provided.
+
+[source]
+----
+$ java -jar swarm-ui-{{book.version.swarm}}-swarm.jar ./my-custom-resources.jar
+----
+
