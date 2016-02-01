@@ -24,3 +24,18 @@ Download or otherwise obtain the `-swarm.jar` and simply execute it as any other
 ----
 java -jar keycloak-{{book.versions.swarm}}-swarm.jar
 ----
+
+== Swagger UI Server
+Swagger UI is a dependency-free collection of HTML, Javascript, and CSS assets that dynamically generate documentation and sandbox from a Swagger-compliant API. WildFly Swarm provides an easily deployable and customizable version of this application.
+
+It's maven coordinates are:
+
+[source,xml]
+----
+<dependency>
+  <groupId>org.wildfly.swarm.servers</groupId>
+  <artifactId>swagger-ui</artifactId>
+  <classifier>swarm</classifier>
+</dependency>
+----
+
