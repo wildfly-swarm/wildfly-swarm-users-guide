@@ -49,7 +49,9 @@ To enable Swagger in your application, you need to add a dependency to your `pom
 ----
 
 == Usage
-The `swagger` fraction pulls in the required dependencies, and when your application is deployed, the underlying Swagger system is automatically configured and initialized. Most of the configuration required by swagger is handled by default, but you still need to tell Swagger what package(s) to scan. Configure this in the `main()` method for your application.
+The `swagger` fraction pulls in required dependencies, and when your application is deployed, the underlying Swagger system is automatically configured and initialized.
+
+By default, `swagger` can be used with zero-configuration. This means you can simply include the `swagger` fraction in the POM file for your application, and WildFly Swarm will figure out reasonable defaults. However, if you would like to customize the configuration, this is possible using ShrinkWrap and `SwaggerArchive`. Configure this in the `main()` method for your application.
 
 [source,java]
 ----
@@ -74,4 +76,4 @@ The `swagger` fraction pulls in the required dependencies, and when your applica
 }
 ----
 
-The packages are recursively scanned, so if you have a package heirarchy, you just need to set the top level package name.
+The packages are recursively scanned, so if you have a package heirarchy, you just need to set the top level package name. See the https://github.com/wildfly-swarm/wildfly-swarm/blob/master/swagger/api/src/main/java/org/wildfly/swarm/swagger/SwaggerArchive.java[`SwaggerArchive`] interface for additional configuration options.
