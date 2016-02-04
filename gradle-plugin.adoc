@@ -1,0 +1,91 @@
+= Gradle Plugin
+
+To assist in building WildFly Swarm projects, a Gradle plugin is available.  This plugin creates the ```-swarm.jar``` uberjar which contains your application along with the necessary parts of WildFly to support it.
+
+== Packaging your application
+
+To use the plugin, you must add it to your `build.gradle`:
+
+[source,groovy]
+----
+buildscript {
+  repositories {
+    mavenLocal()
+    mavenCentral()
+  }
+
+  dependencies {
+    classpath "org.wildfly.swarm:wildfly-swarm-plugin:1.0.0.Alpha9-SNAPSHOT"
+  }
+}
+
+apply plugin: 'wildfly-swarm'
+----
+
+To produce the `_myapp_-swarm.jar`, simply perform a `gradle wildfly-swarm-package` command after adding the plugin.
+
+== Configuration
+
+You can optionally provide configuration to the plugin.
+
+=== Configuration Options
+
+The plugin accepts the following options:
+
+[cols=4, options="header"]
+|===
+|Name
+|Description
+|Default
+
+|bundleDependencies
+|If true, dependencies will be included in the -swarm.jar. Otherwise, they will be resolved from `$M2_REPO` or the network.
+|true
+
+|mainClassName
+|A class to execute as the main. If not set, the plugin will check for `mainClassName` from the `application` plugin before using the default.
+|org.wildfly.swarm.bootstrap.Main
+
+|modules
+|Paths to a directory containing additional module definitions
+|./modules
+
+|properties
+|(see properties section below)
+|
+
+|propertiesFile
+|(see properties section below)
+|
+|===
+
+
+=== Properties
+
+Many properties may be used to configure execution and affect the packaging or running of your application.
+
+If you set a `properties` map or the `propertiesFile` field in the `swarm` block in your build script, the properties will be added to your `_myapp_-swarm.jar` to affect subsequent executions of the uberjar.  Any properties loaded from `propertiesFile` will override same-named properties from `properties`.
+
+Any properties added to the uberjar can of course be overridden at runtime using the traditional `-Dname=value` mechanism of `java`.
+
+Only properties specified outside of `properties` or `propertiesFile` that start with `jboss.`, `wildfly.`, or `swarm.`, or override a property specified in `properties` or `propertiesFile` are added to the uberjar at package time.
+
+
+Please see <<configuration_properties.adoc#,Configuration Properties>> for a non-exhaustive list of useful properties.
+
+=== Example
+
+[source,groovy]
+----
+swarm {
+  properties {
+    swarm.http.port = 8181
+    my.app.property = 'biscuits'
+  }
+
+  bundleDependencies = false
+  moduleDirs = [new File(buildDir, 'resources/main/modules')]
+  propertiesFile = new File(buildDir, "resources/main/some.properties")
+}
+----
+
