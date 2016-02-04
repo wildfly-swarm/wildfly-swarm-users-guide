@@ -195,9 +195,9 @@ The plugin accepts the following options:
 
 === Properties
 
-Many properties may be used to configuration execution and affect the packaging or running of your application.
+Many properties may be used to configure execution and affect the packaging or running of your application.
 
-By adding a `<properties>` or `<propertiesFile>` section to the `<configuration>` of the plugin, the properties will be used when running your application via `mvn wildfly-swarm:run`.  Additionally, those same properties will be added to your `_myapp_-swarm.jar` to affect subsequent executions of the uberjar.  Any properties loaded from `<propertiesFile>` will override same-named properties from `<properties>`.
+If you add a `<properties>` or `<propertiesFile>` section to the `<configuration>` of the plugin, the properties will be used when running your application via `mvn wildfly-swarm:run`.  Additionally, those same properties will be added to your `_myapp_-swarm.jar` to affect subsequent executions of the uberjar.  Any properties loaded from `<propertiesFile>` will override same-named properties from `<properties>`.
 
 Any properties added to the uberjar can of course be overridden at runtime using the traditional `-Dname=value` mechanism of `java`.
 
