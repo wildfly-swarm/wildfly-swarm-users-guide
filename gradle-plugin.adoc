@@ -24,6 +24,40 @@ apply plugin: 'wildfly-swarm'
 
 To produce the `_myapp_-swarm.jar`, simply perform a `gradle wildfly-swarm-package` command after adding the plugin.
 
+== Using the WildFly Swarm BOM
+
+WildFly Swarm provides a BOM that specifies the versions for all of the provided fractions. To import it into your gradle build, you'll need to use the https://github.com/spring-gradle-plugins/dependency-management-plugin[dependency-management-plugin]:
+
+[source,groovy]
+----
+buildscript {
+  repositories {
+    mavenLocal()
+    mavenCentral()
+  }
+
+  dependencies {
+    classpath "io.spring.gradle:dependency-management-plugin:0.5.6.RELEASE"
+    classpath "org.wildfly.swarm:wildfly-swarm-plugin:1.0.0.Alpha9-SNAPSHOT"
+  }
+}
+
+apply plugin: "io.spring.dependency-management"
+apply plugin: 'wildfly-swarm'
+
+
+dependencyManagement {
+  imports {
+    mavenBom "org.wildfly.swarm:bom:1.0.0.Alpha9-SNAPSHOT"
+  }
+}
+
+dependencies {
+  compile "org.wildfly.swarm:jaxrs"
+}
+----
+
+
 == Configuration
 
 You can optionally provide configuration to the plugin.
