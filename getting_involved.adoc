@@ -1,26 +1,26 @@
-== Getting Involved
+= Getting Involved
 
 WildFly Swarm is an open-source project sponsored by Red Hat, Inc.
 
-=== Source Code
+== Source Code
 
 WildFly Swarm's source-code is completely open and hosted on GitHub:
 
 https://github.com/wildfly-swarm/wildfly-swarm
 
-=== Documentation
+== Documentation
 
 This documentation is also maintained on GitHub and published using GitBooks.io.
 
 https://github.com/wildfly-swarm/wildfly-swarm-users-guide
 
-=== Bugs & Feature Requests
+== Bugs & Feature Requests
 
 The project uses GitHub issues to track bugs and feature requests:
 
 https://github.com/wildfly-swarm/wildfly-swarm/issues
 
-=== Chat
+== Chat
 
 The project piggy-backs on the code WildFly HipChat room:
 
