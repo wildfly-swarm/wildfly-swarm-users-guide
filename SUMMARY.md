@@ -25,7 +25,9 @@
  * [JSF](jsf.adoc)
  * [Messaging](messaging.adoc)
 * [Topology](topology.adoc)
-* [NetflixOSS](netflixoss.adoc)
+* Enterprise Java
+ * [NetflixOSS](netflixoss.adoc)
+ * [Spring](spring.adoc)
 * Security
  * [Keycloak](keycloak.adoc)
  * [Keycloak Server](keycloak_server.adoc)
