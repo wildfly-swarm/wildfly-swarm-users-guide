@@ -19,7 +19,7 @@
    * [Management](management.adoc)
    * [JGroups](jgroups.adoc)
    * [Infinispan](infinispan.adoc)
-* Enterprise Java
+* [Enterprise Java](enterprise-java.adoc)
    * Java EE
        * [JAX-RS](jax-rs.adoc)
        * [Weld (CDI)](weld_cdi.adoc)
