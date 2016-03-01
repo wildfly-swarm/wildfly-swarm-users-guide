@@ -3,7 +3,7 @@
 * [Introduction](README.adoc)
 * [Basics](basics.adoc)
 * [Getting Involved](getting_involved.adoc)
-* Plugins
+* [Plugins]()
  * [Maven](maven-plugin.adoc)
  * [Gradle](gradle-plugin.adoc)
 * Application Type
