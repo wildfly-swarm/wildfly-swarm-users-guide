@@ -15,7 +15,7 @@
 * [Logging](logging-parent.adoc)
    * [Logging](logging.adoc)
    * [Logstash](logstash.adoc)
-* WildFly
+* [WildFly](wildfly.adoc)
    * [Management](management.adoc)
    * [JGroups](jgroups.adoc)
    * [Infinispan](infinispan.adoc)
