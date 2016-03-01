@@ -1,4 +1,4 @@
-=== Maven Plugin
+= Maven Plugin
 
 To assist in building WildFly Swarm projects, a Maven plugin is available.  This plugin creates the ```-swarm.jar``` uberjar which contains your application along with the necessary parts of WildFly to support it.
 
