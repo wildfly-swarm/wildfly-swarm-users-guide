@@ -6,7 +6,7 @@
 * [Plugins](plugins.adoc)
    * [Maven](maven-plugin.adoc)
    * [Gradle](gradle-plugin.adoc)
-* Application Type
+* [Application Type](application-type.adoc)
    * [WAR](war-applications.adoc)
    * [JAR](jar-applications.adoc)
 * [Container](container.adoc)
