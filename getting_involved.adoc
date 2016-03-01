@@ -22,6 +22,4 @@ https://github.com/wildfly-swarm/wildfly-swarm/issues
 
 == Chat
 
-The project piggy-backs on the code WildFly HipChat room:
-
-https://www.hipchat.com/gW90m6pIs
+You can find us in http://webchat.freenode.net/?channels=wildfly-swarm[#wildfly-swarm] on Freenode.
