@@ -3,6 +3,9 @@
   "structure": {
       "readme": "README.adoc"
   },
+  "plugins": [
+      "toggle-chapters"
+  ],
   "variables": {
       "javadoc": "http://wildfly-swarm.github.io/wildfly-config-api/0.3.25/apidocs/org/wildfly/swarm/config",
       "versions": {
