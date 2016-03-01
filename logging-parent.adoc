@@ -1,2 +1,6 @@
-# Logging
+= Logging
 
+There are a couple of ways to provide logging with WildFly Swarm:
+
+* link:logging.adoc[General Logging]
+* link:logstash.adoc[Logstash]
