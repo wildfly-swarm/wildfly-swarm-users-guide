@@ -20,7 +20,7 @@
    * [JGroups](jgroups.adoc)
    * [Infinispan](infinispan.adoc)
 * [Enterprise Java](enterprise-java.adoc)
-   * Java EE
+   * [Java EE](java-ee.adoc)
        * [JAX-RS](jax-rs.adoc)
        * [Weld (CDI)](weld_cdi.adoc)
        * [Messaging](messaging.adoc)
