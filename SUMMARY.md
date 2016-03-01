@@ -19,15 +19,15 @@
  * [Management](management.adoc)
  * [JGroups](jgroups.adoc)
  * [Infinispan](infinispan.adoc)
-* Java EE
- * [JAX-RS](jax-rs.adoc)
- * [Weld (CDI)](weld_cdi.adoc)
- * [JSF](jsf.adoc)
- * [Messaging](messaging.adoc)
-* [Topology](topology.adoc)
 * Enterprise Java
+ * Java EE
+   * [JAX-RS](jax-rs.adoc)
+   * [Weld (CDI)](weld_cdi.adoc)
+   * [Messaging](messaging.adoc)
+   * [JSF](jsf.adoc)
  * [NetflixOSS](netflixoss.adoc)
  * [Spring](spring.adoc)
+* [Topology](topology.adoc)
 * Security
  * [Keycloak](keycloak.adoc)
  * [Keycloak Server](keycloak_server.adoc)
