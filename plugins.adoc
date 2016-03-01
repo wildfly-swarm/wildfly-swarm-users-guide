@@ -1,0 +1,6 @@
+== Plugins
+
+WildFly Swarm currently has plugins for:
+
+. link:maven-plugin.adoc[Maven]
+. link:gradle-plugin.adoc[Gradle]
