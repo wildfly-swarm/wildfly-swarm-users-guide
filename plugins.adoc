@@ -1,4 +1,4 @@
-== Plugins
+= Plugins
 
 WildFly Swarm currently has plugins for:
 
