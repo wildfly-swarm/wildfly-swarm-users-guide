@@ -2,7 +2,7 @@
 
 Logging is supported by WildFly Swarm using the typical JBoss-Logging systems. By default, logging occurs to the console. Advanced configuration can adjust the amount of information logged and where the log ends up (files or console or other locations).
 
-= Including Logging Capabilities
+=== Including Logging Capabilities
 
 Several of the higher-order fractions include logging by default. If you need to include it explicitly, though, you may use the following Maven coordinates.
 
@@ -14,7 +14,7 @@ Several of the higher-order fractions include logging by default. If you need to
 </dependency>
 ----
 
-= Configuration
+=== Configuration
 
 Including the above dependency will automatically configure reasonable INFO-level logging to the console. You can control the logging level with the `swarm.logging` sysprop: `-Dswarm.logging=DEBUG`.
 

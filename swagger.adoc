@@ -5,7 +5,7 @@ Swagger is a formal specification for a language-agnostic interface to REST APIs
 
 A simple `swagger.json` will look something like this.
 
-[code,json]
+[source,json]
 ----
 {
     "swagger":"2.0",
