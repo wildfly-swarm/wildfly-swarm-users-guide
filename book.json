@@ -5,7 +5,8 @@
   },
   "plugins": [
       "toggle-chapters",
-      "ungrey"
+      "ungrey",
+      "expandable-chapters"
   ],
   "variables": {
       "javadoc": "http://wildfly-swarm.github.io/wildfly-config-api/0.3.25/apidocs/org/wildfly/swarm/config",
