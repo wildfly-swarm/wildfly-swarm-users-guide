@@ -4,9 +4,10 @@ WildFly Swarm is an open-source project sponsored by Red Hat, Inc.
 
 == Source Code
 
-WildFly Swarm's source-code is completely open and hosted on GitHub:
+WildFly Swarm's source-code is completely open and hosted on GitHub under the
+WildFly Swarm organization:
 
-https://github.com/wildfly-swarm/wildfly-swarm
+https://github.com/wildfly-swarm
 
 == Documentation
 
