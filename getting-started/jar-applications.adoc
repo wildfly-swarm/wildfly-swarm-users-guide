@@ -1,4 +1,4 @@
-= JAR Applications
+= JAR Packaging
 
 If you desire to move away from traditionally-packaged `.war` applications, more options are available to you with WildFly Swarm.  Though a fluent API, you can fully configure the facilities brought to your application and control what gets deployed.
 
@@ -15,7 +15,7 @@ public class Main {
   public static void main(String...args) {
     ..
   }
-  
+
 }
 ----
 
@@ -25,7 +25,7 @@ The primary methods on `Container` are:
 
 [cols=2, options="header"]
 |===
-|Name 
+|Name
 |Description
 
 | `fraction(...)`

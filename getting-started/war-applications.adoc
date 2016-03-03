@@ -1,4 +1,4 @@
-= WAR Applications
+= WAR Packaging
 
 If you have an existing WAR-based application, you can construct a self-contained `_myapp_-swarm.jar` from it with ease. By using the plugin of your choice (Maven or Gradle), the resulting uberjar will contain your application along with enough of the application-server to support it.
 
@@ -9,7 +9,7 @@ When building a WAR-based application, you currently can not supply a `main(...)
 For a Maven project, you already have a `pom.xml` with
 
     <packaging>war</packaging>
-    
+
 Simply add configuration for the `wildfly-swarm-plugin`:
 
 [source,xml]
@@ -23,10 +23,9 @@ Simply add configuration for the `wildfly-swarm-plugin`:
   </plugins>
 </build>
 ----
-    
+
 When you perform a typical Maven build using `mvn package`, your `target` directory will include a `_myapp_-swarm.jar` version of your application.
 
 This artifact can then be executed using:
 
     java -jar ./target/myapp-swarm.jar
-    

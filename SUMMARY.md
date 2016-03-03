@@ -1,39 +1,38 @@
 # Summary
 
 * [Introduction](README.adoc)
-* [Basics](basics.adoc)
-* [Getting Involved](getting_involved.adoc)
-* Plugins
-   * [Maven](/plugins/maven-plugin.adoc)
-   * [Gradle](/plugins/gradle-plugin.adoc)
-* Application Type
-   * [WAR](war-applications.adoc)
-   * [JAR](jar-applications.adoc)
-* [Container](container.adoc)
-* [ShrinkWrap](shrinkwrap.adoc)
+* Getting Started
+  * [Overview](getting-started/basics.adoc)
+  * Plugins
+    * [Maven](getting-started/plugins/maven-plugin.adoc)
+    * [Gradle](getting-started/plugins/gradle-plugin.adoc)
+  * Application Packaging
+    * [WAR](getting-started/war-applications.adoc)
+    * [JAR](getting-started/jar-applications.adoc)
+  * [Container](getting-started/container.adoc)
+  * [ShrinkWrap](getting-started/shrinkwrap.adoc)
+* Common Fractions
+  * [Logging](common/logging.adoc)
+  * [JAX-RS](common/jax-rs.adoc)
+  * [Weld (CDI)](common/weld_cdi.adoc)
+  * [Messaging](common/messaging.adoc)
+  * [JSF](common/jsf.adoc)
+  * [NetflixOSS](common/netflixoss.adoc)
+  * [Spring](common/spring.adoc)
 * [Configuration Properties](configuration_properties.adoc)
-* Logging
-   * [Logging](logging.adoc)
-   * [Logstash](logstash.adoc)
-* WildFly
-   * [Management](management.adoc)
-   * [JGroups](jgroups.adoc)
-   * [Infinispan](infinispan.adoc)
-* Enterprise Java
-   * Java EE
-       * [JAX-RS](jax-rs.adoc)
-       * [Weld (CDI)](weld_cdi.adoc)
-       * [Messaging](messaging.adoc)
-       * [JSF](jsf.adoc)
-   * [NetflixOSS](netflixoss.adoc)
-   * [Spring](spring.adoc)
-* [Topology](topology.adoc)
-* Security
-   * [Keycloak](keycloak.adoc)
-   * [Keycloak Server](keycloak_server.adoc)
-* [Jolokia](jolokia.adoc)
-* [Swagger](swagger.adoc)
-* [Servers](servers.adoc)
 * [Testing with Arquillian](testing_with_arquillian.adoc)
+* Security
+   * [Keycloak](security/keycloak.adoc)
+   * [Keycloak Server](security/keycloak_server.adoc)
+* Advanced Fractions
+   * [Logstash](advanced/logstash.adoc)
+   * [Management](advanced/management.adoc)
+   * [JGroups](advanced/jgroups.adoc)
+   * [Infinispan](advanced/infinispan.adoc)
+   * [Topology](advanced/topology.adoc)
+   * [Jolokia](advanced/jolokia.adoc)
+   * [Swagger](advanced/swagger.adoc)
+* [Pre-built Servers](servers.adoc)
 * [Implementation Details](implementation_details.adoc)
+* [Getting Involved](getting_involved.adoc)
 * [License](license.adoc)
