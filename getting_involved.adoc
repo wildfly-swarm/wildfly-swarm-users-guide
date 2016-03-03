@@ -16,9 +16,9 @@ https://github.com/wildfly-swarm/wildfly-swarm-users-guide
 
 == Bugs & Feature Requests
 
-The project uses GitHub issues to track bugs and feature requests:
+The project uses JIRA to track bugs and feature requests:
 
-https://github.com/wildfly-swarm/wildfly-swarm/issues
+https://issues.jboss.org/browse/SWARM
 
 == Chat
 
