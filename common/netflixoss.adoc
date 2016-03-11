@@ -63,7 +63,7 @@ deployment.as(TopologyArchive.class)
 container.deploy( deployment );
 ----
 
-If you haven't named the archive, or wish to advetise it with a distinct service-name, there is a version of `advertise(...)` which can take the service name as an argument.
+If you haven't named the archive, or wish to advertise it with a distinct service-name, there is a version of `advertise(...)` which can take the service name as an argument.
 
 [source,java]
 ----
@@ -77,7 +77,7 @@ container.deploy( deployment );
 
 == Secured Ribbon
 
-If your application is using <<fake/../security/keycloak#,Keycloak>> to secure your services, and you are using Ribbon to invoke those services, you'll want to use the secured variant of Ribbon.  This requires a slightly different dependency:
+If your application is using <<fake/../security/keycloak.adoc#,Keycloak>> to secure your services, and you are using Ribbon to invoke those services, you'll want to use the secured variant of Ribbon.  This requires a slightly different dependency:
 
 [source,xml]
 <dependency>
