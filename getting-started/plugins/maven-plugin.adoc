@@ -1,6 +1,6 @@
 = Maven Plugin
 
-To assist in building WildFly Swarm projects, a Maven plugin is available.  This plugin creates the ```-swarm.jar``` uberjar which contains your application along with the necessary parts of WildFly to support it.
+To assist in building WildFly Swarm projects, a Maven plugin is available.  This plugin creates the `-swarm.jar` uberjar which contains your application along with the necessary parts of WildFly to support it.
 
 == Configuration
 
@@ -54,6 +54,10 @@ To produce the `_myapp_-swarm.jar`, simply perform a typical `mvn package` comma
 </plugins>
 ----
 
+=== Fraction Detection
+
+If the plugin doesn't detect any WildFly Swarm dependencies in your `pom.xml`, it will attempt to auto-detect needed fractions by scanning the application. This is mostly useful for WAR-based applications that you are migrating to WildFly Swarm - you only need to add the plugin to your configuration, and not any other WildFly Swarm dependencies. 
+
 == Running your application
 
 To execute your application, you may use the `wildfly-swarm:run` goal:
@@ -61,6 +65,9 @@ To execute your application, you may use the `wildfly-swarm:run` goal:
     mvn wildfly-swarm:run
     
 This will execute your application within the WildFly Swarm runtime directly from the Maven command-line, and wait for it to exit. If you want to start the application without maven waiting for it to exit, use the `wildfly-swarm:start` goal.
+
+Both of these goals will perform the same type of fraction detection as the `package` task if no WildFly Swarm dependencies are found.
+
 
 === Starting multiple applications at once
 
@@ -145,6 +152,11 @@ The plugin accepts the following options:
 |A `.properties` file of environment variables to use when running the application
 |
 |`multistart`, `run`, `start`
+
+|fractions
+|A list of extra fractions to include when auto-detection is used, useful for fractions that can't be detected or user-provided fractions. Each fraction can be of the form `group:name:version`, `name:version`, or `name`. If no group is provided, `org.wildfly.swarm` is assumed. If no version is provided, the version is looked up from the WildFly Swarm BOM for the version of the plugin you are using.
+|
+|`package`, `run`, `start`
 
 |jvmArguments
 |A list of <jvmArgument> elements specifying additional JVM arguments (such as `-Xmx32m`)
