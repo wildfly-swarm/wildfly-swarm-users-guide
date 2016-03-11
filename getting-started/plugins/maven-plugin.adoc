@@ -216,4 +216,4 @@ Any properties added to the uberjar can of course be overridden at runtime using
 Only properties specified outside of `<properties>` or `<propertiesFile>` that start with `jboss.`, `wildfly.`, `swarm.`, or `maven.`, or override a property specified in `<properties>` or `<propertiesFile>` are added to the uberjar at package time.
 
 
-Please see <<fake/../../configuration_properties.adoc#,Configuration Properties>> for a non-exhaustive list of useful properties.
+Please see <<fake/../../../configuration_properties.adoc#,Configuration Properties>> for a non-exhaustive list of useful properties.
