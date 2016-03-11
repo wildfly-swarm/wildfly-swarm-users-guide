@@ -77,7 +77,7 @@ container.deploy( deployment );
 
 == Secured Ribbon
 
-If your application is using <<keycloak#,Keycloak>> to secure your services, and you are using Ribbon to invoke those services, you'll want to use the secured variant of Ribbon.  This requires a slightly different dependency:
+If your application is using <<../security/keycloak#,Keycloak>> to secure your services, and you are using Ribbon to invoke those services, you'll want to use the secured variant of Ribbon.  This requires a slightly different dependency:
 
 [source,xml]
 <dependency>

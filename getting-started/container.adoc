@@ -8,7 +8,7 @@ The container can either be instantiated inside your own `main(...)`, or if you 
 
 == User-Provided `main(...)`
 
-If you provide a `main(...)` and configure it in using the <<maven-plugin.adoc#,Maven Plugin>> or <<gradle-plugin.adoc#,Gradle Plugin>>, it should simply be a regular Java `main(...)` method.
+If you provide a `main(...)` and configure it in using the <<plugins/maven-plugin#,Maven Plugin>> or <<plugins/gradle-plugin#,Gradle Plugin>>, it should simply be a regular Java `main(...)` method.
 
 Because of some initialization timing issues, you should construct the `Container` prior to working with any deployments using the <<shrinkwrap.adoc#,ShrinkWrap API>>.
 

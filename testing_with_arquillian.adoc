@@ -99,7 +99,7 @@ public class MyTest {
 === Passing additional options to the -swarm.jar
 
 The Arquillian container for WildFly Swarm supports the following system properties in addition to those listed in 
-the <<maven-plugin#,plugin chapter>>:
+the <<getting-started/plugins/maven-plugin#,plugin chapter>>:
 
 [cols=3, options="header"]
 |===
