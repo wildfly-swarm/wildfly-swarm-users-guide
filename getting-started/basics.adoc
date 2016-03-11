@@ -27,6 +27,6 @@ If you're using Maven, version 3.2.5 or higher is recommended.
 
 == Terminology
 
-Fraction:: A well-defined collection of capabilities to add.  In some cases, a _fraction_ maps directly to a _subsystem_ from WildFly, but in other cases (e.g. <<fake/../advanced/jolokia#,Jolokia>>) a fraction may involve different functionality.
+Fraction:: A well-defined collection of capabilities to add.  In some cases, a _fraction_ maps directly to a _subsystem_ from WildFly, but in other cases (e.g. <<fake/../advanced/jolokia.adoc#,Jolokia>>) a fraction may involve different functionality.
 
 Uberjar:: A self-contained, executable Java archive. In the case of WildFly Swarm uberjars, it is a single `.jar` file containing your application, the portions of WildFly required to support it, an internal Maven repository of dependencies, plus a shim to bootstrap it all.
