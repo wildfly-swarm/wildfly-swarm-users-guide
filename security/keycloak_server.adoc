@@ -18,4 +18,4 @@ There is currently no configuration required beyond this. The Keycloak Server wi
 
 == Standalone Keycloak Server
 
-Please see the chapter on <<../servers#,Servers>>.
+Please see the chapter on <<fake/../../servers#,Servers>>.
