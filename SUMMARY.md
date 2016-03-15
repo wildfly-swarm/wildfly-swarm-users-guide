@@ -6,6 +6,7 @@
   * Plugins
     * [Maven](getting-started/plugins/maven-plugin.adoc)
     * [Gradle](getting-started/plugins/gradle-plugin.adoc)
+    * [Forge Add-on](getting-started/plugins/forge-addon.adoc)
   * Application Packaging
     * [WAR](getting-started/war-applications.adoc)
     * [JAR](getting-started/jar-applications.adoc)
