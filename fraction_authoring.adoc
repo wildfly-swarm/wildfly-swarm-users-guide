@@ -1,0 +1,172 @@
+= Fraction Authoring
+
+== Introduction
+
+The composable pieces of WildFly Swarm are called _fractions_. Each fraction
+starts with a single Maven-addressable artifact which ultimately brings in
+others.
+
+We refer the various pieces as
+
+- _root_: The user-referenced piece that provides BOM-like capabilities
+  in order to make all the functionality available.
+
+- _api_: Transitively brought in from the _root_, and provides whatever
+  user-facing API is required for configuring the fraction.
+
+- _runtime_: The back-end portion of the fraction (if required) that
+  provides runtime-support.
+
+- _modules_: An artifact containing a tree of `module.xml` files used
+  by JBoss Modules in order to support our modular classloading.
+
+Each of the above is typically laid out as a multi-project Maven tree.
+
+For a hypothetical _Jolokia_ fraction:
+
+[source,shell]
+----
+jolokia/pom.xml    # jolokia-parent
+  jolokia/
+    pom.xml        # jolokia (root)
+  api/
+    pom.xml        # jolokia-api
+    src/...
+  runtime/
+    pom.xml        # jolokia-runtime
+    src/...
+  modules/
+    pom.xml        # jolokia-modules
+    src/...
+----
+
+== The Parent
+
+At the top of the tree, the `pom.xml` is the `-parent` artifact simply
+to arrange Maven `<dependencyManagement>`, configure plugins and aggregate
+the builds of the lower projects.
+
+It is useful to set at least a pair of properties, specifying the version
+of the WildFly Swarm SPI and fraction-plugin being used:
+
+[source,xml]
+----
+<properties>
+  <version.swarm.spi>1.0.0.Beta3</version.swarm.spi>
+  <version.swarm.fraction-plugin>1.0.0.Beta2</version.swarm.fraction-plugin>
+</properties>
+----
+
+The SPI should be mixed into the `<dependencyManagement>` section, imported
+as a BOM.  Additionally, the components of the fraction itself can be managed
+in order to make cross-dependency specification in the lower-level `pom.xml`
+files easier:
+
+[source,xml]
+----
+<dependencyManagement>
+  <dependencies>
+    <dependency>                                <!--1-->
+      <groupId>org.wildfly.swarm</groupId>
+      <artifactId>spi</artifactId>
+      <version>${version.swarm.spi}</version>
+      <type>pom</type>
+      <scope>import</scope>
+    </dependency>
+
+    <dependency>                                <!--2-->
+      <groupId>org.wildfly.swarm</groupId>
+      <artifactId>jolokia</artifactId>
+      <version>1.0.0.Beta3-SNAPSHOT</version>
+    </dependency>
+    <dependency>
+      <groupId>org.wildfly.swarm</groupId>
+      <artifactId>jolokia-api</artifactId>
+      <version>1.0.0.Beta3-SNAPSHOT</version>
+    </dependency>
+    <dependency>
+      <groupId>org.wildfly.swarm</groupId>
+      <artifactId>jolokia-modules</artifactId>
+      <version>1.0.0.Beta3-SNAPSHOT</version>
+    </dependency>
+    <dependency>
+      <groupId>org.wildfly.swarm</groupId>
+      <artifactId>jolokia-runtime</artifactId>
+      <version>1.0.0.Beta3-SNAPSHOT</version>
+    </dependency>
+  </dependencies>
+</dependencyManagement>
+----
+<1> Import the SPI BOM
+<2> Manage all other components of this fraction
+
+== The Root
+
+In our above example, `jolokia/jolokia/pom.xml` lives by itself, with no 
+related source, but ties together the remaining bits, and is the artifact 
+referenced by a user's application.  This is the _root_ artifact.
+
+The project, while it has `<packaging>jar</packaging>`, does not include
+any source.  Instead it provides transitive dependencies to the 
+various other bits of the fraction, along with transitive dependencies
+to any other entire fractions required by this one.
+
+Jolokia, for instance, is deployed as a WAR file, and thus this fraction
+requires the `undertow` fraction also.
+
+[source,xml]
+----
+<project xmlns="http://maven.apache.org/POM/4.0.0" 
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <groupId>org.wildfly.swarm</groupId>
+    <artifactId>jolokia-parent</artifactId>
+    <version>1.0.0.Beta3-SNAPSHOT</version>
+    <relativePath>../</relativePath>
+  </parent>
+
+  <groupId>org.wildfly.swarm</groupId>
+  <artifactId>jolokia</artifactId>        <!--1-->
+
+  <name>WildFly Swarm: Jolokia</name>
+  <description>WildFly Swarm: Jolokia</description>
+
+  <packaging>jar</packaging>
+
+  <dependencies>
+    <dependency>                          <!--2-->
+      <groupId>org.wildfly.swarm</groupId>
+      <artifactId>jolokia-api</artifactId>
+    </dependency>
+    <dependency>                          <!--3-->
+      <groupId>org.wildfly.swarm</groupId>
+      <artifactId>jolokia-modules</artifactId>
+    </dependency>
+    <dependency>                          <!--4-->
+      <groupId>org.wildfly.swarm</groupId>
+      <artifactId>jolokia-runtime</artifactId>
+      <scope>provided</scope>
+    </dependency>
+
+    <dependency>                          <!--5-->
+      <groupId>org.wildfly.swarm</groupId>
+      <artifactId>undertow</artifactId>
+    </dependency>
+
+  </dependencies>
+
+</project>
+----
+<1> The `artifactId` is the simple, user-referencable name of the fraction.
+<2> The `-api` artifact is implicitly `<scope>compile</scope>`
+<3> The `-modules` artifact is implicitly `<scope>compile</scope>`
+<4> The `-runtime` artifact is explicitly `<scope>provided</scope>`
+<5> Any other required fractions are referenced by their simple _root_
+    `artifactId` with an implicit `<scope>compile</scope>`.
+
+Please note, the versions of each dependency are managed by the `-parent` POM
+described in the previous section.
