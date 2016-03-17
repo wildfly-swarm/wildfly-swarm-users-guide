@@ -3,10 +3,10 @@
 * [Introduction](README.adoc)
 * Getting Started
   * [Overview](getting-started/basics.adoc)
-  * Plugins
-    * [Maven](getting-started/plugins/maven-plugin.adoc)
-    * [Gradle](getting-started/plugins/gradle-plugin.adoc)
-    * [Forge Add-on](getting-started/plugins/forge-addon.adoc)
+  * Tooling
+    * [Maven](getting-started/tooling/maven-plugin.adoc)
+    * [Gradle](getting-started/tooling/gradle-plugin.adoc)
+    * [Forge Add-on](getting-started/tooling/forge-addon.adoc)
   * Application Packaging
     * [WAR](getting-started/war-applications.adoc)
     * [JAR](getting-started/jar-applications.adoc)
