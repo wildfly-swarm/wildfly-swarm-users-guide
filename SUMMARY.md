@@ -35,5 +35,6 @@
    * [Swagger](advanced/swagger.adoc)
 * [Pre-built Servers](servers.adoc)
 * [Implementation Details](implementation_details.adoc)
+* [Fraction Authoring](fraction_authoring.adoc)
 * [Getting Involved](getting_involved.adoc)
 * [License](license.adoc)
