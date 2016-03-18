@@ -38,7 +38,7 @@ By default, JAX-RS does not provide CDI support.  To bring CDI support to your a
 ----
 <dependency>
   <groupId>org.wildfly.swarm</groupId>
-  <artifactId>jaxrs-weld</artifact>
+  <artifactId>jaxrs-weld</artifactId>
 </dependency>
 ----
     
