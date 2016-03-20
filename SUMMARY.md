@@ -34,7 +34,7 @@
    * [Topology](advanced/topology.adoc)
    * [Jolokia](advanced/jolokia.adoc)
    * [Swagger](advanced/swagger.adoc)
-   * STM
+   * [STM](advances/stm.adoc)
 * [Pre-built Servers](servers.adoc)
 * [Implementation Details](implementation_details.adoc)
 * [Fraction Authoring](fraction_authoring.adoc)
