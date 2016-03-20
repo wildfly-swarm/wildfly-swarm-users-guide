@@ -2,24 +2,24 @@
 
 * [Introduction](README.adoc)
 * Getting Started
-  * [Overview](getting-started/basics.adoc)
-  * Tooling
-    * [Maven](getting-started/tooling/maven-plugin.adoc)
-    * [Gradle](getting-started/tooling/gradle-plugin.adoc)
-    * [Forge Add-on](getting-started/tooling/forge-addon.adoc)
-  * Application Packaging
-    * [WAR](getting-started/war-applications.adoc)
-    * [JAR](getting-started/jar-applications.adoc)
-  * [Container](getting-started/container.adoc)
-  * [ShrinkWrap](getting-started/shrinkwrap.adoc)
-* Common Fractions
-  * [Logging](common/logging.adoc)
-  * [JAX-RS](common/jax-rs.adoc)
-  * [Weld (CDI)](common/weld_cdi.adoc)
-  * [Messaging](common/messaging.adoc)
-  * [JSF](common/jsf.adoc)
-  * [NetflixOSS](common/netflixoss.adoc)
-  * [Spring](common/spring.adoc)
+   * [Overview](getting-started/basics.adoc)
+   * Tooling
+       * [Maven](getting-started/tooling/maven-plugin.adoc)
+       * [Gradle](getting-started/tooling/gradle-plugin.adoc)
+       * [Forge Add-on](getting-started/tooling/forge-addon.adoc)
+   * Application Packaging
+       * [WAR](getting-started/war-applications.adoc)
+       * [JAR](getting-started/jar-applications.adoc)
+   * [Container](getting-started/container.adoc)
+   * [ShrinkWrap](getting-started/shrinkwrap.adoc)
+* [Common Fractions](Transactions)
+   * [Logging](common/logging.adoc)
+   * [JAX-RS](common/jax-rs.adoc)
+   * [Weld (CDI)](common/weld_cdi.adoc)
+   * [Messaging](common/messaging.adoc)
+   * [JSF](common/jsf.adoc)
+   * [NetflixOSS](common/netflixoss.adoc)
+   * [Spring](common/spring.adoc)
 * [Configuration Properties](configuration_properties.adoc)
 * [Testing with Arquillian](testing_with_arquillian.adoc)
 * Security
@@ -38,3 +38,4 @@
 * [Fraction Authoring](fraction_authoring.adoc)
 * [Getting Involved](getting_involved.adoc)
 * [License](license.adoc)
+
