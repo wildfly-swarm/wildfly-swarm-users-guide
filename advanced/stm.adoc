@@ -1,4 +1,5 @@
 = Software Transactional Memory (STM)
 
+As well as Java EE compliant transactions (JTA and JTS), WildFly Swarm provides advanced transaction support through the Narayana transaction project. One of these examples is Software Transactional Memory (STM). Much more detail can be found here (http://narayana.io/docs/project/index.html) but a summary is given below for completeness.
 
-
+In order to illustrate the Narayana STM implementation let's look at one of the WildFly Swarm examples (https://github.com/wildfly-swarm/wildfly-swarm-examples/tree/master/arjuna/stm-shrinkwrap).
