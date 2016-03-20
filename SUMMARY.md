@@ -20,7 +20,7 @@
    * [JSF](common/jsf.adoc)
    * [NetflixOSS](common/netflixoss.adoc)
    * [Spring](common/spring.adoc)
-   * [Transactions](transactions.adoc)
+   * Transactions
 * [Configuration Properties](configuration_properties.adoc)
 * [Testing with Arquillian](testing_with_arquillian.adoc)
 * Security
