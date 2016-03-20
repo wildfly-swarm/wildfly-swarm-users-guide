@@ -1,0 +1,24 @@
+= Transactions
+
+The Transactions fraction brings support for JTA and JTS to your application. This is based on the Narayana transaction manager and more information on configuring transactions can be found at http://narayana.io/documentation/index.html
+
+== Configuration
+
+To enable transactions for your application, you need to include the following dependency:
+
+[source,xml]
+----
+<dependency>
+  <groupId>org.wildfly.swarm</groupId>
+  <artifactId>transactions</artifactId>
+</dependency>
+----
+
+By default Narayana uses two TCP ports for recovery and status information in a distributed environment. These are 4712 and 4713, respectively. However, you can change these values in your `main(...)` function.
+
+[source,java]
+----
+container.subsystem(new TransactionsFraction(4712, 4713));
+----
+
+Note, if you change either or both of these values then you must ensure that all WildFly Swarm instances participating in the same transaction have these same values.
