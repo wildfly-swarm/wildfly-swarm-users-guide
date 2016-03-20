@@ -12,7 +12,7 @@
        * [JAR](getting-started/jar-applications.adoc)
    * [Container](getting-started/container.adoc)
    * [ShrinkWrap](getting-started/shrinkwrap.adoc)
-* [Common Fractions](Transactions)
+* [Common Fractions](transactions.adoc)
    * [Logging](common/logging.adoc)
    * [JAX-RS](common/jax-rs.adoc)
    * [Weld (CDI)](common/weld_cdi.adoc)
