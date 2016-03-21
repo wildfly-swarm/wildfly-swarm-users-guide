@@ -130,7 +130,7 @@ Usually the security for the endpoints behind '/health' will be inherited.
 (i.e. the security realm settings you configured)
 But you can override this policy with '@Health(inheritSecurity=false)'.
 
-If security is inherited, then the JAX-RS endpoint annotated with '@Health' will not be accessible directly anymore (yields HTTP 503).
+If security is inherited, then the JAX-RS endpoint annotated with '@Health' will not be accessible directly anymore (yields HTTP 403).
 If you don't inherit the security, it's up to you to make it secure the endpoint or leave it open.
 
 The combinations of using the @Health annotations with regard to the possible HTTP requests
