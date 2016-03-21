@@ -1,22 +1,23 @@
 = Node Status
 
 The monitoring fraction provides access to the runtime status on each node.
-The runtime information is exposed through a RESTful HTTP interface and gives access following information:
+The runtime information is exposed through a HTTP interface and gives access following information:
 
 [cols=3, options="header"]
 |===
 |WebContext
 |Description
-|Example
+|Content-Type
 
 |/node
 |Node specific identifiers and overall runtime status (i.e. reload and suspend states)
-|
+|application/json
 
 3+|
 +++
 <pre>
-{   "name" : "macbook-pro-2",
+{
+      "name" : "macbook-pro-2",
       "server-state" : "running",
       "suspend-state" : "RUNNING",
       "running-mode" : "NORMAL",
@@ -28,7 +29,7 @@ The runtime information is exposed through a RESTful HTTP interface and gives ac
 
 |/heap
 |The JVM heap usage
-|
+|application/json
 
 3+|
 +++
@@ -52,7 +53,7 @@ The runtime information is exposed through a RESTful HTTP interface and gives ac
 
 |/threads
 |The JVM thread usage
-|
+|application/json
 
 3+|
 +++
@@ -68,9 +69,9 @@ The runtime information is exposed through a RESTful HTTP interface and gives ac
 +++
 
 |/health
-|Redirects to the @Health endpoints
-| See 'Health' section further down
-+++
+|Redirects to the @Health endpoints (See 'Health' section further down)
+|application specific (i.e. depends on the contract with the service registry)
+
 |===
 
 == Configuration
@@ -129,8 +130,8 @@ Usually the security for the endpoints behind '/health' will be inherited.
 (i.e. the security realm settings you configured)
 But you can override this policy with '@Health(inheritSecurity=false)'.
 
-If security is inherited, then the JAX-RS endpoint annotated with '@Health' will not be accessible directly anymore.
-If you don't inherit the security it's up to you to make it secure or leave it open.
+If security is inherited, then the JAX-RS endpoint annotated with '@Health' will not be accessible directly anymore (yields HTTP 503).
+If you don't inherit the security, it's up to you to make it secure the endpoint or leave it open.
 
 The combinations of using the @Health annotations with regard to the possible HTTP requests
  are outlined in the table below:
@@ -138,7 +139,7 @@ The combinations of using the @Health annotations with regard to the possible HT
 [cols=3, options="header"]
 |===
 |Request path
-|@Health Annotaiton
+|@Health Annotation
 |Outcome
 
 |/health
