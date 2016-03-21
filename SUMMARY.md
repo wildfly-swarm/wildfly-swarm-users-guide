@@ -30,7 +30,7 @@
 * Advanced Fractions
    * [Logstash](advanced/logstash.adoc)
    * [Management](advanced/management.adoc)
-   * [Monitoring](advanced/monitoring.adoc)
+   * [Node Status](advanced/monitoring.adoc)
    * [JGroups](advanced/jgroups.adoc)
    * [Infinispan](advanced/infinispan.adoc)
    * [Topology](advanced/topology.adoc)
@@ -42,4 +42,3 @@
 * [Fraction Authoring](fraction_authoring.adoc)
 * [Getting Involved](getting_involved.adoc)
 * [License](license.adoc)
-

@@ -1,4 +1,4 @@
-= Monitoring
+= Node Status
 
 The monitoring fraction provides access to the runtime status on each node.
 The runtime information is exposed through a RESTful HTTP interface and gives access following information:
@@ -75,7 +75,7 @@ The runtime information is exposed through a RESTful HTTP interface and gives ac
 
 == Configuration
 
-To use the management fraction in your application, you need to add the following dependency:
+To use the monitor fraction in your application, you need to add the following dependency:
 
 [source,xml]
 ----
@@ -86,13 +86,16 @@ To use the management fraction in your application, you need to add the followin
 ----
 
 === Security
-In order to secure the monitoring endpoints you'll need to include the 'management' fraction and configure the 'ManagementRealm'.
+In order to secure access to the HTTP endpoints you'll need to include the 'management' fraction and configure a security realm.
 See https://wildfly-swarm.gitbooks.io/wildfly-swarm-users-guide/content/security/realms.html[Security Realms] for further information.
 
 === Health Checks
 
 Health checks (i.e. to integrate with external service registries) can be added by implementing JAX-RS endpoints and declaring them as
-a health endpoints through the use of the '@Health' annotation:
+a health endpoints through the use of the '@Health' annotation.
+
+Any method annotated with @Health will be proxied through the '/health' endpoint.
+If you expose more then one method, then they will be invoked one after the other, but a single one each time.
 
 
 [source,java]
@@ -122,11 +125,13 @@ public class HealthCheckResource {
 
 ==== Security for @Health endpoints
 
-A JAX-RS endpoint annotated with '@Health' will not be accessible directly anymore, but proxied through the global '/health' endpoint.
-If you expose more then one method, then they will be invoked one after the other, but a single one each time.
+Usually the security for the endpoints behind '/health' will be inherited.
+(i.e. the security realm settings you configured)
+But you can override this policy with '@Health(inheritSecurity=false)'.
 
-Usually the security for the '/health' endpoints will be inherited from the global monitoring security settings, i.e. the 'ManagementRealm' settings.
-You may however override these settings with '@Health(inheritSecurity=false)'.
+If security is inherited, then the JAX-RS endpoint annotated with '@Health' will not be accessible directly anymore.
+If you don't inherit the security it's up to you to make it secure or leave it open.
+
 The combinations of using the @Health annotations with regard to the possible HTTP requests
  are outlined in the table below:
 
@@ -139,7 +144,7 @@ The combinations of using the @Health annotations with regard to the possible HT
 |/health
 |irrelevant
 |Any HTTP will require authentication, if the 'ManagementRealm' is configured.
-If you don't configure the 'ManagementRealm' this endpoint will not require authentication.
+If you don't configure a security realm this endpoint will not require authentication to access it.
 The @Health secure attribute is not relevant in this case.
 
 |/foo/bar/health
