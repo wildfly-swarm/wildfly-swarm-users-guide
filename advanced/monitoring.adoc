@@ -12,6 +12,8 @@ The runtime information is exposed through a RESTful HTTP interface and gives ac
 |/node
 |Node specific identifiers and overall runtime status (i.e. reload and suspend states)
 |
+
+3+|
 +++
 <pre>
 {   "name" : "macbook-pro-2",
@@ -27,6 +29,8 @@ The runtime information is exposed through a RESTful HTTP interface and gives ac
 |/heap
 |The JVM heap usage
 |
+
+3+|
 +++
 <pre>
 {
@@ -49,6 +53,8 @@ The runtime information is exposed through a RESTful HTTP interface and gives ac
 |/threads
 |The JVM thread usage
 |
+
+3+|
 +++
 <pre>
 {
@@ -114,12 +120,15 @@ public class HealthCheckResource {
 }
 ----
 
+==== Security for @Health endpoints
+
 A JAX-RS endpoint annotated with '@Health' will not be accessible directly anymore, but proxied through the global '/health' endpoint.
 If you expose more then one method, then they will be invoked one after the other, but a single one each time.
 
 Usually the security for the '/health' endpoints will be inherited from the global monitoring security settings, i.e. the 'ManagementRealm' settings.
-You may however override these settings with '@Health(secure=false)'. The combinations of @Health(secure=true|false) with regard to the possible HTTP requests
-to reach the endpoints are outlined in the table below:
+You may however override these settings with '@Health(inheritSecurity=false)'.
+The combinations of using the @Health annotations with regard to the possible HTTP requests
+ are outlined in the table below:
 
 [cols=3, options="header"]
 |===
