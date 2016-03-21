@@ -1,0 +1,35 @@
+= Security Realms
+
+Security realms are provided through the management fraction. Security realms can be used used to secure the management endpoints,
+but also the monitoring endpoints are even application level code.
+
+== Configuration
+
+To use the management fraction in your application, you need to add the following dependency:
+
+[source,xml]
+----
+<dependency>
+  <groupId>org.wildfly.swarm</groupId>
+  <artifactId>management</artifactId>
+</dependency>
+----
+
+You may use the `InMemoryAuthentication` and `InMemoryAuthorization` plugins for simple compile-time definition of security-realms.
+Each of these can be specified programattically or through user-defined loading of `.properties` files similar to the default `mgmt-users.properties` and `mgmt-groups.properties` that WildFly normally uses.
+
+[source,java]
+----
+new ManagementFraction()
+        .securityRealm("ManagementRealm", (realm) -> {
+            realm.inMemoryAuthentication( (authn)->{
+                authn.add( "admin", "password", true );
+            });
+            realm.inMemoryAuthorization( (authz)->{
+                authz.add( "bob", "admin" );
+            });
+        })
+----
+
+If you wish to perform more advanced configuration, please see the
+{{book.javadoc}}/Management.html[JavaDocs for the Management API].

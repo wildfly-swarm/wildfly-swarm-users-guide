@@ -26,9 +26,11 @@
 * Security
    * [Keycloak](security/keycloak.adoc)
    * [Keycloak Server](security/keycloak_server.adoc)
+   * [Security Realms](security/realms.adoc)
 * Advanced Fractions
    * [Logstash](advanced/logstash.adoc)
    * [Management](advanced/management.adoc)
+   * [Monitoring](advanced/monitoring.adoc)
    * [JGroups](advanced/jgroups.adoc)
    * [Infinispan](advanced/infinispan.adoc)
    * [Topology](advanced/topology.adoc)
