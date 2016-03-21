@@ -1,0 +1,145 @@
+= Monitoring
+
+The monitoring fraction provides access to the runtime status on each node.
+The runtime information is exposed through a RESTful HTTP interface and gives access following information:
+
+[cols=3, options="header"]
+|===
+|WebContext
+|Description
+|Example
+
+|/node
+|Node specific identifiers and overall runtime status (i.e. reload and suspend states)
+|
++++
+<pre>
+{   "name" : "macbook-pro-2",
+      "server-state" : "running",
+      "suspend-state" : "RUNNING",
+      "running-mode" : "NORMAL",
+      "uuid" : "a8100296-573d-4b40-9648-e82bdb0041d9",
+      "wfs-version" : "fixme"
+}
+</pre>
++++
+
+|/heap
+|The JVM heap usage
+|
++++
+<pre>
+{
+    "heap-memory-usage" : {
+        "init" : 268435456,
+        "used" : 56067784,
+        "committed" : 356515840,
+        "max" : 3817865216
+    },
+    "non-heap-memory-usage" : {
+        "init" : 2555904,
+        "used" : 52717328,
+        "committed" : 57622528,
+        "max" : -1
+    }
+}
+</pre>
++++
+
+|/threads
+|The JVM thread usage
+|
++++
+<pre>
+{
+    "thread-count" : 33,
+    "peak-thread-count" : 47,
+    "total-started-thread-count" : 49,
+    "current-thread-cpu-time" : 66855000,
+    "current-thread-user-time" : 64003000
+}
+</pre>
++++
+
+|/health
+|Redirects to the @Health endpoints
+| See 'Health' section further down
++++
+|===
+
+== Configuration
+
+To use the management fraction in your application, you need to add the following dependency:
+
+[source,xml]
+----
+<dependency>
+  <groupId>org.wildfly.swarm</groupId>
+  <artifactId>monitor</artifactId>
+</dependency>
+----
+
+=== Security
+In order to secure the monitoring endpoints you'll need to include the 'management' fraction and configure the 'ManagementRealm'.
+See https://wildfly-swarm.gitbooks.io/wildfly-swarm-users-guide/content/security/realms.html[Security Realms] for further information.
+
+=== Health Checks
+
+Health checks (i.e. to integrate with external service registries) can be added by implementing JAX-RS endpoints and declaring them as
+a health endpoints through the use of the '@Health' annotation:
+
+
+[source,java]
+----
+package org.wildfly.swarm.examples.jaxrs.health;
+
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
+
+import org.wildfly.swarm.monitor.Health;
+
+@Path("/app")
+public class HealthCheckResource {
+
+    @GET
+    @Path("/health")
+    @Produces(MediaType.TEXT_PLAIN)
+    @Health
+    public String healthCheck() {
+        // TODO: Provide your own, application specific health checks
+        return "Healthy";
+    }
+}
+----
+
+A JAX-RS endpoint annotated with '@Health' will not be accessible directly anymore, but proxied through the global '/health' endpoint.
+If you expose more then one method, then they will be invoked one after the other, but a single one each time.
+
+Usually the security for the '/health' endpoints will be inherited from the global monitoring security settings, i.e. the 'ManagementRealm' settings.
+You may however override these settings with '@Health(secure=false)'. The combinations of @Health(secure=true|false) with regard to the possible HTTP requests
+to reach the endpoints are outlined in the table below:
+
+[cols=3, options="header"]
+|===
+|Request path
+|@Health Annotaiton
+|Outcome
+
+|/health
+|irrelevant
+|Any HTTP will require authentication, if the 'ManagementRealm' is configured.
+If you don't configure the 'ManagementRealm' this endpoint will not require authentication.
+The @Health secure attribute is not relevant in this case.
+
+|/foo/bar/health
+|inheritSecurity=true
+|Any direct HTTP request to this endpoint will receive a 403 response.
+
+|/foo/bar/health
+|inheritSecurity=false
+|Any direct HTTP request to this endpoint will be passed through.
+Security for this endpoint is an obligation of the developer.
+
+|===
