@@ -4,7 +4,7 @@ As well as Java EE compliant transactions (JTA and JTS), WildFly Swarm provides 
 
 In order to illustrate the Narayana STM implementation let's look at one of the WildFly Swarm examples (https://github.com/wildfly-swarm/wildfly-swarm-examples/tree/master/arjuna/stm-shrinkwrap). This example will use all of the default settings for STM so it's worth knowing that there are a lot of other things you can change when building your applications. We'll start by creating a fairly simple STM integer object which has three methods, increment, decrement and value which do pretty much what their names imply.
 
-[source,xml]
+[source,java]
 ----
 @Transactional
 public interface Sample
@@ -18,7 +18,7 @@ public interface Sample
 
 The @Transactional annotation defines that implementations of the interface are to be managed within a transactional container. All public methods will be assumed to modify the state of the object, i.e., require write locks. All state variables will be saved and restored. Now we look at an implementation of this interface.
 
-[source,xml]
+[source,java]
 ----
 @Transactional
 public class SampleLockable implements Sample
@@ -55,7 +55,7 @@ In the implementation we use some additional annotations to override the default
 
 When creating instances of SampleLockable, we need to pass them to an STM container in order for it to manage the interactions with the objects. In the example (below) we create transactions (AtomicAction instances) before operating on the STM objects but that's not strictly necessary.
 
-[source,xml]
+[source,java]
 ----
     Container<Sample> theContainer = new Container<Sample>("Demo", Container.TYPE.PERSISTENT, Container.MODEL.SHARED);
 	Sample obj1 = theContainer.create(new SampleLockable(10));
