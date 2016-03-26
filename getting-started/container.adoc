@@ -26,7 +26,7 @@ public class MyMain {
 
         // Optionally add the default deployment to the archive
         // This will give you all of the project's Classes/Resources
-        deployment.addAsLibrary(Container.createDefaultDeployment());
+        deployment.addAsLibrary(container.createDefaultDeployment());
 
         container.start();
         container.deploy(deployment);
