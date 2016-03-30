@@ -40,7 +40,7 @@ wildfly-swarm-setup
 +
 It should read `Wildfly-Swarm: Setup` if you're in a GUI environment:  
 +
-This will make the `wildfly-swarm-maven` plugin to be installed in your project and the Wildfly Swarm BOM added to the `<dependencyManagement>` section. Forge will also listen for changes to your project and automatically add the required fractions.
+This will make the `wildfly-swarm-maven` plugin to be installed in your project and the Wildfly Swarm BOM added to the `<dependencyManagement>` section. 
 +
 You may also find some options that will be added to the Wildfly Swarm maven plugin like the context path, the HTTP port and the HTTP Port offset
 
