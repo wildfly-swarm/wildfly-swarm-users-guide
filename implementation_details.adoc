@@ -24,7 +24,7 @@ swarm.app.artifact=booker-pricing-1.0.0.Alpha01-SNAPSHOT.jar
 swarm.logstash.port=8000
 ----
 
-`META-INF/bootstrap.conf`:: Lists all WildFly Swarm module dependencies in Maven GAV format.  For example:
+`META-INF/wildfly-swarm-bootstrap.conf`:: Lists all WildFly Swarm module dependencies in Maven GAV format.  For example:
 +
 [source,text]
 ----
@@ -38,7 +38,7 @@ org.wildfly.swarm:logstash-modules:{{book.versions.swarm}}
 org.wildfly.swarm:ribbon-secured-modules:{{book.versions.swarm}}
 ----
 
-`META-INF/application.conf` :: Lists all application dependencies as JBoss-Module names or Maven GAVs.  For example:
+`META-INF/wildfly-swarm-application.conf` :: Lists all application dependencies as JBoss-Module names or Maven GAVs.  For example:
 +
 [source,text]
 ----
@@ -72,7 +72,7 @@ Wildfly-Swarm-Main-Class: org.mycorp.myapp.Main
 
 == Bootstrap
 
-When the `_myapp_-swarm.jar` is executed through `java -jar`, the `org.wildfly.swarm.bootstrap.Main` class is always executed initially.  It initializes the JBoss-Modules module system and sets up the modules listed in `META-INF/bootstrap.conf`
+When the `_myapp_-swarm.jar` is executed through `java -jar`, the `org.wildfly.swarm.bootstrap.Main` class is always executed initially.  It initializes the JBoss-Modules module system and sets up the modules listed in `META-INF/wildfly-swarm-bootstrap.conf`
 
 It then loads the user-provided main-class from the artifact in the `_bootstrap/` directory and executes it.
 
