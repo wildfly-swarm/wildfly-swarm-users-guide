@@ -8,6 +8,9 @@ others.
 
 We refer the various pieces as
 
+- _parent_: The top-most `pom.xml` to aggregate the build of the 
+  lower portions.
+
 - _root_: The user-referenced piece that provides BOM-like capabilities
   in order to make all the functionality available.
 
@@ -26,19 +29,29 @@ For a hypothetical _Jolokia_ fraction:
 
 [source,shell]
 ----
-jolokia/pom.xml    # jolokia-parent
+jolokia/
+  pom.xml          # <1>
   jolokia/
-    pom.xml        # jolokia (root)
+    pom.xml        # <2>
   api/
-    pom.xml        # jolokia-api
+    pom.xml        # <3>
     src/...
   runtime/
-    pom.xml        # jolokia-runtime
+    pom.xml        # <4>
     src/...
   modules/
-    pom.xml        # jolokia-modules
+    pom.xml        # <5>
     src/...
 ----
+<1> The `-parent` aggregator POM.
+<2> The simply-named _root_ artifact which can also act as a BOM.
+<3> The `-api` artifact which exposes any user-facing APIs.
+    along with transitive dependencies of relevant specifications.
+    It includes the `*Fraction.java` class.
+<4> The `-runtime` artifact which provides from back-end configuration
+    of the WildFly Swarm server based upon the fraction.
+<5> The `-modules` artifact to bring in a JBoss-Modules module tree
+    of modules.
 
 == The Parent
 
@@ -99,6 +112,31 @@ files easier:
 ----
 <1> Import the SPI BOM
 <2> Manage all other components of this fraction
+
+Additionally, the `wildfly-swarm-fraction-plugin` should be configured
+within the parent `pom.xml` so that it fires for every sub-project:
+
+[source,xml]
+----
+<build>
+  <plugins>
+    <plugin>
+      <groupId>org.wildfly.swarm</groupId>
+      <artifactId>wildfly-swarm-fraction-plugin</artifactId>
+      <version>${version.swarm.fraction-plugin}</version>
+      <executions>
+        <execution>
+          <phase>process-classes</phase>
+          <goals>
+            <goal>process</goal>
+          </goals>
+        </execution>
+      </executions>
+    </plugin>
+  </plugins>
+</build>
+----
+
 
 == The Root
 
@@ -170,3 +208,136 @@ requires the `undertow` fraction also.
 
 Please note, the versions of each dependency are managed by the `-parent` POM
 described in the previous section.
+
+== API
+
+The `-api` artifact represents any user-facing configuration API, including
+the any relevant `*Fraction.java` class.  
+
+=== The `*Fraction.java`
+
+If the fraction includes configuration capabilities, or otherwise alters
+the runtime system through deployments or adjustments to the server, it
+should include an implement of `org.wildfly.swarm.spi.api.Fraction`.
+
+Any opaque POJO configuration details that are required may be added
+the implementation, and will be passed to the back-end runtime portion
+during server boot-up to control configuration.
+
+In the event that no particular configuration values are required, a
+basic no-op `*Fraction.java` may be created.
+
+[source,java]
+----
+package com.mycorp.cheese;
+
+import java.util.Set;
+import java.util.HashSet;
+import org.wildfly.swarm.spi.api.Fraction;
+
+public class CheeseFraction implements Fraction {
+
+  // arbitrary configuration parameters are allowed
+
+  public void cheese(String type) {
+    this.cheeses.add( type );
+  }
+
+  public void cheeses(Set<String> types) {
+    this.cheeses.addAll( types );
+  }
+
+  public Set<String> cheeses() {
+    return this.cheeses;
+  }
+
+  private Set<String> cheeses = new HashSet<>();
+}
+----
+
+=== Exposing Transitive Dependencies to Users' Applications
+
+If your fraction aims to enable some API or specification beyond the fraction
+itself (such as enabling usage of `javax.jms` for instance), the `-api` `pom.xml`
+should include such dependency as `<scope>compile</scope>`.  In the root
+of the `pom.xml`, on the `<project>` element, you need to add an `xmlns` for
+the WildFly Swarm XML namespace, and also mark the relevant `<dependency>` as
+below:
+
+[source,xml]
+----
+<project xmlns:swarm="http://wildfly-swarm.io/">
+  ...
+  <dependencies>
+
+    ...
+
+    <dependency swarm:scope="provided">
+      <groupId>org.jboss.spec.javax.jms</groupId>
+      <artifactId>jboss-jms-api_2.0_spec</artifactId>
+    </dependency>
+  </dependencies>
+  ...
+</project>
+----
+
+This allows for a user to reference only your fraction, and implicitly
+receive the JMS specification classes on their classpath.
+
+By marking it with `swarm:scope`, it enables the WildFly Swarm plugin to
+know that the specification artifact is _actually_ provided at runtime
+by the server, and shouldn't be considered a application dependency.
+
+== Runtime
+
+The `-runtime` artifact is responsible for taking the above `Fraction` implementation
+and effecting changes to the runtime server based upon its existance and configuration
+values.
+
+For every `*Fraction.java`, there should exist a matching `*Configuration.java`.  For the
+simplest cases, the `*Configuration.java` can actually be synthesized based upon 
+Java annotations on the `*Fraction.java` itself.  If that suffices, the entire
+`-runtime` artifact may be avoided.
+
+=== Using only annotations within `-api`
+
+Usually only useful for fractions that are based upon the WildFly `config-api`
+and represent aspects of a usual `standalone.xml`
+
+The `org.wildfly.swarm.spi.api.annotations.Configuration` annotation may be applied
+directly to a `Fraction` implementation, with the following properties optionally set:
+
+[cols="2", options="header"]
+|===
+|Name
+|Description
+
+|`extension`
+|The WildFly module holding the extension. Maps directly to the `<extension>` element in `standalone.xml`
+
+|`marshal`
+|Boolean indicating if the `Fraction` should be marshalled using the `config-api` marshaller
+
+|`ignorable`
+|Boolean indicating if the fraction may be entirely ignored. I don't remember why we would want to. But it's there.
+
+|`parserFactoryClassName`
+|Name of the class (as a string) of the `ParserFactory` from the `-runtime` portion of the fraction
+ to allow for parsing of `standalone.xml` fragments for this fraction.
+|===
+
+== Modules
+
+The `-modules` artifact is required to handle the variety of classloading aspects of each fraction.
+There are typically 3 modules in the tree related to the `-api` and `-runtime` portions of the fraction.
+General convention requires that the base module name is exactly the same as the package portion
+of the `*Fraction` implementation.
+
+For instance, if you have `com.mycorp.cheese.CheeseFraction`, then the base module name should be
+`com.mycorp.cheese`.  
+
+=== The `:main` slot
+
+=== The `:api` slot
+
+=== The `:runtime` slot
