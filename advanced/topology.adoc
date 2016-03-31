@@ -27,7 +27,7 @@ JAXRSArchive deployment = ShrinkWrap.create(JAXRSArchive.class, "events.war");
 deployment.as(TopologyArchive.class).advertise();
 ----
 
-Additionally, archives an advertise different names, especially in the case where you do not provide a name when creating the archive.
+Additionally, archives can advertise different names, especially in the case where you do not provide a name when creating the archive.
 
 [source,java]
 ----
