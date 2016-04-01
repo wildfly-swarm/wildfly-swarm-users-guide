@@ -88,7 +88,7 @@ To use the monitor fraction in your application, you need to add the following d
 
 === Health Check API
 
-Health checks are implemented using regular JAX-RS API and exposing certain GET method throught he `@Health` annotatation.
+Health checks are implemented using regular JAX-RS API and exposing certain GET methods through the `@Health` annotation.
 Health check responses are expressed using the `HealthStatus` and `CompositeHealthStatus` API's. Any health status response type will automatically converted to
 an `application/json` response content type and the HTTP status derived from the `HealthStatus.<UP|DOWN>` states:
 
@@ -162,12 +162,12 @@ See https://wildfly-swarm.gitbooks.io/wildfly-swarm-users-guide/content/security
 
 Usually the security for the endpoints behind '/health' will be inherited.
 (i.e. the security realm settings you configured)
-But you can override this policy with '@Health(inheritSecurity=false)'.
+But you can override this policy with `@Health(inheritSecurity=false)`.
 
-If security is inherited, then the JAX-RS endpoint annotated with '@Health' will not be directly accessible directly anymore (yields HTTP 403).
+If security is inherited, then the JAX-RS endpoint annotated with `@Health` will not be directly accessible directly anymore (yields HTTP 403).
 If you don't inherit the security, it's up to your responsibility to secure the endpoint (or leave it unprotected) .
 
-The combinations of using the @Health annotations with regard to the possible HTTP requests
+The combinations of using the `@Health` annotations with regard to the possible HTTP requests
  are outlined in the table below:
 
 [cols=3, options="header"]
