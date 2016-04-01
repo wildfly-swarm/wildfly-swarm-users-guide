@@ -69,8 +69,8 @@ The runtime information is exposed through a HTTP interface and gives access fol
 +++
 
 |/health
-|Redirects to the @Health endpoints (See 'Health' section further down)
-|application specific (i.e. depends on the contract with the service registry)
+|A list of available health endpoints
+|application/json
 
 |===
 
@@ -86,51 +86,85 @@ To use the monitor fraction in your application, you need to add the following d
 </dependency>
 ----
 
-=== Security
-In order to secure access to the HTTP endpoints you'll need to include the 'management' fraction and configure a security realm.
-See https://wildfly-swarm.gitbooks.io/wildfly-swarm-users-guide/content/security/realms.html[Security Realms] for further information.
+=== Health Check API
 
-=== Health Checks
-
-Health checks (i.e. to integrate with external service registries) can be added by implementing JAX-RS endpoints and declaring them as
-a health endpoints through the use of the '@Health' annotation.
-
-Any method annotated with @Health will be proxied through the '/health' endpoint.
-If you expose more then one method, then they will be invoked one after the other, but a single one each time.
+Health checks are implemented using regular JAX-RS API and exposing certain GET method throught he `@Health` annotatation.
+Health check responses are expressed using the `HealthStatus` and `CompositeHealthStatus` API's. Any health status response type will automatically converted to
+an `application/json` response content type and the HTTP status derived from the `HealthStatus.<UP|DOWN>` states:
 
 
 [source,java]
 ----
 package org.wildfly.swarm.examples.jaxrs.health;
 
+import java.io.File;
+
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
 
 import org.wildfly.swarm.monitor.Health;
+import org.wildfly.swarm.monitor.HealthStatus;
 
 @Path("/app")
 public class HealthCheckResource {
 
     @GET
-    @Path("/health")
-    @Produces(MediaType.TEXT_PLAIN)
+    @Path("/diskSpace")
     @Health
-    public String healthCheck() {
-        // TODO: Provide your own, application specific health checks
-        return "Healthy";
+    public HealthStatus checkDiskspace() {
+        File path = new File(".");
+        long freeBytes = path.getFreeSpace();
+        long threshold = 1024 * 1024 * 100; // 100mb
+        return freeBytes>threshold ? HealthStatus.up() : HealthStatus.down().withAttribute("freebytes", freeBytes);
     }
+
+    @GET
+    @Path("/other")
+    @Health(inheritSecurity = false)
+    public HealthStatus checkSomethingElse() {
+        return HealthStatus.up();
+    }
+
 }
 ----
 
-==== Security for @Health endpoints
+Accessing the above endpoint will return a json encoded response like this:
+
+```
+curl --digest -u "<user>:<pass>" http://localhost:8080/health/app/diskSpace
+
+{
+    "freebytes": "1234567890"
+}
+```
+
+=== Health Check HTTP Endpoints
+
+Health checks (i.e. to integrate with external service registries) can be added by implementing JAX-RS endpoints and declaring them as
+a health endpoints through the use of the '@Health' annotation. Any GET method annotated with @Health will be accessible through `/health/<subresource>`
+
+For instance if you provide an HTTP endpoint for `/app/diskSpace`, then it will be listed under `/health` and accessible through `/health/app/diskSpace`
+
+```
+curl http://localhost:8080/health
+
+{
+  "links": [
+      "/health/app/diskSpace"
+  ]
+}
+```
+
+==== Secure access to @Health endpoints
+
+In order to secure access to the HTTP endpoints you'll need to include the 'management' fraction and configure a security realm.
+See https://wildfly-swarm.gitbooks.io/wildfly-swarm-users-guide/content/security/realms.html[Security Realms] for further information.
 
 Usually the security for the endpoints behind '/health' will be inherited.
 (i.e. the security realm settings you configured)
 But you can override this policy with '@Health(inheritSecurity=false)'.
 
-If security is inherited, then the JAX-RS endpoint annotated with '@Health' will not be accessible directly anymore (yields HTTP 403).
+If security is inherited, then the JAX-RS endpoint annotated with '@Health' will not be directly accessible directly anymore (yields HTTP 403).
 If you don't inherit the security, it's up to your responsibility to secure the endpoint (or leave it unprotected) .
 
 The combinations of using the @Health annotations with regard to the possible HTTP requests
