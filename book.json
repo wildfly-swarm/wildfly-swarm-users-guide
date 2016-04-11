@@ -9,11 +9,10 @@
       "splitter"
   ],
   "variables": {
-      "javadoc": "http://wildfly-swarm.github.io/wildfly-config-api/0.3.25/apidocs/org/wildfly/swarm/config",
       "versions": {
-          "swarm": "1.0.0.Beta6",
-          "configuration": "0.3.27",
-          "keycloak": "1.8.1.Final"
+          "swarm": "1.0.0.Beta7",
+          "configuration": "0.4.1",
+          "keycloak": "1.9.1.Final"
       }
   }
 }

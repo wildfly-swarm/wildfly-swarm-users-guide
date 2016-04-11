@@ -19,4 +19,4 @@ Several of the higher-order fractions include logging by default. If you need to
 Including the above dependency will automatically configure reasonable INFO-level logging to the console. You can control the logging level with the `swarm.logging` sysprop: `-Dswarm.logging=DEBUG`.
 
 If you wish to perform more advanced configuration, please see the
-{{book.javadoc}}/Logging.html[JavaDocs for the Logging API].
+http://wildfly-swarm.github.io/wildfly-swarm/{{book.versions.swarm}}/apidocs/org/wildfly/swarm/config/logging/package-summary.html[JavaDocs for the Logging API].
