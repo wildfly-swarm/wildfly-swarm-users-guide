@@ -15,7 +15,7 @@ To bring JAX-RS functionality to your application, you need the following depend
   <artifactId>jaxrs</artifactId>
 </dependency>
 ----
-    
+
 == Usage
 
 The ```jaxrs``` fraction brings the JAX-RS APIs to your application through a transitive dependency.  It also provides a ```JAXRSArchive``` archive type for easily creating JAX-RS-based deployments if you provide your own ```main(...)``` method.
@@ -25,7 +25,7 @@ The ```jaxrs``` fraction brings the JAX-RS APIs to your application through a tr
 JAXRSArchive deployment = ShrinkWrap.create( JAXRSArchive.class );
 deployment.addResource( SomeResource.class );
 ----
-    
+
 Additionally, the `JAXRSArchive` can provide a default `Application` with the `@ApplicationPath` annotation if you do not provide one when creating the deployment.  If you do provide an `Application` it will take precedence.
 
 If you are building a `.war`-based application, you must provide the `Application` implementation with the appropriate `@ApplicationPath` annotation.
@@ -38,10 +38,10 @@ By default, JAX-RS does not provide CDI support.  To bring CDI support to your a
 ----
 <dependency>
   <groupId>org.wildfly.swarm</groupId>
-  <artifactId>jaxrs-weld</artifactId>
+  <artifactId>jaxrs-cdi</artifactId>
 </dependency>
 ----
-    
+
 In reality, this dependency will transitively bring in the core `jaxrs` dependency.
 
 == Using JAX-RS with multipart forms
@@ -55,4 +55,3 @@ To use JAX-RS with multipart forms (to support file uploads, for instance), anot
   <artifactId>jaxrs-multipart</artifact>
 </dependency>
 ----
-    

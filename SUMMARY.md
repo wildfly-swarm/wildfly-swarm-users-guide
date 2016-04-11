@@ -15,7 +15,7 @@
 * [Common Fractions](transactions.adoc)
    * [Logging](common/logging.adoc)
    * [JAX-RS](common/jax-rs.adoc)
-   * [Weld (CDI)](common/weld_cdi.adoc)
+   * [CDI](common/weld_cdi.adoc)
    * [Messaging](common/messaging.adoc)
    * [JSF](common/jsf.adoc)
    * [NetflixOSS](common/netflixoss.adoc)

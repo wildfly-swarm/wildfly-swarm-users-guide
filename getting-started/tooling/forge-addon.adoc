@@ -2,7 +2,7 @@
 
 JBoss Forge is a project management tool that extends your IDE by providing wizards and offering a set of extensions (add-ons) for different technologies. Try JBoss Forge by downloading it at http://forge.jboss.org.
 
-The Wildfly Swarm team provides an add-on that eases the user experience on Swarm. 
+The Wildfly Swarm team provides an add-on that eases the user experience on Swarm.
 
 == Installation
 
@@ -13,50 +13,49 @@ The Wildfly Swarm team provides an add-on that eases the user experience on Swar
 addon-install-from-git --url https://github.com/forge/wildfly-swarm-addon.git
 ----
 
-=== From Eclipse/JBoss Developer Studio: 
+=== From Eclipse/JBoss Developer Studio:
 
 - Press Ctrl (Or Command if you are on OSX) + 4 and select the `Install an Addon from GIT` option.
 - Enter `https://github.com/forge/wildfly-swarm-addon.git` as the url and press "Finish"
 
-=== From IntelliJ IDEA: 
+=== From IntelliJ IDEA:
 
 - Press Ctrl (Or Command if you are on OSX) + Alt + 4 and select the `Install an Addon from GIT` option.
 - Enter `https://github.com/forge/wildfly-swarm-addon.git` as the url and press "Finish"
 
-=== From Netbeans: 
+=== From Netbeans:
 
 - Go to the Quick Search field in the upper right corner and type `Install an Addon from GIT`.
 - Enter `https://github.com/forge/wildfly-swarm-addon.git` as the url and press "Finish"
 
 
 == Features
-Wildfly-Swarm Setup command:: 
-Using the Forge shell, navigate to a Java EE project, or create one using the `project-new --named demo --stack JAVA_EE_7` command and type the following command if you're in shell. 
+Wildfly-Swarm Setup command::
+Using the Forge shell, navigate to a Java EE project, or create one using the `project-new --named demo --stack JAVA_EE_7` command and type the following command if you're in shell.
 +
 [source,java]
 ----
 wildfly-swarm-setup
 ----
 +
-It should read `Wildfly-Swarm: Setup` if you're in a GUI environment:  
+It should read `Wildfly-Swarm: Setup` if you're in a GUI environment:
 +
-This will make the `wildfly-swarm-maven` plugin to be installed in your project and the Wildfly Swarm BOM added to the `<dependencyManagement>` section. 
+This will make the `wildfly-swarm-maven` plugin to be installed in your project and the Wildfly Swarm BOM added to the `<dependencyManagement>` section.
 +
 You may also find some options that will be added to the Wildfly Swarm maven plugin like the context path, the HTTP port and the HTTP Port offset
 
 Wildfly-Swarm Add Fraction::
-You can install Wildfly Swarm Fractions by using the command `Wildfly-Swarm: Add Fraction`: 
+You can install Wildfly Swarm Fractions by using the command `Wildfly-Swarm: Add Fraction`:
 +
 [source,java]
 ----
-[demo]$ wildfly-swarm-add-fraction --fractions 
-bean-validation      ejb                  jaxrs-jaxb           jgroups              keycloak             msc                  security             undertow             
+[demo]$ wildfly-swarm-add-fraction --fractions
+bean-validation      ejb                  jaxrs-jaxb           jgroups              keycloak             msc                  security             undertow
 connector            ejb-remote           jaxrs-jsonp          jmx                  logging              naming               topology             webservices          
-container            hawkular             jaxrs-multipart      jolokia              logstash             remoting             topology-jgroups     weld                 
-datasources          hibernate-validator  jaxrs-weld           jpa                  mail                 ribbon               topology-webapp      
-ee                   infinispan           jca                  jsf                  messaging            ribbon-secured       transactions         
+container            hawkular             jaxrs-multipart      jolokia              logstash             remoting             topology-jgroups
+datasources          hibernate-validator  jaxrs-weld           jpa                  mail                 ribbon               topology-webapp
+ee                   infinispan           jca                  jsf                  messaging            ribbon-secured       transactions
 
 ----
 +
 NOTE: Installed fractions are not listed when you press <TAB> to auto-complete
-
