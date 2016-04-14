@@ -423,3 +423,22 @@ Defines the artifact from the Runtime project as a resource and declares any mod
 == Runtime
 
 == Availability in WildFly Swarm BOM
+
+For the fraction to be available through the BOM, `pom.xml` in https://github.com/wildfly-swarm/wildfly-swarm needs to be updated to include it. This is done by adding another `<module>` entry to the `wildfly-swarm-fraction-plugin` such as:
+
+[source,xml]
+----
+<plugin>
+  <groupId>org.wildfly.swarm</groupId>
+  <artifactId>wildfly-swarm-fraction-plugin</artifactId>
+  <version>${version.swarm.fraction-plugin}</version>
+  <configuration>
+    <modules>
+...
+      <module>jolokia-parent:${version.swarm.jolokia}</module>
+...
+    </modules>
+  </configuration>
+</plugin>
+</plugins>
+----
