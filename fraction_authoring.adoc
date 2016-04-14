@@ -184,33 +184,34 @@ For Jolokia to be available from within the http://wildfly-swarm.io/generator/[P
   </parent>
 
   <groupId>org.wildfly.swarm</groupId>
-  <artifactId>jolokia</artifactId>        <!--1-->
+  <artifactId>jolokia</artifactId>                                       <!--1-->
 
-  <name>Jolokia</name>                    <!--2-->
-  <description>Deploys the jolokia.war to activate JMX-HTTP bridge as an alternative to JSR-160 connectors</description>                  <!--3-->
+  <name>Jolokia</name>                                                   <!--2-->
+  <description>Deploys the jolokia.war to activate JMX-HTTP bridge
+  as an alternative to JSR-160 connectors</description>                  <!--3-->
 
   <packaging>jar</packaging>
 
   <properties>
-    <swarm.fraction.tags>Management</swarm.fraction.tags>    <!--4-->
+    <swarm.fraction.tags>Management</swarm.fraction.tags>                <!--4-->
   </properties>
 
   <dependencies>
-    <dependency>                          <!--5-->
+    <dependency>                                                         <!--5-->
       <groupId>org.wildfly.swarm</groupId>
       <artifactId>jolokia-api</artifactId>
     </dependency>
-    <dependency>                          <!--6-->
+    <dependency>                                                         <!--6-->
       <groupId>org.wildfly.swarm</groupId>
       <artifactId>jolokia-modules</artifactId>
     </dependency>
-    <dependency>                          <!--7-->
+    <dependency>                                                         <!--7-->
       <groupId>org.wildfly.swarm</groupId>
       <artifactId>jolokia-runtime</artifactId>
       <scope>provided</scope>
     </dependency>
 
-    <dependency>                          <!--8-->
+    <dependency>                                                         <!--8-->
       <groupId>org.wildfly.swarm</groupId>
       <artifactId>undertow</artifactId>
     </dependency>
@@ -370,7 +371,7 @@ Will follow the format of:
     <!-- For when run with bonafide IDE classpath -->
     <system export="true">
       <paths>
-        <path name="com/mycorp/cheese"/>                       <!--1-->
+        <path name="com/mycorp/cheese"/>                                             <!--1-->
         <path name="com/mycorp/cheese/sub"/>
       </paths>
     </system>
