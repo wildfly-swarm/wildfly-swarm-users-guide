@@ -166,6 +166,8 @@ to any other entire fractions required by this one.
 Jolokia, for instance, is deployed as a WAR file, and thus this fraction
 requires the `undertow` fraction also.
 
+For Jolokia to be available from within the http://wildfly-swarm.io/generator/[Project Generator] we need to make sure that some properties within `pom.xml` are set appropriately. The `<name>` and `<description>` will be displayed to a user, and `<swarm.fraction.tags>` defines which categories within the generator will show Jolokia as an option. If the fraction is not intended to be added as a direct dependency, such as a low level fraction which is included in others, then `<swarm.fraction.internal>` can be set to `true` to ensure it is not visible.
+
 [source,xml]
 ----
 <project xmlns="http://maven.apache.org/POM/4.0.0" 
@@ -184,27 +186,31 @@ requires the `undertow` fraction also.
   <groupId>org.wildfly.swarm</groupId>
   <artifactId>jolokia</artifactId>        <!--1-->
 
-  <name>WildFly Swarm: Jolokia</name>
-  <description>WildFly Swarm: Jolokia</description>
+  <name>Jolokia</name>                    <!--2-->
+  <description>Deploys the jolokia.war to activate JMX-HTTP bridge as an alternative to JSR-160 connectors</description>                  <!--3-->
 
   <packaging>jar</packaging>
 
+  <properties>
+    <swarm.fraction.tags>Management</swarm.fraction.tags>    <!--4-->
+  </properties>
+
   <dependencies>
-    <dependency>                          <!--2-->
+    <dependency>                          <!--5-->
       <groupId>org.wildfly.swarm</groupId>
       <artifactId>jolokia-api</artifactId>
     </dependency>
-    <dependency>                          <!--3-->
+    <dependency>                          <!--6-->
       <groupId>org.wildfly.swarm</groupId>
       <artifactId>jolokia-modules</artifactId>
     </dependency>
-    <dependency>                          <!--4-->
+    <dependency>                          <!--7-->
       <groupId>org.wildfly.swarm</groupId>
       <artifactId>jolokia-runtime</artifactId>
       <scope>provided</scope>
     </dependency>
 
-    <dependency>                          <!--5-->
+    <dependency>                          <!--8-->
       <groupId>org.wildfly.swarm</groupId>
       <artifactId>undertow</artifactId>
     </dependency>
@@ -214,10 +220,13 @@ requires the `undertow` fraction also.
 </project>
 ----
 <1> The `artifactId` is the simple, user-referencable name of the fraction.
-<2> The `-api` artifact is implicitly `<scope>compile</scope>`
-<3> The `-modules` artifact is implicitly `<scope>compile</scope>`
+<2> Name of the fraction to be displayed in the Project Generator.
+<3> Description of the fraction to be displayed in the Project Generator.
+<4> The Categories that the fraction will be displayed under in the Project Generator.
+<5> The `-api` artifact is implicitly `<scope>compile</scope>`
+<6> The `-modules` artifact is implicitly `<scope>compile</scope>`
 <4> The `-runtime` artifact is explicitly `<scope>provided</scope>`
-<5> Any other required fractions are referenced by their simple _root_
+<8> Any other required fractions are referenced by their simple _root_
     `artifactId` with an implicit `<scope>compile</scope>`.
 
 Please note, the versions of each dependency are managed by the `-parent` POM
