@@ -6,7 +6,7 @@ The composable pieces of WildFly Swarm are called _fractions_. Each fraction
 starts with a single Maven-addressable artifact which ultimately brings in
 others.
 
-We refer the various pieces as
+We refer to the various pieces as
 
 - _parent_: The top-most `pom.xml` to aggregate the build of the 
   lower portions.
@@ -30,27 +30,29 @@ For a hypothetical _Jolokia_ fraction:
 [source,shell]
 ----
 jolokia/
-  pom.xml          # <1>
+  pom.xml                    # <1>
+  exposed-components.json    # <2>
   jolokia/
-    pom.xml        # <2>
+    pom.xml                  # <3>
   api/
-    pom.xml        # <3>
+    pom.xml                  # <4>
     src/...
   runtime/
-    pom.xml        # <4>
+    pom.xml                  # <5>
     src/...
   modules/
-    pom.xml        # <5>
+    pom.xml                  # <6>
     src/...
 ----
 <1> The `-parent` aggregator POM.
-<2> The simply-named _root_ artifact which can also act as a BOM.
-<3> The `-api` artifact which exposes any user-facing APIs.
+<2> Defines the components to be included in WildFly Swarm BOM.
+<3> The simply-named _root_ artifact which can also act as a BOM.
+<4> The `-api` artifact which exposes any user-facing APIs.
     along with transitive dependencies of relevant specifications.
     It includes the `*Fraction.java` class.
-<4> The `-runtime` artifact which provides from back-end configuration
+<5> The `-runtime` artifact which provides from back-end configuration
     of the WildFly Swarm server based upon the fraction.
-<5> The `-modules` artifact to bring in a JBoss-Modules module tree
+<6> The `-modules` artifact to bring in a JBoss-Modules module tree
     of modules.
 
 == The Parent
@@ -114,7 +116,7 @@ files easier:
 <2> Manage all other components of this fraction
 
 Additionally, the `wildfly-swarm-fraction-plugin` should be configured
-within the parent `pom.xml` so that it fires for every sub-project:
+within the parent `pom.xml` so that it fires for every sub-module:
 
 [source,xml]
 ----
@@ -137,6 +139,18 @@ within the parent `pom.xml` so that it fires for every sub-project:
 </build>
 ----
 
+Making a fraction available in the WildFly Swarm BOM requires a `exposed-components.json` to be defined:
+
+[source,json]
+----
+{"Jolokia": [                                                     <!--1-->
+  {"name": "jolokia",              "doc": "jolokia-api"},         <!--2-->
+  {"name": "jolokia-modules"},                                    <!--3-->
+]}
+----
+<1> Define the name to be used within generated javadocs
+<2> Define `name` as the Root module and `doc` as the API module
+<3> Define the `name` for the Modules module
 
 == The Root
 
