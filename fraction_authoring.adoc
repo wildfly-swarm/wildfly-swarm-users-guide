@@ -352,6 +352,74 @@ For instance, if you have `com.mycorp.cheese.CheeseFraction`, then the base modu
 
 === The `:main` slot
 
+Will follow the format of:
+
+[source,xml]
+----
+<module xmlns="urn:jboss:module:1.3" name="com.mycorp.cheese">
+  <dependencies>
+    <!-- For when run with bonafide IDE classpath -->
+    <system export="true">
+      <paths>
+        <path name="com/mycorp/cheese"/>                       <!--1-->
+        <path name="com/mycorp/cheese/sub"/>
+      </paths>
+    </system>
+
+    <!-- For when bootstrapped through a fat-jar -->
+    <module name="com.mycorp.cheese" slot="api" export="true" services="export"/>    <!--2-->
+  </dependencies>
+</module>
+----
+<1> List all package paths within the API project, including sub paths.
+<2> Add the `:api` slot as a module dependency, ensuring to export classes and services.
+
 === The `:api` slot
 
+Defines the artifact from the API project as a resource and declares any module dependencies that are required:
+
+[source,xml]
+----
+<module xmlns="urn:jboss:module:1.3" name="com.mycorp.cheese" slot="api">
+  <resources>
+    <artifact name="com.mycorp.cheese:cheese-api:${project.version}"/>     <!--1-->
+  </resources>
+
+  <dependencies>
+    <module name="org.wildfly.swarm.container"/>                           <!--2-->
+    <module name="org.jboss.shrinkwrap"/>                                  <!--3-->
+  </dependencies>
+</module>
+----
+<1> The Maven artifact created from the API project.
+<2> Provides classes for Fraction and the Container.
+<3> Any additional module dependencies from WildFly or WildFly Swarm
+
 === The `:runtime` slot
+
+Defines the artifact from the Runtime project as a resource and declares any module dependencies that are required:
+
+[source,xml]
+----
+<module xmlns="urn:jboss:module:1.3" name="com.mycorp.cheese" slot="runtime">
+  <resources>
+    <artifact name="com.mycorp.cheese:cheese-runtime:${project.version}"/>      <!--1-->
+  </resources>
+
+  <dependencies>
+    <module name="com.mycorp.cheese"/>                                          <!--2-->
+    <module name="org.wildfly.swarm.container"/>                                <!--3-->
+    <module name="org.wildfly.swarm.container" slot="runtime"/>
+    <module name="org.jboss.shrinkwrap"/>                                       <!--4-->
+  </dependencies>
+</module>
+----
+<1> The Maven artifact created from the Runtime project.
+<2> `:main` slot module of the fraction
+<3> `container` modules for `:main` and `:runtime` are needed.
+<4> Any additional module dependencies from WildFly or WildFly Swarm
+
+
+== Runtime
+
+== Availability in WildFly Swarm BOM
