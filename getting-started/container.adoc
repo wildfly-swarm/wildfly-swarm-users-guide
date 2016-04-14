@@ -36,6 +36,33 @@ public class MyMain {
 }
 ----
 
+If you only need to do some configuration of the Container without
+needing to manipulate the deployment archive, you can call `deploy()`
+with no arguments to have it deploy the default archive. For example,
+here we configure an h2 datasource, then deploy the default archive:
+
+[source,java]
+----
+public class MyMain {
+    public static void main(String...args) {
+         new Container()
+           .fraction(new DatasourcesFraction()
+                .jdbcDriver("h2", (d) -> {
+                    d.driverClassName("org.h2.Driver");
+                    d.xaDatasourceClass("org.h2.jdbcx.JdbcDataSource");
+                    d.driverModuleName("com.h2database.h2");
+                })
+                .dataSource("ExampleDS", (ds) -> {
+                    ds.driverName("h2");
+                    ds.connectionUrl("jdbc:h2:mem:test;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE");
+                    ds.userName("foo");
+                    ds.password("bar");
+                }))
+           .start()
+           .deploy();
+    }
+}
+----
 == No User-Provided `main(...)`
 
 If you choose not to provide a main, `org.wildfly.swarm.Swarm#main(...)` will be used by default.  It boots the default container (based upon your dependencies) and deploys your project artifact.
