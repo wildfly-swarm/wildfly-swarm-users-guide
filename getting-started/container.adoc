@@ -12,6 +12,8 @@ If you provide a `main(...)` and configure it in using the <<plugins/maven-plugi
 
 Because of some initialization timing issues, you should construct the `Container` prior to working with any deployments using the <<shrinkwrap.adoc#,ShrinkWrap API>>.
 
+It's also recommended that the `Container` is constructed prior to any other code in the `main(...)`. This is to prevent any issues of JBoss Logging not being able to initialize the logging subsystem if another framework or class has used JUL, or another logger, first.
+
 [source,java]
 ----
 public class MyMain {
