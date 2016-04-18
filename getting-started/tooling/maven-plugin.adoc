@@ -56,7 +56,7 @@ To produce the `_myapp_-swarm.jar`, simply perform a typical `mvn package` comma
 
 === Fraction Detection
 
-If the plugin doesn't detect any WildFly Swarm dependencies in your `pom.xml`, it will attempt to auto-detect needed fractions by scanning the application. This is mostly useful for WAR-based applications that you are migrating to WildFly Swarm - you only need to add the plugin to your configuration, and not any other WildFly Swarm dependencies. 
+If the plugin doesn't detect any WildFly Swarm dependencies in your `pom.xml`, it will attempt to auto-detect needed fractions by scanning the application. This is mostly useful for WAR-based applications that you are migrating to WildFly Swarm - you only need to add the plugin to your configuration, and not any other WildFly Swarm dependencies. You can control fraction detection by setting `<fractionDetectMode>`. See the configuration options below for more details.
 
 == Running your application
 
@@ -126,12 +126,9 @@ If you have started any applications with either `wildfly-swarm:start` or `wildf
 
 The plugin accepts the following options:
 
-[cols=4, options="header"]
+[cols="d,a,2*d", options="header"]
 |===
-|Name
-|Description
-|Default
-|Used by
+|Name|Description|Default|Used by
 
 |bundleDependencies
 |If true, dependencies will be included in the -swarm.jar. Otherwise, they will be resolved from `$M2_REPO` or the network.
@@ -152,6 +149,15 @@ The plugin accepts the following options:
 |A `.properties` file of environment variables to use when running the application
 |
 |`multistart`, `run`, `start`
+
+|fractionDetectMode
+|The mode for fraction detection. Options are:
+
+* `when_missing`: runs only when no WildFly Swarm dependencies are found
+* `force`: always run, and merge any detected fractions with the existing dependencies, with existing dependencies taking precedence
+* `never`: disable fraction detection
+|`when_missing`
+|`package`, `run`, `start`
 
 |fractions
 |A list of extra fractions to include when auto-detection is used, useful for fractions that can't be detected or user-provided fractions. Each fraction can be of the form `group:name:version`, `name:version`, or `name`. If no group is provided, `org.wildfly.swarm` is assumed. If no version is provided, the version is looked up from the WildFly Swarm BOM for the version of the plugin you are using.
