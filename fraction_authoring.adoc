@@ -152,6 +152,47 @@ Making a fraction available in the WildFly Swarm BOM requires a `exposed-compone
 <2> Define `name` as the Root module and `doc` as the API module
 <3> Define the `name` for the Modules module
 
+To ensure this JSON is available to the BOM generation process, we need to add the following into `pom.xml` as well:
+
+[source,xml]
+----
+<profile>
+  <id>attach-exposed-components</id>
+  <activation>
+    <file>
+      <exists>exposed-components.json</exists>
+    </file>
+  </activation>
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>build-helper-maven-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>add-exposed-components</id>
+            <phase>package</phase>
+            <goals>
+              <goal>attach-artifact</goal>
+            </goals>
+            <configuration>
+              <artifacts>
+                <artifact>
+                  <file>exposed-components.json</file>
+                  <type>json</type>
+                  <classifier>exposed-components</classifier>
+                </artifact>
+              </artifacts>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+</profile>
+----
+
+
 == The Root
 
 In our above example, `jolokia/jolokia/pom.xml` lives by itself, with no 
