@@ -77,44 +77,46 @@ You can start multiple swarm applications at once using the `wildfly-swarm:multi
 
 [source,xml]
 ----
-<plugins>
-  <plugin>
-    <groupId>org.wildfly.swarm</groupId>
-    <artifactId>wildfly-swarm-plugin</artifactId>
-    <executions>
-      <execution>
-        <id>multistart</id>
-        <phase>pre-integration-test</phase>
-        <goals>
-          <goal>multistart</goal>
-        </goals>
-        <configuration>
-          <processes>
-            <process>
-              <artifactId>my-frontend-app</artifactId>
-            </process>
-            <process>
-              <artifactId>my-auth-app</artifactId>
-              <properties>
-                <swarm.http.port>8081</swarm.http.port>
-              </properties>
-              <mainClass>com.example.auth.Main</mainClass>
-            </process>
-            <process>
-              <artifactId>my-indexing-app</artifactId>
-              <properties>
-                <swarm.http.port>8082</swarm.http.port>
-              </properties>
-              <environment>
-                <ENV>test</ENV>
-              </environment>
-            </process>
-          </processes>
-        </configuration>
-      </execution>
-    </executions>
-  </plugin>
-</plugins>
+<build>
+  <plugins>
+    <plugin>
+      <groupId>org.wildfly.swarm</groupId>
+      <artifactId>wildfly-swarm-plugin</artifactId>
+      <executions>
+        <execution>
+          <id>multistart</id>
+          <phase>pre-integration-test</phase>
+          <goals>
+            <goal>multistart</goal>
+          </goals>
+          <configuration>
+            <processes>
+              <process>
+                <artifactId>my-frontend-app</artifactId>
+              </process>
+              <process>
+                <artifactId>my-auth-app</artifactId>
+                <properties>
+                  <swarm.http.port>8081</swarm.http.port>
+                </properties>
+                <mainClass>com.example.auth.Main</mainClass>
+              </process>
+              <process>
+                <artifactId>my-indexing-app</artifactId>
+                <properties>
+                  <swarm.http.port>8082</swarm.http.port>
+                </properties>
+                <environment>
+                  <ENV>test</ENV>
+                </environment>
+              </process>
+            </processes>
+          </configuration>
+        </execution>
+      </executions>
+    </plugin>
+  </plugins>
+</build>
 ----
 
 === Stopping started applications
