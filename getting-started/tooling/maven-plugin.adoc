@@ -8,19 +8,21 @@ To use the plugin, you must add it to your `pom.xml`:
 
 [source,xml]
 ----
-<plugins>
-  <plugin>
-    <groupId>org.wildfly.swarm</groupId>
-    <artifactId>wildfly-swarm-plugin</artifactId>
-    <executions>
-      <execution>
-        <goals>
-          <goal>package</goal>
-        </goals>
-      </execution>
-    </executions>
-  </plugin>
-</plugins>
+<build>
+  <plugins>
+    <plugin>
+      <groupId>org.wildfly.swarm</groupId>
+      <artifactId>wildfly-swarm-plugin</artifactId>
+      <executions>
+        <execution>
+          <goals>
+            <goal>package</goal>
+          </goals>
+        </execution>
+      </executions>
+    </plugin>
+  </plugins>
+</build>
 ----
 
 == Packaging your application
@@ -33,25 +35,27 @@ To produce the `_myapp_-swarm.jar`, simply perform a typical `mvn package` comma
 
 [source,xml]
 ----
-<plugins>
-  <plugin>
-    <groupId>org.wildfly.swarm</groupId>
-    <artifactId>wildfly-swarm-plugin</artifactId>
-    <executions>
-      <execution>
-        <goals>
-          <goal>package</goal>
-        </goals>
-      </execution>
-    </executions>
-    <configuration>
-      <bundleDependencies>false</bundleDependencies>
-      <properties>
-        <swarm.bind.address>127.0.0.1</swarm.bind.address>
-      </properties>
-    </configuration>
-  </plugin>
-</plugins>
+<build>
+  <plugins>
+    <plugin>
+      <groupId>org.wildfly.swarm</groupId>
+      <artifactId>wildfly-swarm-plugin</artifactId>
+      <executions>
+        <execution>
+          <goals>
+            <goal>package</goal>
+          </goals>
+        </execution>
+      </executions>
+      <configuration>
+        <bundleDependencies>false</bundleDependencies>
+        <properties>
+          <swarm.bind.address>127.0.0.1</swarm.bind.address>
+        </properties>
+      </configuration>
+    </plugin>
+  </plugins>
+</build>
 ----
 
 === Fraction Detection
