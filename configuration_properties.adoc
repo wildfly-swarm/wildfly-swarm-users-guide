@@ -20,7 +20,7 @@ Below is a non-exhaustive set of useful properties, which may be available depen
 
 |swarm.deployment.timeout
 |Timeout, in seconds, to wait for a deployment to occur
-|30
+|300
 
 |swarm.export.deployment
 |Causes a deployed artifact to be dumped to disk when swarm starts, for debugging
@@ -47,6 +47,10 @@ Below is a non-exhaustive set of useful properties, which may be available depen
 |swarm.https.port
 |Sets the port for the HTTPS server
 |8443
+
+|swarm.http.eager
+|Eagerly open the HTTP listeners
+|If non-null, will cause the http listeners to not be lazy
 
 |swarm.context.path
 |Sets the context path for the deployed application
