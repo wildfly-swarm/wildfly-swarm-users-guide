@@ -1,5 +1,18 @@
-= Node Status
+= Monitor
 
+== Configuration
+
+To use the monitor fraction in your application, you need to add the following dependency:
+
+[source,xml]
+----
+<dependency>
+  <groupId>org.wildfly.swarm</groupId>
+  <artifactId>monitor</artifactId>
+</dependency>
+----
+
+== Node Status
 The monitoring fraction provides access to the runtime status on each node.
 The runtime information is exposed through a HTTP interface and gives access following information:
 
@@ -73,18 +86,6 @@ The runtime information is exposed through a HTTP interface and gives access fol
 |application/json
 
 |===
-
-== Configuration
-
-To use the monitor fraction in your application, you need to add the following dependency:
-
-[source,xml]
-----
-<dependency>
-  <groupId>org.wildfly.swarm</groupId>
-  <artifactId>monitor</artifactId>
-</dependency>
-----
 
 === Health Check API
 
