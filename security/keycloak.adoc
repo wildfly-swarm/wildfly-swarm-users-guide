@@ -22,7 +22,7 @@ Once this is added, you can use the `Secured` archive type to secure your applic
 
 [source,java]
 ----
-JAXRSArchive deployment = new JAXRSArchive();
+JAXRSArchive deployment = ShrinkWrap.create(JAXRSArchive.class);
 deployment.as(Secured.class);
 ----
     
