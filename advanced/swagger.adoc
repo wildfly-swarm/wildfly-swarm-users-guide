@@ -66,7 +66,7 @@ By default, `swagger` can be used with zero-configuration. This means you can si
         SwaggerArchive archive = deployment.as(SwaggerArchive.class);
         // Tell swagger where our resources are
         archive.setResourcePackages("org.wildfly.swarm.examples");
-        archive.setTitle('My Awesome Application');
+        archive.setTitle("My Awesome Application");
 
         deployment.addAllDependencies();
         container
