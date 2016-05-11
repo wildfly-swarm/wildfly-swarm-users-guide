@@ -26,7 +26,7 @@ Simply add configuration for the `wildfly-swarm-plugin`:
 
 When you perform a typical Maven build using `mvn package`, your `target` directory will include a `_myapp_-swarm.jar` version of your application.
 
-If you don't specify any WildFly Swarm fractions as dependencies, the maven plugin will auto-detect the fractions your application needs. See the <<plugins/maven-plugin#,Maven chapter>> for more details.
+If you don't specify any WildFly Swarm fractions as dependencies, the maven plugin will auto-detect the fractions your application needs. See the <<tooling/maven-plugin#,Maven chapter>> for more details.
 
 This artifact can then be executed using:
 
