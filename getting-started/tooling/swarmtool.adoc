@@ -1,0 +1,76 @@
+= Swarmtool
+
+Swarmtool is a standalone jar that is used to wrap an existing JAR or WAR file in a `-swarm.jar` without requiring any other tooling.
+
+== Usage
+
+To use swarmtool, you'll first need to download the standalone jar for the WildFly Swarm version you are using. You can get it from Maven Central with the following (or the equivalent command on your system):
+
+    curl https://repo1.maven.org/maven2/org/wildfly/swarm/swarmtool/{{book.versions.swarm}}/swarmtool-{{book.versions.swarm}}-standalone.jar
+
+This jar file is executable on systems that provide `/bin/sh`, so you if you are on one of those systems, you can rename it to something nicer (like `swarmtool`), and execute it with:
+
+    swarmtool path-to-war
+
+If that isn't an option for you, you can always execute it with `java -jar`:
+
+    java -jar swarmtool-{{book.versions.swarm}}-standalone.jar path-to-war
+
+
+== Command-line Options
+
+[cols="d,a", options="header"]
+|===
+|Name|Description
+
+|`-Dkey=value`
+|Set a property to be used at runtime by the -swarm.jar. Overrides values from `--properties-file`. See the Properties section below.
+
+|`--executable`
+|If specified, causes the -swarm.jar to be generated as a executable on systems where `/bin/bash` is available.
+
+|`-f`, `--fractions=x,y,z`
+|A list of extra fractions to include when auto-detection is used, useful for fractions that can't be detected or user-provided fractions. Each fraction can be of the form `group:name:version`, `name:version`, or `name`. If no group is provided, `org.wildfly.swarm` is assumed. If no version is provided, the version is looked up from the WildFly Swarm BOM for the version of swarmtool you are using.
+
+|`-h`, `--help`
+|Print usage message and exit.
+
+|`-v`, `--version`
+|Print version and exit.
+
+|`--modules=dir1,dir2`
+|A list of paths to dirs containing any required JBoss Modules module specifications
+
+|`-n`, `--name=name`
+| The name of the final jar sans the -swarm.jar suffix (default: <source name>) 
+
+|`--no-bundle-deps`
+|If specified, dependencies will be included in the -swarm.jar. Otherwise, they will be resolved from `$M2_REPO` or the network at runtime.
+
+|`--no-fraction-detect`
+|If specified, no attempt is made to detect the fractions the WAR needs. See Fraction Detection section below.
+
+|`-o`, `--output-dir=path`
+|Directory where the final jar will be written (default: .)
+                                        
+|`--properties-file`
+|Sets properties to be used at runtime by the -swarm.jar. See the Properties section below.
+
+|`--repos=url1,url2`
+|A list of additional maven repositories to use in addition to Maven Central and the JBoss Public Repository.
+|===
+
+== Fraction Detection
+
+Swarmtool will attempt to auto-detect needed fractions by scanning the WAR file. You can augment the list of fractions it will include with the `--fractions` option, and you can disable fraction detection completely with `--no-fraction-detect`. Note that in that case, you will have to specify *all* needed fractions with `--fractions`. Any fractions specified via `--fractions` will override any corresponding fractions that are discovered.
+
+
+== Properties
+
+Many properties may be used to configure execution and affect the packaging or running of your application.
+
+You can use the `--properties-file` or `-D` options to specify system properties that will be stored within the -swarm.jar and applied when running your application.
+
+Any properties added to the uberjar can of course be overridden at runtime using the traditional `-Dname=value` mechanism of `java`.
+
+Please see <<fake/../../../configuration_properties.adoc#,Configuration Properties>> for a non-exhaustive list of useful properties.

@@ -7,6 +7,7 @@
        * [Maven](getting-started/tooling/maven-plugin.adoc)
        * [Gradle](getting-started/tooling/gradle-plugin.adoc)
        * [Forge Add-on](getting-started/tooling/forge-addon.adoc)
+       * [SwarmTool](getting-started/tooling/swarmtool.adoc)
    * Application Packaging
        * [WAR](getting-started/war-applications.adoc)
        * [JAR](getting-started/jar-applications.adoc)

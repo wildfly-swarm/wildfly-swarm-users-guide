@@ -137,7 +137,7 @@ The plugin accepts the following options:
 |Name|Description|Default|Used by
 
 |bundleDependencies
-|If true, dependencies will be included in the -swarm.jar. Otherwise, they will be resolved from `$M2_REPO` or the network.
+|If true, dependencies will be included in the -swarm.jar. Otherwise, they will be resolved from `$M2_REPO` or the network at runtime.
 |true
 |`package`
 
