@@ -12,7 +12,7 @@ If you provide a `main(...)` and configure it in using the <<plugins/maven-plugi
 
 Because of some initialization timing issues, you should construct the `Swarm` prior to working with any deployments using the <<shrinkwrap.adoc#,ShrinkWrap API>>.
 
-It's also recommended that the `Container` is constructed prior to any other code in the `main(...)`. This is to prevent any issues of JBoss Logging not being able to initialize the logging subsystem if another framework or class has used JUL, or another logger, first.
+It's also recommended that the `Swarm` is constructed prior to any other code in the `main(...)`. This is to prevent any issues of JBoss Logging not being able to initialize the logging subsystem if another framework or class has used JUL, or another logger, first.
 
 [source,java]
 ----
@@ -36,7 +36,7 @@ public class MyMain {
 }
 ----
 
-If you only need to do some configuration of the Container without
+If you only need to do some configuration of the container without
 needing to manipulate the deployment archive, you can call `deploy()`
 with no arguments to have it deploy the default archive. For example,
 here we configure an h2 datasource, then deploy the default archive:
@@ -45,7 +45,7 @@ here we configure an h2 datasource, then deploy the default archive:
 ----
 public class MyMain {
     public static void main(String...args) {
-         new Container()
+         new Swarm()
            .fraction(new DatasourcesFraction()
                 .jdbcDriver("h2", (d) -> {
                     d.driverClassName("org.h2.Driver");
