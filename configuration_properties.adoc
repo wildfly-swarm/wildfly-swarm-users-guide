@@ -10,23 +10,23 @@ Below is a non-exhaustive set of useful properties, which may be available depen
 |Description
 |Default
 
-|swarm.bind.address
+|`swarm.bind.address`
 |Interface to bind servers
 |0.0.0.0
 
-|swarm.port.offset
+|`swarm.port.offset`
 |Sets a global port adjustment
 |0
 
-|swarm.deployment.timeout
+|`swarm.deployment.timeout`
 |Timeout, in seconds, to wait for a deployment to occur
 |300
 
-|swarm.export.deployment
+|`swarm.export.deployment`
 |Causes a deployed artifact to be dumped to disk when swarm starts, for debugging
 |false
 
-|swarm.debug.port
+|`swarm.debug.port`
 |If provided, the swarm process will pause for debugging on the given port. This option is only available when running an Arquillian test or `mvn wildfly-swarm:run`, not when executing `java -jar`. The latter requires normal Java debug agent parameters
 |_none_
 
@@ -40,20 +40,47 @@ Below is a non-exhaustive set of useful properties, which may be available depen
 |Description
 |Default
 
-|swarm.http.port
+|`swarm.http.port`
 |Sets the port for the HTTP server
 |8080
 
-|swarm.https.port
+|`swarm.https.port`
 |Sets the port for the HTTPS server
 |8443
 
-|swarm.http.eager
+|`swarm.http.eager`
 |Eagerly open the HTTP listeners
 |If non-null, will cause the http listeners to not be lazy
 
-|swarm.context.path
+|`swarm.context.path`
 |Sets the context path for the deployed application
 |/
 
 |===
+
+== JPA
+
+For the H2, MySQL and Postgres JPA fractions, the follow properties are supported
+to configure the datasource.
+
+[cols=3, options="header"]
+|===
+|Name
+|Description
+|Default
+
+|`swarm.ds.name`
+|Name of the datasource (e.g. `ExampleDS`)
+|`ExampleDS`
+
+|`swarm.ds.username`
+|Username to access the database
+|_driver specific_
+
+|`swarm.ds.password`
+|Password to access the database
+|_driver specific_
+
+|`swarm.ds.connection.url`
+|JDBC connection URL
+|_driver specific_
