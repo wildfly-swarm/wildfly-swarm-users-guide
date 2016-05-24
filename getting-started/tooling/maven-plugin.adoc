@@ -132,31 +132,36 @@ If you have started any applications with either `wildfly-swarm:start` or `wildf
 
 The plugin accepts the following options:
 
-[cols="d,a,2*d", options="header"]
+[cols="d,a,3*d", options="header"]
 |===
-|Name|Description|Default|Used by
+|Name|Property|Description|Default|Used by
 
 |bundleDependencies
+|`swarm.bundleDependencies`
 |If true, dependencies will be included in the -swarm.jar. Otherwise, they will be resolved from `$M2_REPO` or the network at runtime.
 |true
 |`package`
 
 |debug
+|_none_
 |A port to use for debugging. If set, the swarm process will suspend on start and open a debugger on this port.
 |
 |`run`, `start`
 
 |environment
+|_none_
 |A properties-style list of environment variables to use when running the application
 |
 |`multistart`, `run`, `start`
 
 |environmentFile
+|`swarm.environmentFile`
 |A `.properties` file of environment variables to use when running the application
 |
 |`multistart`, `run`, `start`
 
 |fractionDetectMode
+|`swarm.fractionDetectMode`
 |The mode for fraction detection. Options are:
 
 * `when_missing`: runs only when no WildFly Swarm dependencies are found
@@ -166,51 +171,61 @@ The plugin accepts the following options:
 |`package`, `run`, `start`
 
 |fractions
+|_none_
 |A list of extra fractions to include when auto-detection is used, useful for fractions that can't be detected or user-provided fractions. Each fraction can be of the form `group:name:version`, `name:version`, or `name`. If no group is provided, `org.wildfly.swarm` is assumed. If no version is provided, the version is looked up from the WildFly Swarm BOM for the version of the plugin you are using.
 |
 |`package`, `run`, `start`
 
 |jvmArguments
+|`swarm.jvmArguments`
 |A list of <jvmArgument> elements specifying additional JVM arguments (such as `-Xmx32m`)
 |
 |`multistart`, `run`, `start`
 
 |mainClass
+|`swarm.mainClass`
 |A class to execute as the main
 |org.wildfly.swarm.bootstrap.Main
 |`package`, `run`, `start`
 
 |modules
+|_none_
 |Paths to a directory containing additional module definitions
 |./modules
 |`package`, `run`, `start`
 
 |processes
+|_none_
 |Application configurations to start (see multistart section above)
 |
 |`multistart`
 
 |properties
+|_none_
 |(see properties section below)
 |
 |`package`, `run`, `start`
 
 |propertiesFile
+|`swarm.propertiesFile`
 |(see properties section below)
 |
 |`package`, `run`, `start`
 
 |stderrFile
+|`swarm.stderr`
 |A file path to use to store stderr output instead of sending it stderr of the launching process
 |
 |`run`, `start`
 
 |stdoutFile
+|`swarm.stdout`
 |A file path to use to store stdout output instead of sending it stdout of the launching process
 |
 |`run`, `start`
 
 |useUberJar
+|`swarm.useUberJar`
 |If true, the `-swarm.jar` from `${project.build.directory}` will be used. This jar will not be automatically created, so the `package` goal will need to have already been executed.
 |false
 |`run`, `start`
