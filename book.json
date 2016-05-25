@@ -4,9 +4,9 @@
       "readme": "README.adoc"
   },
   "plugins": [
-      "toggle-chapters",
       "ungrey",
-      "splitter"
+      "splitter",
+      "expandable-chapters"
   ],
   "variables": {
       "versions": {
