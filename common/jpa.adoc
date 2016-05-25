@@ -57,6 +57,8 @@ configure multiple datasources for usage with JPA.
 Please see the <<datasources#,Datasources chapter>> for details
 on configuring datasources.
 
+== Configuration
+
 If multiple variants of `jpa*` fractions are included, a `main(...)` is
 currently required in order to prevent each from attempting to define
 the `ExampleDS`.
@@ -70,5 +72,14 @@ container.fraction(new JPAFraction()
                  .inhibitDefaultDatasource();
 ----
 
+If the default datasource from a JPA variant is used, it may be configured
+using system properties to adjust it.
 
+[cols=2, options="header"]
+|===
+|Property|Description
+|`swarm.ds.connection.url`|JDBC connection URL
+|`swarm.ds.username`|Username for authenticating the connection
+|`swarm.ds.password`|Password for authenticating the connection
+|`swarm.ds.name`|Simple name of the datasource, such as `ExampleDS`
 

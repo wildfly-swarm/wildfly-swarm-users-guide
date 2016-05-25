@@ -2,7 +2,7 @@
 
 Datasources provide managed connections to relational databases.  While
 they may be used directly, typically they are consume through other
-frameworks, such as a <<jpa#JPA>>.
+frameworks, such as a <<jpa#,JPA>>.
 
 == Configuration
 
