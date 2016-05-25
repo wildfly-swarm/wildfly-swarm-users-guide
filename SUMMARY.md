@@ -17,6 +17,8 @@
 * [Common Fractions](transactions.adoc)
    * [Logging](common/logging.adoc)
    * [JAX-RS](common/jax-rs.adoc)
+   * [JPA](common/jpa.adoc)
+   * [Datasources](common/datasources.adoc)
    * [CDI](common/weld_cdi.adoc)
    * [Messaging](common/messaging.adoc)
    * [JSF](common/jsf.adoc)

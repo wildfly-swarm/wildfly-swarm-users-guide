@@ -1,0 +1,74 @@
+= JPA
+
+Java Persistence API (JPA) is a standard JavaEE API for developing applications that need access
+to relational databases.
+
+== Configuration
+
+To use JPA in your application, you need to add one of the following dependencies:
+
+=== Default using H2-based Datasource
+
+[source,xml]
+----
+<dependency>
+  <groupId>org.wildfly.swarm</groupId>
+  <artifactId>jpa</artifactId>
+</dependency>
+----
+
+=== Default using MySQL-based Datasource
+
+[source,xml]
+----
+<dependency>
+  <groupId>org.wildfly.swarm</groupId>
+  <artifactId>jpa-mysql</artifactId>
+</dependency>
+----
+
+=== Default using Postgres-based Datasource
+
+[source,xml]
+----
+<dependency>
+  <groupId>org.wildfly.swarm</groupId>
+  <artifactId>jpa-postgresql</artifactId>
+</dependency>
+----
+
+== Usage
+
+The `jpa` (or `jpa-mysql` or `jpa-postgresql`) fraction makes the JPA APIs available to your application through a transitive dependency. 
+There is no need to add them yourself.
+
+== Usage in a WAR Application
+
+By default, inclusion of one of the `jpa*` fractions will cause the
+creation of the default `ExampleDS` datasource for usage by your `persistence.xml`.
+The datasource is bound as the default datasource, so there is no
+need to reference it by name from your `persistence.xml`.
+
+== Usage in a JAR application
+
+If you have a `.jar`-based application with a `main(...)`, you can
+configure multiple datasources for usage with JPA. 
+
+Please see the <<datasources#,Datasources chapter>> for details
+on configuring datasources.
+
+If multiple variants of `jpa*` fractions are included, a `main(...)` is
+currently required in order to prevent each from attempting to define
+the `ExampleDS`.
+
+This is accomplished using the `inhibitDefaultDatasource()` on each JPA
+fraction.
+
+[source,java]
+----
+container.fraction(new JPAFraction()
+                 .inhibitDefaultDatasource();
+----
+
+
+

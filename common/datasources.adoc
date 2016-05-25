@@ -1,0 +1,45 @@
+= Datasource
+
+Datasources provide managed connections to relational databases.  While
+they may be used directly, typically they are consume through other
+frameworks, such as a <<jpa#JPA>>.
+
+== Configuration
+
+To use Datasources in your application, you need to add the following dependency:
+
+=== Default using H2-based Datasource
+
+[source,xml]
+----
+<dependency>
+  <groupId>org.wildfly.swarm</groupId>
+  <artifactId>datasources</artifactId>
+</dependency>
+----
+
+== Usage
+
+Using the Java API, you may create one or more datasources, along with
+registering relevant JDBC drivers:
+
+[source,java]
+----
+container.fraction(new DatasourcesFraction()
+                .jdbcDriver("h2", (d) -> {
+                    d.driverClassName("org.h2.Driver");
+                    d.xaDatasourceClass("org.h2.jdbcx.JdbcDataSource");
+                    d.driverModuleName("com.h2database.h2");
+                })
+                .dataSource("MyDS", (ds) -> {
+                    ds.driverName("h2");
+                    ds.connectionUrl("jdbc:h2:mem:test;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE");
+                    ds.userName("sa");
+                    ds.password("sa");
+                })
+);
+----
+
+If a variant of the <<jpa#,JPA>> fractions is used, by default it will create
+a default `ExampleDS`.
+
