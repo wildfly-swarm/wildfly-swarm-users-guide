@@ -26,9 +26,8 @@ public class MyMain {
         JAXRSArchive deployment = ShrinkWrap.create(JAXRSArchive.class);
         ...
 
-        // Optionally add the default deployment to the archive
-        // This will give you all of the project's Classes/Resources
-        deployment.addAsLibrary(container.createDefaultDeployment());
+        // Add resource to deployment
+        deployment.addClass(MyResource.class);
 
         container.start();
         container.deploy(deployment);
