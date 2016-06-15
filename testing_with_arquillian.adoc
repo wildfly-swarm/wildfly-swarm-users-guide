@@ -96,6 +96,36 @@ public class MyTest {
 }
 ----
 
+=== Example with custom Container configuration
+
+If the swarm container has to be configured (e.g. to configure the DataSource fraction) then this can be done by implementing the ContainerFactory interface.
+
+[source,java]
+----
+@RunWith(Arquillian.class)
+public class MyTest implements ContainerFactory {
+    @Deployment(testable = false)
+    public static Archive createDeployment() {
+        JARArchive deployment = ShrinkWrap.create(JARArchive.class);
+        // ... set up archive ...
+        return deployment;
+    }
+
+    @Override
+    public Container newContainer(String... args) throws Exception {
+        Container container = new Container();
+        // ... configure the container ...
+        return container;
+    }
+
+    @Test
+    @RunAsClient
+    public void testNothing() {
+
+    }
+}
+----
+
 === Passing additional options to the -swarm.jar
 
 The Arquillian container for WildFly Swarm supports the following system properties in addition to those listed in 
