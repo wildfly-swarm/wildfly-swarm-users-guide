@@ -8,7 +8,7 @@ others.
 
 We refer to the various pieces as
 
-- _parent_: The top-most `pom.xml` to aggregate the build of the 
+- _parent_: The top-most `pom.xml` to aggregate the build of the
   lower portions.
 
 - _root_: The user-referenced piece that provides BOM-like capabilities
@@ -67,8 +67,8 @@ of the WildFly Swarm SPI and fraction-plugin being used:
 [source,xml]
 ----
 <properties>
-  <version.swarm.spi>1.0.0.Beta3</version.swarm.spi>
-  <version.swarm.fraction-plugin>1.0.0.Beta2</version.swarm.fraction-plugin>
+  <version.swarm.spi>1.0.3.Final</version.swarm.spi>
+  <version.swarm.fraction-plugin>18</version.swarm.fraction-plugin>
 </properties>
 ----
 
@@ -195,12 +195,12 @@ To ensure this JSON is available to the BOM generation process, we need to add t
 
 == The Root
 
-In our above example, `jolokia/jolokia/pom.xml` lives by itself, with no 
-related source, but ties together the remaining bits, and is the artifact 
+In our above example, `jolokia/jolokia/pom.xml` lives by itself, with no
+related source, but ties together the remaining bits, and is the artifact
 referenced by a user's application.  This is the _root_ artifact.
 
 The project, while it has `<packaging>jar</packaging>`, does not include
-any source.  Instead it provides transitive dependencies to the 
+any source.  Instead it provides transitive dependencies to the
 various other bits of the fraction, along with transitive dependencies
 to any other entire fractions required by this one.
 
@@ -211,8 +211,8 @@ For Jolokia to be available from within the http://wildfly-swarm.io/generator/[P
 
 [source,xml]
 ----
-<project xmlns="http://maven.apache.org/POM/4.0.0" 
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
   <modelVersion>4.0.0</modelVersion>
@@ -277,15 +277,15 @@ described in the previous section.
 == API
 
 The `-api` artifact represents any user-facing configuration API, including
-the any relevant `*Fraction.java` class.  
+the relevant `*Fraction.java` class.
 
 === The `*Fraction.java`
 
 If the fraction includes configuration capabilities, or otherwise alters
 the runtime system through deployments or adjustments to the server, it
-should include an implement of `org.wildfly.swarm.spi.api.Fraction`.
+should include an implementation of `org.wildfly.swarm.spi.api.Fraction`.
 
-Any opaque POJO configuration details that are required may be added
+Any opaque POJO configuration details that are required may be added in
 the implementation, and will be passed to the back-end runtime portion
 during server boot-up to control configuration.
 
@@ -324,34 +324,14 @@ public class CheeseFraction implements Fraction {
 
 If your fraction aims to enable some API or specification beyond the fraction
 itself (such as enabling usage of `javax.jms` for instance), the `-api` `pom.xml`
-should include such dependency as `<scope>compile</scope>`.  In the root
-of the `pom.xml`, on the `<project>` element, you need to add an `xmlns` for
-the WildFly Swarm XML namespace, and also mark the relevant `<dependency>` as
-below:
-
-[source,xml]
-----
-<project xmlns:swarm="http://wildfly-swarm.io/">
-  ...
-  <dependencies>
-
-    ...
-
-    <dependency swarm:scope="provided">
-      <groupId>org.jboss.spec.javax.jms</groupId>
-      <artifactId>jboss-jms-api_2.0_spec</artifactId>
-    </dependency>
-  </dependencies>
-  ...
-</project>
-----
+should include such dependency as `<scope>compile</scope>`.
 
 This allows for a user to reference only your fraction, and implicitly
 receive the JMS specification classes on their classpath.
 
-By marking it with `swarm:scope`, it enables the WildFly Swarm plugin to
-know that the specification artifact is _actually_ provided at runtime
-by the server, and shouldn't be considered a application dependency.
+During fraction construction it will mark the specification artifact as
+_actually_ provided at runtime by the server, and shouldn't be considered
+a application dependency.
 
 == Runtime
 
@@ -360,7 +340,7 @@ and effecting changes to the runtime server based upon its existance and configu
 values.
 
 For every `*Fraction.java`, there should exist a matching `*Configuration.java`.  For the
-simplest cases, the `*Configuration.java` can actually be synthesized based upon 
+simplest cases, the `*Configuration.java` can actually be synthesized based upon
 Java annotations on the `*Fraction.java` itself.  If that suffices, the entire
 `-runtime` artifact may be avoided.
 
@@ -399,7 +379,7 @@ General convention requires that the base module name is exactly the same as the
 of the `*Fraction` implementation.
 
 For instance, if you have `com.mycorp.cheese.CheeseFraction`, then the base module name should be
-`com.mycorp.cheese`.  
+`com.mycorp.cheese`.
 
 === The `:main` slot
 
