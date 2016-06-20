@@ -10,9 +10,9 @@
   ],
   "variables": {
       "versions": {
-          "swarm": "1.0.0.Final-SNAPSHOT",
+          "swarm": "1.0.0.CR2",
           "configuration": "0.4.2",
-          "keycloak": "1.9.4.Final"
+          "keycloak": "1.9.8.Final"
       }
   }
 }
