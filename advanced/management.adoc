@@ -35,7 +35,7 @@ ManagementFraction.createDefaultFraction()
 ----
 
 If you wish to perform more advanced configuration, please see the
-http://wildfly-swarm.github.io/wildfly-swarm-javadocs/{{book.versions.swarm}}/apidocs/org/wildfly/swarm/config/management/package-summary.html[JavaDocs for the Management API].
+{{book.javadoc_url_preffix}}{{book.versions.swarm}}/apidocs/org/wildfly/swarm/config/management/package-summary.html[JavaDocs for the Management API].
 
 == Properties
 

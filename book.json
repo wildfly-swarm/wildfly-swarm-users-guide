@@ -9,6 +9,7 @@
       "expandable-chapters"
   ],
   "variables": {
+      "javadoc_url_preffix" : "http://wildfly-swarm.github.io/wildfly-swarm-javadocs/",
       "versions": {
           "swarm": "1.0.0.Final-SNAPSHOT",
           "configuration": "0.4.2",
