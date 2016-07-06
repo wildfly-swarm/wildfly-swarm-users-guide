@@ -77,6 +77,20 @@ By default, `swagger` can be used with zero-configuration. This means you can si
 }
 ----
 
+== Usage with WAR packaging (`META-INF/swarm.swagger.conf`)
+
+If you don't use JAR packaging, like in the example above (no custom Main()), then you would need to configure swagger through `META-INF/swarm.swagger.conf`. It allows you to specify resource packages to be scanned and other atributes, similar to SwaggerArchive in the previous example.
+
+```
+packages:com.example.rest   (1)
+root:rest                   (2)
+title:WildFly Swarm Demo    (3)
+```
+
+1. resource packages for the swagger annotation scanner (comma delimited, String[])
+2. the content root, which typically is configured in the jaxrs.Application
+3. arbitraty othe things to pimp up the UI appearance
+
 The packages are recursively scanned, so if you have a package hierarchy, you just need to set the top level package name. See the https://github.com/wildfly-swarm/wildfly-swarm/blob/master/swagger/api/src/main/java/org/wildfly/swarm/swagger/SwaggerArchive.java[`SwaggerArchive`] interface for additional configuration options.
 
 == Swagger UI
