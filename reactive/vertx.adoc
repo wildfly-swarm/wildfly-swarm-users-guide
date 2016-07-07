@@ -12,6 +12,31 @@ This fraction adds support for the Vert.x API in Java EE applications by enablin
 </dependency>
 ----
 
+== Usage
+
+There is no need to configure the VertxFraction if you intend to use the default behavior (JCA adapter deployed and VertxConnectionFactory registered). 
+
+Using the Java API you can inhibit the JCA adapter deployment (if you intend to use just the Vert.x APIs for example).
+
+[source,java]
+----
+container.fraction(new VertxFraction()
+               .inhibitAdapterDeployment()
+);
+----
+
+You can also modify the VertxConnectionFactory parameters using the same API
+
+[source,java]
+----
+container.fraction(new VertxFraction()
+               .jndiName("java:/eis/MyVertxConnectionFactory")
+               .clusterHost("myhost")
+               .clusterPort(1000)
+);
+----
+
+
 Overview
 --------
 
