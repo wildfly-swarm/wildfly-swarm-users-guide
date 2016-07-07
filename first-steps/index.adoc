@@ -1,5 +1,7 @@
 = Developing your first application
 
+NOTE: Before we begin make sure to read section on link:../getting-started/system_requirements.adoc[System Requirements]
+
 In this example we build a simple restful HTTP endpoint using WildFly Swarm.
 The project uses maven and follows a typical maven project layout:
 
@@ -12,3 +14,13 @@ The project uses maven and follows a typical maven project layout:
 ----
 
 As a first step, we look at the link:maven_pom.html[Maven POM]
+
+== Generating a custom project
+
+The most simple way to get going is to use the web based link:http://wildfly-swarm.io/generator[Project Generator].
+It allows you to generate zip file with a full maven build structure, including example application code:
+
+* Head over to the link:http://wildfly-swarm.io/generator[Project Generator]
+* Chose a `JAX-RS` fraction to begin with
+* Click `Generate` and save the resulting zip file on your machine
+* Unpack the zip and you've code everything we use in this simple example
