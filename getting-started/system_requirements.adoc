@@ -1,0 +1,21 @@
+= System Requirements
+
+At a bare minimum you need at least the following:
+
+* JDK 8
+* Maven 3.3.x
+
+
+== Java 8
+
+WildFly leverages the Java 8 API's, in particular lambdas the the collection enhancements.
+Therefore it's required to have the JDK 8 available, to build and run WildFly Swarm applications:
+
+* http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html[Download JDK 8]
+
+== Maven 3.3.x
+
+The link:../getting-started/tooling/maven-plugin.html[Maven Plugin], that performs most of the work when packaging WildFly Swarm applications
+requires at maven 3.3.x:
+
+* https://maven.apache.org/download.cgi[Download Apache Maven]

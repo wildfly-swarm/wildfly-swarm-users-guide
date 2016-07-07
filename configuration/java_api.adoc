@@ -1,0 +1,26 @@
+== Configuration using the Java API
+
+The Java API is most straight forward way to configure fractions in WildFly Swarm. A typical example look like this:
+
+[source,java]
+----
+new DatasourcesFraction()
+  .jdbcDriver("h2", (d) -> {
+      d.driverClassName("org.h2.Driver");
+      d.xaDatasourceClass("org.h2.jdbcx.JdbcDataSource");
+      d.driverModuleName("com.h2database.h2");
+  })
+  .dataSource("ExampleDS", (ds) -> {
+      ds.driverName("h2");
+      ds.connectionUrl("jdbc:h2:mem:test;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE");
+      ds.userName("sa");
+      ds.password("sa");
+  });
+----
+
+NOTE: The complete Javadocs for the config API are available http://wildfly-swarm.github.io/wildfly-swarm-javadocs/{{book.versions.swarm}}/apidocs/index.html[here]
+
+In this example we configure the datasource fraction with an additional datasource and a corresponding JDBC driver.
+
+All of the fractions that represent WildFly subsystems can be configured this way.
+The configuration model is an equivalent to the WildFly XML schema. In fact it is actually generated from it.

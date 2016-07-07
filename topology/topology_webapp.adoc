@@ -1,0 +1,74 @@
+== Accessing Topology Information outside of a WildFly Swarm Application
+
+The chief use of accessing topology information outside of a WildFly Swarm application is in the case of a Javascript-centric browser-based application.  In the event your various services are publicly routable and directly exposed to a single-page application, being able to discover them from the user's browser is useful.
+
+The `topology-webapp` fraction can be added to a service, and it exposes a URL where external clients can retrieve a `topology.js` script which will provide topology access within the browser.  The `topology.js` script also takes advantage of a Server-Sent-Events (SSE) endpoint that is also published, in order to push changes of the topology in real-time to the browser.
+
+[source,xml]
+----
+<dependency>
+  <groupId>org.wildfly.swarm</groupId>
+  <artifactId>topology-webapp</artifactId>
+</dependency>
+----
+
+By including the above dependency, the `topology.js` script, along with the SSE endpoint will automatically be mounted under the context-path of `/topology` in your application.
+
+==== Javascript API
+
+The Javascript API provided by `topology-webapp` allows clients to open a persistent connection to the provided servlet. The known service topology is fed to clients as JSON data, and updated automatically via Server Sent Events as services come up and go down. Clients can register listeners to respond to these change events. When you include the `topology.js` script in your client application, a `topology` constructor function is added to the global scope. Example usage:
+
+[source,javascript]
+----
+var Topology = topology(),
+    component = someReactComponent;
+
+// listen for changes to the service topology
+// and update our component on change
+Topology.onTopologyChange(function(topology) {
+    component.setState({data: topology});
+});
+----
+
+The JSON received from this request will look similar to this.
+
+[source,json]
+----
+{
+    "time": ["http://192.168.0.5:9000", "http://192.168.0.5:9001"],
+    "events": ["http://192.168.0.6:9000", "http://192.168.0.6:9001"]
+}
+----
+
+That is, the client will receive a JSON object that has service names as keys, and a list of available servers as values. To call these services, however, clients do not need to know the host names and ports. Topology Webapp manages these for you. You simply need to know the service names. The Javascript API makes 3 asynchronous functions available.
+
+** `getJSON` Makes an asynchronous HTTP GET request to a known service.
+** `postJSON` Makes an asynchronous HTTP POST request to a known service.
+** `ajax` Makes an AJAX request to a known service. This function allows for customizable AJAX settings.
+
+Each of these functions returns a promise. Here is some example usage.
+
+[source, javascript]
+----
+// Call the time service
+// activate a browser alert on response
+Topology.getJSON("time").then(alert);
+
+// Post to the events service a new event
+// Activate a browser alert on response
+Topology.postJSON("events", {name: 'my-event-name'}).then(alert);
+
+// Call a remote event service and provide a custom header
+// alert on response
+Topology.ajax( "events", '/', {
+        method: 'POST',
+        data: {
+            name: 'event-name',
+            value: 'event-value'
+        },
+        headers: {
+            Pragma: 'no-cache'
+        }
+      })
+      .then(alert);
+----

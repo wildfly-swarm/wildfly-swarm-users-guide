@@ -1,0 +1,42 @@
+== Configuration using XML
+
+If you prefer an external, XML based configuration, i.e. because you migrate from WildFLy to WildFly Swarm,
+the you can leverage an existing `standalone.xml` file as well.
+
+To make us of such a file, you'd need to bootstrap the Container with a reference to an XML configuration:
+
+[source,java]
+----
+ClassLoader cl = Main.class.getClassLoader();
+URL xmlConfig = cl.getResource("standalone.xml");
+
+Container container = new Container(false)
+        .withXmlConfig(xmlConfig);
+
+[...]
+----
+
+In this case, you would still need to declare explicit maven dependencies on Swarm fractions,
+but the Container would just use those subsystem configurations for which a corresponding fraction can be found, i.e.:
+
+[source,xml]
+----
+<subsystem xmlns="urn:jboss:domain:datasources:4.0">
+   <datasources>
+       <drivers>
+           <driver name="h2" module="com.h2database.h2">
+               <driver-class>org.h2.Driver</driver-class>
+               <xa-datasource-class>org.h2.jdbcx.JdbcDataSource</xa-datasource-class>
+           </driver>
+       </drivers>
+       <datasource jndi-name="java:jboss/datasources/ExampleDS" pool-name="ExampleDS" enabled="true" use-java-context="true">
+           <connection-url>jdbc:h2:mem:test;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE</connection-url>
+           <driver>h2</driver>
+           <security>
+               <user-name>sa</user-name>
+               <password>sa</password>
+           </security>
+       </datasource>
+   </datasources>
+</subsystem>
+----

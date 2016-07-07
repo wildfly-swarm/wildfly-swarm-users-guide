@@ -1,0 +1,22 @@
+= Configuration Options
+
+== System Properties and Command Line arguments
+
+For common cases, Swarm provides a set of link:../configuration_properties.html[system properties] to configure the container bootstrap.
+This covers common things like network address, ports, etc. link:command_line.html[Command-line Arguments] serve a similar purpose
+and short-cut the usage for common properties.
+
+== Fraction Configuration
+
+Most of the the WildFly Swarm fractions use sensible defaults, but there are cases when need
+provide your own configuration or want to to change the default behaviour. WildFly
+ Swarm offers two general mechanisms to configure an instance: using the java API or using an xml configuration file.
+
+ * link:/java_api.html[Using the Java API]
+ * link:/using_xml.html[Using XML]
+
+== Environment specific changes
+Both of the above approaches are complemented using external configuration files (`project-stages.yml`),
+that carry overlays for specific configuration values that need to change between target environments:
+
+ * link:/project_stages.html[Project Stages]

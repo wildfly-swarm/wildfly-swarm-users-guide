@@ -1,0 +1,14 @@
+== Topology using Hashicorp Consul
+
+By including the `topology-consul` dependency in your application, your WildFly Swarm instances can register themselves within your Consul catalog.  Additionally, they can look up any other services that are registered, even if they are not WildFly Swarm applications.
+
+Using Consul requires having a Consul server and agent strategy already in place. Further documentation about Consul can be found at https://www.consul.io/.
+
+=== Configuration
+
+[source,xml]
+----
+<dependency>
+  <groupId>org.wildfly.swarm</groupId>
+  <artifactId>topology-consul</artifactId>
+</dependency>

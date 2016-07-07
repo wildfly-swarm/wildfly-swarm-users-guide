@@ -1,0 +1,43 @@
+== Supporting with Command-Line arguments
+
+When no user-provided `main(..)` is available (see link:../getting-started/container.html[Container]), the default `Swarm` main 
+supports a handful of command-line arguments to the `-swarm.jar`:
+
+[cols=3, options="header"]
+|===
+|Argument
+|Description
+|Default
+
+|`-D<name>` or `-D<name>=<value>`
+|Define a Java system property.
+|_none_
+
+|`-P<file-or-url>`
+|Location of a Java `.properties` file to use as system properties.
+|_none_
+
+|`-b <addr>`
+|Bind the public listeners to an address.
+|0.0.0.0 _(all)_
+
+|`-c <file-or-url>`
+|Specify an XML configuration file (such as `standalone.xml` or a fragment of such).
+|_none_
+
+|`-s <file-or-url>`
+|Specify a `project-stages.yml`
+|`project-stages.yml` from the application classpath, if available.
+
+|`-S <active-stage>`
+|Name of stage to activate from a `project-stages.yml` file (see `-s`).
+|_none_
+
+|`--help` or `-h`
+|Display relevant help, including any known `project-stages.yml` keys (see `-s`).
+|_n/a_
+
+|`--version` or `-v`
+|Display the version of WildFly Swarm being used.
+|_n/a_
+|===

@@ -6,8 +6,19 @@
   "plugins": [
       "ungrey",
       "splitter",
-      "expandable-chapters"
+      "expandable-chapters",
+      "edit-link",
+      "addcssjs"      
   ],
+  "pluginsConfig": {
+           "edit-link": {
+               "base": "https://github.com/wildfly-swarm/wildfly-swarm-users-guide/tree/master/",
+               "label": "Edit This Page"
+           },
+           "addcssjs": {
+              "css": ["/styles/asciidoc.css"]
+          }
+   },
   "variables": {
       "javadoc_url_preffix" : "http://wildfly-swarm.github.io/wildfly-swarm-javadocs/",
       "versions": {

@@ -31,104 +31,21 @@ To produce the `_myapp_-swarm.jar`, simply perform a typical `mvn package` comma
 
     mvn package
 
-=== Example
-
-[source,xml]
-----
-<build>
-  <plugins>
-    <plugin>
-      <groupId>org.wildfly.swarm</groupId>
-      <artifactId>wildfly-swarm-plugin</artifactId>
-      <executions>
-        <execution>
-          <goals>
-            <goal>package</goal>
-          </goals>
-        </execution>
-      </executions>
-      <configuration>
-        <bundleDependencies>false</bundleDependencies>
-        <properties>
-          <swarm.bind.address>127.0.0.1</swarm.bind.address>
-        </properties>
-      </configuration>
-    </plugin>
-  </plugins>
-</build>
-----
-
-=== Fraction Detection
-
-If the plugin doesn't detect any WildFly Swarm dependencies in your `pom.xml`, it will attempt to auto-detect needed fractions by scanning the application. This is mostly useful for WAR-based applications that you are migrating to WildFly Swarm - you only need to add the plugin to your configuration, and not any other WildFly Swarm dependencies. You can control fraction detection by setting `<fractionDetectMode>`. See the configuration options below for more details.
-
 == Running your application
 
 To execute your application, you may use the `wildfly-swarm:run` goal:
 
     mvn wildfly-swarm:run
-    
-This will execute your application within the WildFly Swarm runtime directly from the Maven command-line, and wait for it to exit. If you want to start the application without maven waiting for it to exit, use the `wildfly-swarm:start` goal.
+
+This will execute your application within the WildFly Swarm runtime directly from the Maven command-line, and wait for it to exit.
 
 Both of these goals will perform the same type of fraction detection as the `package` task if no WildFly Swarm dependencies are found.
 
+== Fraction detection
 
-=== Starting multiple applications at once
+If the plugin doesn't detect any WildFly Swarm dependencies in your `pom.xml`, it will attempt to auto-detect needed fractions by scanning the application. This is mostly useful for WAR-based applications that you are migrating to WildFly Swarm - you only need to add the plugin to your configuration, and not any other WildFly Swarm dependencies. You can control fraction detection by setting `<fractionDetectMode>`. See the configuration options below for more details.
 
-You can start multiple swarm applications at once using the `wildfly-swarm:multistart` goal (this is useful for integration testing a set of applications). Each application is specified as a `<process>` containing an optional `<groupId>`, an `<artifactId>`, and an optional `<executionId>` (useful if you need to launch multiple copies of the same application). Each `<process>` can also include any configuration that is valid for the `wildfly-swarm:start` goal.
-
-==== Example
-
-[source,xml]
-----
-<build>
-  <plugins>
-    <plugin>
-      <groupId>org.wildfly.swarm</groupId>
-      <artifactId>wildfly-swarm-plugin</artifactId>
-      <executions>
-        <execution>
-          <id>multistart</id>
-          <phase>pre-integration-test</phase>
-          <goals>
-            <goal>multistart</goal>
-          </goals>
-          <configuration>
-            <processes>
-              <process>
-                <artifactId>my-frontend-app</artifactId>
-              </process>
-              <process>
-                <artifactId>my-auth-app</artifactId>
-                <properties>
-                  <swarm.http.port>8081</swarm.http.port>
-                </properties>
-                <mainClass>com.example.auth.Main</mainClass>
-              </process>
-              <process>
-                <artifactId>my-indexing-app</artifactId>
-                <properties>
-                  <swarm.http.port>8082</swarm.http.port>
-                </properties>
-                <environment>
-                  <ENV>test</ENV>
-                </environment>
-              </process>
-            </processes>
-          </configuration>
-        </execution>
-      </executions>
-    </plugin>
-  </plugins>
-</build>
-----
-
-=== Stopping started applications
-
-If you have started any applications with either `wildfly-swarm:start` or `wildfly-swarm:multistart`, they can be stopped by executing the `wildfly-swarm:stop` goal.
-
-
-== Configuration Options
+== Plugin Configuration Options
 
 The plugin accepts the following options:
 

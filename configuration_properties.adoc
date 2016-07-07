@@ -1,12 +1,14 @@
-= Configuration Properties
+= System Properties
 
 Below is a non-exhaustive set of useful properties, which may be available depending on which fractions your application uses.
+
+NOTE: For a full set of supported options, please consult the documentation for each fraction
 
 == General
 
 [cols=3, options="header"]
 |===
-|Name 
+|Name
 |Description
 |Default
 
@@ -36,7 +38,7 @@ Below is a non-exhaustive set of useful properties, which may be available depen
 
 [cols=3, options="header"]
 |===
-|Name 
+|Name
 |Description
 |Default
 

@@ -1,0 +1,13 @@
+== Topology using JGroups
+
+By including the `topology-jgroups` dependency in your application, and optionally configuring the `jgroups` fraction, all of your WildFly Swarm instances can discover one another without having to run any additional servers.  The JGroups topology management infrastructure is server-less and is peer-to-peer in mosts cases.
+
+=== Configuration
+
+[source,xml]
+----
+<dependency>
+  <groupId>org.wildfly.swarm</groupId>
+  <artifactId>topology-jgroups</artifactId>
+</dependency>
+----

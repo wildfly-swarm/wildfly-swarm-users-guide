@@ -1,78 +1,4 @@
-= Configuration Options
-
-Most of the the WildFly Swarm fractions use sensible defaults, but there are cases when need
-provide your own configuration or want to to change the default behaviour. WildFly
- Swarm offers two general mechanisms to configure an instance: using the java API or using an xml configuration file.
-
-== Configuration using the Java API
-
-The Java is most straight forward way to configure fractions in WildFly Swarm. A typical example look like this:
-
-.Main.java
-----
-new DatasourcesFraction()
-  .jdbcDriver("h2", (d) -> {
-      d.driverClassName("org.h2.Driver");
-      d.xaDatasourceClass("org.h2.jdbcx.JdbcDataSource");
-      d.driverModuleName("com.h2database.h2");
-  })
-  .dataSource("ExampleDS", (ds) -> {
-      ds.driverName("h2");
-      ds.connectionUrl("jdbc:h2:mem:test;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE");
-      ds.userName("sa");
-      ds.password("sa");
-  });
-----
-
-In this example we configure the datasource fraction with an additional datasource and a corresponding JDBC driver.
-
-All of the fractions that represent WildFly subsystems can be configured this way.
-The configuration model is an equivalent to the WildFly XML schema. In fact it is actually generated from it.
-
-== Configuration using XML
-
-If you prefer an external, XML based configuration, i.e. because you migrate from WildFLy to WildFly Swarm,
-the you can leverage an existing `standalone.xml` file as well.
-
-To make us of such a file, you'd need to bootstrap the Container with a reference to an XML configuration:
-
-.Main.java
-----
-ClassLoader cl = Main.class.getClassLoader();
-URL xmlConfig = cl.getResource("standalone.xml");
-
-Container container = new Container(false)
-        .withXmlConfig(xmlConfig);
-
-[...]
-----
-
-In this case, you would still need to declare explicit maven dependencies on Swarm fractions,
-but the Container would just use those subsystem configurations for which a corresponding fraction can be found, i.e.:
-
-.standalone.xml
-----
-<subsystem xmlns="urn:jboss:domain:datasources:4.0">
-   <datasources>
-       <drivers>
-           <driver name="h2" module="com.h2database.h2">
-               <driver-class>org.h2.Driver</driver-class>
-               <xa-datasource-class>org.h2.jdbcx.JdbcDataSource</xa-datasource-class>
-           </driver>
-       </drivers>
-       <datasource jndi-name="java:jboss/datasources/ExampleDS" pool-name="ExampleDS" enabled="true" use-java-context="true">
-           <connection-url>jdbc:h2:mem:test;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE</connection-url>
-           <driver>h2</driver>
-           <security>
-               <user-name>sa</user-name>
-               <password>sa</password>
-           </security>
-       </datasource>
-   </datasources>
-</subsystem>
-----
-
-=== Configuration overlays using stage properties
+== Configuration overlays using stage properties
 
 In some cases it may be desirable to extract some of the configuration properties and switch them
 depending on the target environment. Project stages are a way to move environment specific configuration properties
@@ -81,7 +7,7 @@ into an external file.
 ==== project-stages.yml
 A stage configuration is represented in an external YAML file:
 
-.project-stages.yml
+[source,yaml]
 ----
 logger:
     level: DEBUG
@@ -113,7 +39,8 @@ multiple yaml documents (separated by `---`) and the `project: stage: <name>` de
 can be used to enable a stage.  To use these stage properties you'd need to explicitly reference this file during Container bootstrap:
 
 ==== Container Bootstrap
-.Main.java
+
+[source,java]
 ----
 ClassLoader cl = Main.class.getClassLoader();
 URL stageConfig = cl.getResource("project-stages.yml");
@@ -152,7 +79,7 @@ Internally there are three ways to get hold of stage configuration values.
 The fist case is useful when you work with `standalone.xml` and still need to extract environment specific properties.
 In this cases you can make use of regular WildFly expressions in XML:
 
-.standalone.xml
+[source,xml]
 ----
 <subsystem xmlns="urn:jboss:domain:logging:3.0">
   <console-handler name="CONSOLE">
@@ -189,7 +116,7 @@ for the default configuration of a fraction itself.
 
 The later case is intended for users to combine stage and fraction configuration in a custom `Main()`:
 
-.Main.java
+[source,java]
 ----
 Container container = new Container(false)
               .withStageConfig(stageConfig);
@@ -219,4 +146,4 @@ container.fraction(
 ----
 
 In this example the `datasource#connectionUrl()` is resolved from a stage configuration value.
-The stage configuration is exposed through the container.  
+The stage configuration is exposed through the container.

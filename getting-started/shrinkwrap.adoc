@@ -1,4 +1,4 @@
-= ShrinkWrap
+= Deployments using ShrinkWrap
 
 ShrinkWrap is an open-source project sponsored by Red Hat.  It provides an API and SPI for easily creating, importing, exporting and manipulating _archives_.  ShrinkWrap works in-memory, but can also be used to create archives on disk.
 
@@ -15,7 +15,7 @@ The types of archives that WildFly Swarm makes available includes, but is not li
 |Type
 |Description
 
-|`JARArchive` 
+|`JARArchive`
 | An enhanced version of `.jar` which provides easy methods for adding dependencies.
 
 |`WARArchive`
@@ -42,10 +42,9 @@ Each ShrinkWrap archive type is effectively a _view_ onto the underlying archive
 JAXRSArchive deployment = ShrinkWrap.create( JAXRSArchive.class );
 deployment.addResource( MyResource.class );
 
-// Next, view it as a Secured archive, which activated Keycloak 
+// Next, view it as a Secured archive, which activated Keycloak
 deployment.as( Secured.class )
 
 // Then, view it as a RibbonArchive, and set its service name for discovery
 deployment.as( RibbonArchive.class ).setApplicationName( "my-service" );
 ----
-

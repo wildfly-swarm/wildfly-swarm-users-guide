@@ -49,8 +49,8 @@ public static Archive createDeployment() {
   ...
 }
 ----
-    
-The contents of this method is similar to whatever you would do within your `main(...)` method.  
+
+The contents of this method is similar to whatever you would do within your `main(...)` method.
 
 For instance:
 
@@ -74,23 +74,23 @@ If you wish to test your application from _outside_ (for instance, with a web cl
 ----
 @RunWith(Arquillian.class)
 public class MyTest {
-  
+
     @Inject
     private MyComponent component;
- 
+
     @Test
     public void testMyComponent() {
       // Runs within the application, CDI injects MyComponent
-      
+
       // assert something about this.component
     }
-  
+
     @Deployment
     public static Archive createDeployment() {
       JARArchive archive = ShrinkWrap.create( JARArchive.class );
-       
+
       // ... set up archive ...
-      
+
       return archive;
     }
 }
@@ -128,12 +128,12 @@ public class MyTest implements ContainerFactory {
 
 === Passing additional options to the -swarm.jar
 
-The Arquillian container for WildFly Swarm supports the following system properties in addition to those listed in 
+The Arquillian container for WildFly Swarm supports the following system properties in addition to those listed in
 the <<getting-started/plugins/maven-plugin#,plugin chapter>>:
 
 [cols=3, options="header"]
 |===
-|Name 
+|Name
 |Description
 |Default
 

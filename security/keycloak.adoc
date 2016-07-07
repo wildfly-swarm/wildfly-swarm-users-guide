@@ -1,4 +1,4 @@
-= Keycloak
+= Single Sign On using Keycloak
 
 Keycloak is an authentication and authorization server created by JBoss. It runs separate from any particular application. It acts as the primary authentication/authorization database of record and can also provide social-login capabilities.
 
@@ -17,7 +17,7 @@ To bring Keycloak integration to your application, you need the following depend
   <artifactId>keycloak</artifactId>
 </dependency>
 ----
-    
+
 Once this is added, you can use the `Secured` archive type to secure your application.  The easiest way to integrate is by providing a `keycloak.json` file in your application classpath and use `.as(Secured.class)`.
 
 [source,java]
@@ -25,7 +25,7 @@ Once this is added, you can use the `Secured` archive type to secure your applic
 JAXRSArchive deployment = ShrinkWrap.create(JAXRSArchive.class);
 deployment.as(Secured.class);
 ----
-    
+
 By default, this only adds support, but not a requirement, on Keycloak. Anonymous users can still access the entire application.  If they are authenticated, the `SecurityContext` will be populated with the user's information.
 
 == Protecting your application
@@ -39,7 +39,3 @@ deployment.as(Secured.class)
     .withMethod( "GET" )
     .withRoles( "admin" );
 ----
-
-
-
-    
