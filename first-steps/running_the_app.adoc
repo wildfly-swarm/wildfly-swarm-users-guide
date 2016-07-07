@@ -1,1 +1,139 @@
 = Running the application
+
+To run your application you can ...
+
+* either use the maven plugin to run your application
+* or package it as an uberJar and run it
+
+== Package and run using the maven plugin
+
+[source,bash]
+----
+mvn wildfly-swarm:run
+
+[INFO] ------------------------------------------------------------------------
+[INFO] Building Wildfly Swarm Example 1.0.0-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[....]
+[INFO] --- maven-war-plugin:2.2:war (default-war) @ restful-endpoint ---
+[INFO] Packaging webapp
+[INFO] Assembling webapp [restful-endpoint] in [/Users/hbraun/Downloads/restful-endpoint/target/restful-endpoint]
+[INFO] Processing war project
+[INFO] Webapp assembled in [28 msecs]
+[INFO] Building war: /Users/hbraun/Downloads/restful-endpoint/target/restful-endpoint.war
+[INFO]
+[INFO] --- wildfly-swarm-plugin:1.0.0.Final:package (default) @ restful-endpoint ---
+[INFO] Scanning for needed WildFly Swarm fractions with mode: when_missing
+[INFO] Detected fractions: jaxrs:1.0.2.Final
+[INFO] Adding fractions: container:1.0.2.Final, ee:1.0.2.Final, io:1.0.2.Final, jaxrs:1.0.2.Final, naming:1.0.2.Final, security:1.0.2.Final, undertow:1.0.2.Final
+
+[....]
+
+13:47:54,556 INFO  [org.jboss.msc] (main) JBoss MSC version 1.2.6.Final
+13:47:54,767 INFO  [org.jboss.as] (MSC service thread 1-6) WFLYSRV0049: WildFly Core 2.0.10.Final "Kenny" starting
+13:47:55,360 INFO  [org.wildfly.extension.io] (ServerService Thread Pool -- 11) WFLYIO001: Worker 'default' has auto-configured to 8 core threads with 64 task threads based on your 4 available processors
+13:47:55,363 INFO  [org.jboss.as.security] (ServerService Thread Pool -- 13) WFLYSEC0002: Activating Security Subsystem
+13:47:55,371 INFO  [org.jboss.as.security] (MSC service thread 1-3) WFLYSEC0001: Current PicketBox version=4.9.4.Final
+13:47:55,390 INFO  [org.jboss.as.naming] (ServerService Thread Pool -- 15) WFLYNAM0001: Activating Naming Subsystem
+13:47:55,392 INFO  [org.wildfly.extension.undertow] (ServerService Thread Pool -- 12) WFLYUT0003: Undertow 1.3.15.Final starting
+13:47:55,392 INFO  [org.wildfly.extension.undertow] (MSC service thread 1-1) WFLYUT0003: Undertow 1.3.15.Final starting
+13:47:55,423 INFO  [org.jboss.as.naming] (MSC service thread 1-4) WFLYNAM0003: Starting Naming Service
+13:47:55,466 INFO  [org.xnio] (MSC service thread 1-7) XNIO version 3.3.4.Final
+13:47:55,476 INFO  [org.xnio.nio] (MSC service thread 1-7) XNIO NIO Implementation Version 3.3.4.Final
+13:47:55,516 INFO  [org.wildfly.extension.undertow] (MSC service thread 1-2) WFLYUT0012: Started server default-server.
+13:47:55,669 INFO  [org.jboss.as] (Controller Boot Thread) WFLYSRV0025: WildFly Core 2.0.10.Final "Kenny" started in 1199ms - Started 63 of 75 services (14 services are lazy, passive or on-demand)
+13:47:55,732 INFO  [org.wildfly.extension.undertow] (MSC service thread 1-5) WFLYUT0006: Undertow HTTP listener default listening on [0:0:0:0:0:0:0:0]:8080
+13:47:56,517 INFO  [org.wildfly.swarm.runtime.deployer] (main) deploying restful-endpoint.war
+13:47:56,536 INFO  [org.jboss.as.server.deployment] (MSC service thread 1-4) WFLYSRV0027: Starting deployment of "restful-endpoint.war" (runtime-name: "restful-endpoint.war")
+13:47:57,262 INFO  [org.wildfly.extension.undertow] (MSC service thread 1-2) WFLYUT0018: Host default-host starting
+13:47:57,705 INFO  [org.jboss.resteasy.resteasy_jaxrs.i18n] (ServerService Thread Pool -- 3) RESTEASY002225: Deploying javax.ws.rs.core.Application: class com.example.rest.RestApplication
+13:47:57,741 INFO  [org.wildfly.extension.undertow] (ServerService Thread Pool -- 3) WFLYUT0021: Registered web context: /
+13:47:57,776 INFO  [org.jboss.as.server] (main) WFLYSRV0010: Deployed "restful-endpoint.war" (runtime-name : "restful-endpoint.war")
+----
+
+
+
+== Package and run with plain java
+
+The uberJar is packaged by the maven plugin, when your execute the `mvn package` command:
+
+[source,bash]
+----
+mvn package
+
+[INFO] ------------------------------------------------------------------------
+[INFO] Building Wildfly Swarm Example 1.0.0-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[....]
+[INFO] --- maven-war-plugin:2.2:war (default-war) @ restful-endpoint ---
+[INFO] Packaging webapp
+[INFO] Assembling webapp [restful-endpoint] in [/Users/hbraun/Downloads/restful-endpoint/target/restful-endpoint]
+[INFO] Processing war project
+[INFO] Webapp assembled in [26 msecs]
+[INFO] Building war: /Users/hbraun/Downloads/restful-endpoint/target/restful-endpoint.war
+[INFO]
+[INFO] --- wildfly-swarm-plugin:1.0.0.Final:package (default) @ restful-endpoint ---
+[INFO] Scanning for needed WildFly Swarm fractions with mode: when_missing
+[INFO] Detected fractions: jaxrs:1.0.2.Final
+[INFO] Adding fractions: container:1.0.2.Final, ee:1.0.2.Final, io:1.0.2.Final, jaxrs:1.0.2.Final, naming:1.0.2.Final, security:1.0.2.Final, undertow:1.0.2.Final
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time: 7.779 s
+[INFO] Finished at: 2016-07-07T13:38:26+02:00
+[INFO] Final Memory: 54M/1161M
+[INFO] ------------------------------------------------------------------------
+----
+
+The resulting uberJar carries the `-swarm.jar` suffix and can be found in the `./target` directory:
+
+[source,bash]
+----
+ll target/
+-rw-r--r--  1 hbraun  staff  41943061 Jul  7 13:38 restful-endpoint-swarm.jar
+-rw-r--r--  1 hbraun  staff      3591 Jul  7 13:38 restful-endpoint.war
+----
+
+Any `-swarm.jar` can simply be run using plain java:
+
+[source,bash]
+----
+
+java -jar target/restful-endpoint-swarm.jar
+
+13:45:29,211 INFO  [org.jboss.msc] (main) JBoss MSC version 1.2.6.Final
+13:45:29,433 INFO  [org.jboss.as] (MSC service thread 1-7) WFLYSRV0049: WildFly Core 2.0.10.Final "Kenny" starting
+13:45:30,074 INFO  [org.wildfly.extension.io] (ServerService Thread Pool -- 10) WFLYIO001: Worker 'default' has auto-configured to 8 core threads with 64 task threads based on your 4 available processors
+13:45:30,085 INFO  [org.jboss.as.naming] (ServerService Thread Pool -- 12) WFLYNAM0001: Activating Naming Subsystem
+13:45:30,100 INFO  [org.jboss.as.security] (ServerService Thread Pool -- 14) WFLYSEC0002: Activating Security Subsystem
+13:45:30,101 INFO  [org.jboss.as.security] (MSC service thread 1-4) WFLYSEC0001: Current PicketBox version=4.9.4.Final
+13:45:30,103 INFO  [org.jboss.as.naming] (MSC service thread 1-3) WFLYNAM0003: Starting Naming Service
+13:45:30,149 INFO  [org.wildfly.extension.undertow] (MSC service thread 1-7) WFLYUT0003: Undertow 1.3.15.Final starting
+13:45:30,149 INFO  [org.wildfly.extension.undertow] (ServerService Thread Pool -- 15) WFLYUT0003: Undertow 1.3.15.Final starting
+13:45:30,198 INFO  [org.xnio] (MSC service thread 1-6) XNIO version 3.3.4.Final
+13:45:30,206 INFO  [org.xnio.nio] (MSC service thread 1-6) XNIO NIO Implementation Version 3.3.4.Final
+13:45:30,262 INFO  [org.wildfly.extension.undertow] (MSC service thread 1-3) WFLYUT0012: Started server default-server.
+13:45:30,399 INFO  [org.jboss.as] (Controller Boot Thread) WFLYSRV0025: WildFly Core 2.0.10.Final "Kenny" started in 1816ms - Started 63 of 75 services (14 services are lazy, passive or on-demand)
+13:45:30,456 INFO  [org.wildfly.swarm.runtime.deployer] (main) deploying restful-endpoint.war
+13:45:30,474 INFO  [org.wildfly.extension.undertow] (MSC service thread 1-2) WFLYUT0006: Undertow HTTP listener default listening on [0:0:0:0:0:0:0:0]:8080
+13:45:30,485 INFO  [org.jboss.as.server.deployment] (MSC service thread 1-1) WFLYSRV0027: Starting deployment of "restful-endpoint.war" (runtime-name: "restful-endpoint.war")
+13:45:30,765 INFO  [org.wildfly.extension.undertow] (MSC service thread 1-7) WFLYUT0018: Host default-host starting
+13:45:31,152 INFO  [org.jboss.resteasy.resteasy_jaxrs.i18n] (ServerService Thread Pool -- 8) RESTEASY002225: Deploying javax.ws.rs.core.Application: class com.example.rest.RestApplication
+13:45:31,184 INFO  [org.wildfly.extension.undertow] (ServerService Thread Pool -- 8) WFLYUT0021: Registered web context: /
+13:45:31,211 INFO  [org.jboss.as.server] (main) WFLYSRV0010: Deployed "restful-endpoint.war" (runtime-name : "restful-endpoint.war")
+----
+
+== Testing the endpoint
+
+To test it simply send an HTTP request:
+
+[source,bash]
+----
+curl http://localhost:8080/rest/hello
+
+Hello from WildFly Swarm!
+----
+
+== Congratulations!
+
+You've just build your application using WildFly Swarm.

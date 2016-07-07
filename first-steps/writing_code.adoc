@@ -1,1 +1,41 @@
-= Writing Code
+= Adding application code
+
+Out example should serve HTTP requests, hence we add a link:../common/jax-rs.html[JAX-RS]
+endpoint implementation and a corresponding application context to define the context root:
+All of this goes into `src/main/java`.
+
+[source,java]
+----
+package com.example.rest;
+
+import javax.ws.rs.Path;
+import javax.ws.rs.core.Response;
+import javax.ws.rs.GET;
+import javax.ws.rs.Produces;
+
+@Path("/hello")
+public class HelloWorldEndpoint {
+
+  @GET
+  @Produces("text/plain")
+  public Response doGet() {
+    return Response.ok("Hello from WildFly Swarm!").build();
+  }
+}
+----
+
+And the application context looks like this:
+
+[source,java]
+----
+package com.example.rest;
+
+import javax.ws.rs.core.Application;
+import javax.ws.rs.ApplicationPath;
+
+@ApplicationPath("/rest")
+public class RestApplication extends Application {
+}
+----
+
+In the next step, we are going to package the application and link:running_the_app.html[run it].
