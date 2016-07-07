@@ -12,7 +12,7 @@
    * [Build System](getting-started/_build_system.adoc)  
     * [Dependency Management](getting-started/_dependency_management.adoc)    
     * [Maven](getting-started/tooling/maven-plugin.adoc)
-      * [Advanced Maven](getting-started/tooling/plugin_advanced.adoc)     
+      * [Advanced](getting-started/tooling/plugin_advanced.adoc)     
     * [Gradle](getting-started/tooling/gradle-plugin.adoc)            
    * Application Bootstrap
     * [Container](getting-started/container.adoc)

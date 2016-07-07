@@ -2,8 +2,8 @@
 
 To run your application you can ...
 
-* either use the maven plugin to run your application
-* or package it as an uberJar and run it
+* either use the link:../tooling/maven-plugin.html[maven plugin] to run your application
+* or package it as an link:../getting-started/basics.html[uberJar] and run it
 
 == Package and run using the maven plugin
 
