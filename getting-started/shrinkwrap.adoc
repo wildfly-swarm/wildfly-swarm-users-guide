@@ -1,6 +1,6 @@
 = Deployments using ShrinkWrap
 
-ShrinkWrap is an open-source project sponsored by Red Hat.  It provides an API and SPI for easily creating, importing, exporting and manipulating _archives_.  ShrinkWrap works in-memory, but can also be used to create archives on disk.
+link:http://arquillian.org/guides/shrinkwrap_introduction/[ShrinkWrap] is an open-source project sponsored by Red Hat.  It provides an API and SPI for easily link:http://arquillian.org/guides/shrinkwrap_introduction/#archive_creation[creating, importing, exporting and manipulating _archives_].  ShrinkWrap works in-memory, but can also be used to create archives on disk.
 
 == ShrinkWrap Basics
 

@@ -1,0 +1,23 @@
+= Additional Reading
+
+= Reading on microservices concepts
+We cannot fully cover the wide range of microservice concepts and related topics in this user guide.
+It's therefore recommended that you read up about related ideas yourself relate this information
+to a situation that concerns you, like a recent software project or upcoming architectural discussions with your peers.
+
+The following is a list of resources that we can recommend to get you started.
+
+== Online articles
+* https://leanpub.com/microservices-primer[Eberhard Wolff, "Microservices Primer"]
+* https://www.thoughtworks.com/de/insights/blog/microservices-nutshell[Martin Fowler, "Microservices in a Nutshell"]
+
+== Microservice Books
+* http://shop.oreilly.com/product/0636920033158.do[Sam Newman. "Building Microservices"]
+* http://www.amazon.com/Domain-Driven-Design-Tackling-Complexity-Software/dp/0321125215[Eric Evans, "Domain Driven Design"]
+
+== WildFly Swarm
+* http://wildfly-swarm.io/[Homepage]
+* http://wildfly-swarm.io/archive/[Blog]
+
+== OpenShift
+* https://www.openshift.org/[OpenShift Origin]

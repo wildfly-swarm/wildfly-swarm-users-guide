@@ -35,7 +35,7 @@
     * [Using the Maven plugin](getting-started/running_maven.adoc)         
     * [Running the packaged application](getting-started/running_cmd.adoc)
     * [Using HotSwap](getting-started/hotswap.adoc)      
-* Features
+* Features (Fractions)
    * Logging
     * [Logging](common/logging.adoc)
     * [Logstash](advanced/logstash.adoc)
@@ -81,6 +81,7 @@
  * [Keycloak Server](security/keycloak_server.adoc)
  * [Swagger UI](server/swagger.adoc)
  * [Management Console](server/console.adoc)
+* [Additional Reading](reading.adoc) 
 * Getting Involved
   * [Contributing to WildFly Swarm](getting_involved.adoc)
   * [Implementation Details](implementation_details.adoc)

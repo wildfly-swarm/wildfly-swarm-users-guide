@@ -2,6 +2,8 @@
 
 To assist in building WildFly Swarm projects, a Gradle plugin is available.  This plugin creates the ```-swarm.jar``` uberjar which contains your application along with the necessary parts of WildFly to support it.
 
+NOTE: Gradle doesn't get the same attention by the core developers as maven. If you wan't to be on the safe side, use maven. If you are interested in contributing to the gradle build system, please let use now!
+
 == Packaging your application
 
 To use the plugin, you must add it to your `build.gradle`:
@@ -122,4 +124,3 @@ swarm {
   propertiesFile = new File(buildDir, "resources/main/some.properties")
 }
 ----
-
