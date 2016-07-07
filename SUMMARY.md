@@ -80,7 +80,7 @@
 * [Pre-built Servers](servers.adoc)
  * [Keycloak Server](security/keycloak_server.adoc)
  * [Swagger UI](server/swagger.adoc)
- * [Management Console](server/console.adoc)
+ * [Management Console](server/management-console.adoc)
 * [Additional Reading](reading.adoc) 
 * Getting Involved
   * [Contributing to WildFly Swarm](getting_involved.adoc)

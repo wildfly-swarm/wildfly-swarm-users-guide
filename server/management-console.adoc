@@ -1,0 +1,28 @@
+== Management Console
+
+The management console is a standalone Web application that allows you to connect to a management interface of a running WildFly or WildFly Swarm instance.
+
+== Configuration
+
+To enable the Management console in your application, you need to add the following dependency to your Swarm application:
+
+[source,xml]
+----
+<dependency>
+  <groupId>org.wildfly.swarm</groupId>
+  <artifactId>management-console</artifactId>
+</dependency>
+----
+
+IMPORTANT: There is a bug in WildFly 10.0.0.Final that prevents Swarm to register a management-console bound to the management interface of the same running instance (without prompting for the target server when accessed). This is already fixed and should be available in the next WildFly release.
+
+== Usage
+
+Using the Java API, you can change the management console context root (default is `/console`)
+
+[source,java]
+----
+container.fraction(new ManagementConsoleFraction()
+                .contextRoot("/general-console")
+);
+----
