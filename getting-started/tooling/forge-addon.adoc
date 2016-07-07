@@ -1,6 +1,6 @@
 = JBoss Forge Add-on
 
-JBoss Forge is a *software development tool* that extends your IDE, providing wizards and extensions (add-ons) for different technologies and solutions.. Try JBoss Forge by downloading it at http://forge.jboss.org.
+JBoss Forge is a *software development tool* that extends your IDE, providing wizards and extensions (add-ons) for different technologies and solutions. Try JBoss Forge by downloading it at http://forge.jboss.org.
 
 The Wildfly Swarm team provides an add-on that eases the user experience on Swarm.
 
