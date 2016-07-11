@@ -1,6 +1,6 @@
 = Adding application code
 
-Out example should serve HTTP requests, hence we add a link:../common/jax-rs.html[JAX-RS]
+Our example should serve HTTP requests, hence we add a link:../common/jax-rs.html[JAX-RS]
 endpoint implementation and a corresponding application context to define the context root:
 All of this goes into `src/main/java`.
 
