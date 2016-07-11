@@ -1,7 +1,7 @@
 = Maven POM
 
 The most simple `pom.xml` to be used with WildFly Swarm looks like the following.
-As you can it contains three notable elements:
+As you can see, it contains three notable elements:
 
 * A dependency management section
 * A declaration of the wildfly-swarm-plugin
