@@ -8,8 +8,8 @@ At a bare minimum you need at least the following:
 
 == Java 8
 
-WildFly leverages the Java 8 API's, in particular lambdas the the collection enhancements.
-Therefore it's required to have the JDK 8 available, to build and run WildFly Swarm applications:
+WildFly leverages the Java 8 API's, in particular lambdas and the collection enhancements.
+Therefore the JDK 8 is required to build and run WildFly Swarm applications:
 
 * http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html[Download JDK 8]
 
