@@ -50,7 +50,23 @@ Container container = new Container(false)
 [...]
 ----
 
-Stages are enabled using the command line switch `-Dswarm.project.stage=<stage name>`
+NOTE: Auto detection picks up project-stages.yml from `src/main/resources`
+
+==== Command-line switches / System Properties
+
+Two notable command-line switches are available to easily re-configure Swarm in different environments:
+
+|===
+|System Property | Example | Purpose
+
+|swarm.project.stage
+|-Dswarm.project.stage=<stage name>
+|Enables a specific stage
+
+|swarm.project.stage.file
+|-Dswarm.project.stage.file=<URL>
+|Allows to reference a different project-stages.yml file
+|===
 
 ==== Referencing Stage Configuration Values
 
