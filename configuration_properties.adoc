@@ -2,7 +2,7 @@
 
 Below is a non-exhaustive set of useful properties, which may be available depending on which fractions your application uses.
 
-NOTE: For a full set of supported options, please consult the documentation for each fraction
+NOTE: For a full set of supported options, please consult the documentation for each fraction and the javadocs on class https://github.com/wildfly-swarm/wildfly-swarm-spi/blob/master/src/main/java/org/wildfly/swarm/spi/api/SwarmProperties.java[SwarmProperties.java]
 
 == General
 
