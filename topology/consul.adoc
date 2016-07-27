@@ -43,4 +43,4 @@ The benefits of this perspective are:
 . If the consul client(agent) gets offline, only one instance of your application will be offline as well.
 . Your application will need to know only one consul agent address, therefore, it is pretty straightforward: localhost;
 . Your application won't need to manage the consul servers available list, this is agent job;
-. If you don't intend to use any implementation of Java Consul clients keeping your application clean, you can just register your application by configuring the consul client(agent) config file inside checks session.
+. If you don't intend to use any implementation of Java Consul clients keeping your application clean, you can just register your application by configuring the consul client(agent) config file inside checks section.
