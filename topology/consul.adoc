@@ -12,3 +12,35 @@ Using Consul requires having a Consul server and agent strategy already in place
   <groupId>org.wildfly.swarm</groupId>
   <artifactId>topology-consul</artifactId>
 </dependency>
+----
+
+=== Fault tolerance
+
+In order to build a true fault tolerant system, every application host must have a consul agent running in client mode. This approach avoids hard coded consul host configuration.
+
+For example, if you don't use this strategy, your application will need to manage the list of consul server addresses available and update this list when they become unavailable. This is consul agent work, you don't need to do this.
+
+So, instead of every application having its own configuration, you must configure one consul agent per host application. Thereafter, you configure your app to register itself through the agent. Start both consul client and you application and everything will work properly.
+
+Furthermore, you won't have a large number of consul servers because they are resource intensive. Moreover,    the maximum number of servers should be 3-5 per datacenter. However, you can have any number of clients you need, since they are stateless and they just need a minimum of resources in order to run properly.
+
+==== Example
+
+Following what was stated above, suppose you have this structure:
+
+* 3 hosts running consul agent in server mode;
+* 4 Application hosts each one running:
+    - Consul agent in client mode
+    - a REST API
+
+With this approach, every instance of your application will register itself to consul agent(client mode) daemon running in localhost(127.0.0.1), like the following picture:
+
+image:example.png[Practical Example]
+
+The benefits of this perspective are:
+
+. Because every host has its own agent, it will be easier to identify in consul what applications are online or offline because they will be grouped by host;
+. If the consul client(agent) gets offline, only one instance of your application will be offline as well.
+. Your application will need to know only one consul agent address, therefore, it is pretty straightforward: localhost;
+. Your application won't need to manage the consul servers available list, this is agent job;
+. If you don't intend to use any implementation of Java Consul clients keeping your application clean, you can just register your application by configuring the consul client(agent) config file inside checks session.
