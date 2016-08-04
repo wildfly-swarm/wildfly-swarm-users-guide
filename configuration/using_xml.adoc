@@ -3,7 +3,7 @@
 If you prefer an external, XML based configuration, i.e. because you migrate from WildFLy to WildFly Swarm,
 the you can leverage an existing `standalone.xml` file as well.
 
-To make us of such a file, you'd need to bootstrap the Container with a reference to an XML configuration:
+To make use of such a file, you'd need to bootstrap the Container with a reference to an XML configuration:
 
 [source,java]
 ----
