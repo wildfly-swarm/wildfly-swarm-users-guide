@@ -69,7 +69,7 @@ fraction.
 [source,java]
 ----
 container.fraction(new JPAFraction()
-                 .inhibitDefaultDatasource();
+                 .inhibitDefaultDatasource());
 ----
 
 If the default datasource from a JPA variant is used, it may be configured
