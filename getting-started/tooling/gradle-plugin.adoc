@@ -93,6 +93,10 @@ The plugin accepts the following options:
 |propertiesFile
 |(see properties section below)
 |
+
+|archiveTask
+|A Jar-Task which should be wrapped instead of the JAR-Task (Java-Plugin) or WAR-Task (WAR-Plugin)
+|
 |===
 
 
