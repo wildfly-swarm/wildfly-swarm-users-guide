@@ -20,7 +20,9 @@ of the WildFly Swarm SPI and fraction-plugin being used:
 ----
 
 You can include all of the primary bits of WildFly Swarm using the
-`bom-all` artifact in a `<dependencyManagement>` import.
+`bom-all` artifact in a `<dependencyManagement>` import. Additionally,
+you'll need two more dependencies added in order to write CDI components
+to configure the server.
 
 [source,xml]
 ----
@@ -35,6 +37,19 @@ You can include all of the primary bits of WildFly Swarm using the
     </dependency>
   </dependencies>
 </dependencyManagement>
+
+<dependencies>
+  <dependency>
+    <groupId>javax.inject</groupId>
+    <artifactId>javax.inject</artifactId>
+    <scope>provided</scope>
+  </dependency>
+  <dependency>
+    <groupId>javax.enterprise</groupId>
+    <artifactId>cdi-api</artifactId>
+    <scope>provided</scope>
+  </dependency>
+</dependencies>
 ----
 
 Additionally, the `wildfly-swarm-fraction-plugin` should be configured
@@ -259,4 +274,23 @@ public MyArchiveProducers {
   }
 }
 ----
+
+=== Transitive dependencies
+
+If your fraction depends upon the presence of a Servlet container being
+configured, you should add a dependency on the necessary fractions into
+your `pom.xml`
+
+[source,xml]
+----
+<dependencies>
+  <dependency>
+    <groupId>org.wildfly.swarm</groupId>
+    <artifactId>undertow</artifactId>
+  </dependency>
+</dependencies>
+----
+
+By doing this, a user must only include your fraction, and the Undertow
+fraction will be dragged along implicitly into their application.
 
