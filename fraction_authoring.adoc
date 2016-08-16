@@ -3,63 +3,10 @@
 == Introduction
 
 The composable pieces of WildFly Swarm are called _fractions_. Each fraction
-starts with a single Maven-addressable artifact which ultimately brings in
-others.
+starts with a single Maven-addressable artifact which may transitively bring
+in others.
 
-We refer to the various pieces as
-
-- _parent_: The top-most `pom.xml` to aggregate the build of the
-  lower portions.
-
-- _root_: The user-referenced piece that provides BOM-like capabilities
-  in order to make all the functionality available.
-
-- _api_: Transitively brought in from the _root_, and provides whatever
-  user-facing API is required for configuring the fraction.
-
-- _runtime_: The back-end portion of the fraction (if required) that
-  provides runtime-support.
-
-- _modules_: An artifact containing a tree of `module.xml` files used
-  by JBoss Modules in order to support our modular classloading.
-
-Each of the above is typically laid out as a multi-project Maven tree.
-
-For a hypothetical _Jolokia_ fraction:
-
-[source,shell]
-----
-jolokia/
-  pom.xml                    # <1>
-  exposed-components.json    # <2>
-  jolokia/
-    pom.xml                  # <3>
-  api/
-    pom.xml                  # <4>
-    src/...
-  runtime/
-    pom.xml                  # <5>
-    src/...
-  modules/
-    pom.xml                  # <6>
-    src/...
-----
-<1> The `-parent` aggregator POM.
-<2> Defines the components to be included in WildFly Swarm BOM.
-<3> The simply-named _root_ artifact which can also act as a BOM.
-<4> The `-api` artifact which exposes any user-facing APIs.
-    along with transitive dependencies of relevant specifications.
-    It includes the `*Fraction.java` class.
-<5> The `-runtime` artifact which provides from back-end configuration
-    of the WildFly Swarm server based upon the fraction.
-<6> The `-modules` artifact to bring in a JBoss-Modules module tree
-    of modules.
-
-== The Parent
-
-At the top of the tree, the `pom.xml` is the `-parent` artifact simply
-to arrange Maven `<dependencyManagement>`, configure plugins and aggregate
-the builds of the lower projects.
+== The `pom.xml`
 
 It is useful to set at least a pair of properties, specifying the version
 of the WildFly Swarm SPI and fraction-plugin being used:
@@ -67,53 +14,28 @@ of the WildFly Swarm SPI and fraction-plugin being used:
 [source,xml]
 ----
 <properties>
-  <version.swarm.spi>1.0.3.Final</version.swarm.spi>
-  <version.swarm.fraction-plugin>18</version.swarm.fraction-plugin>
+  <version.swarm>2016.8</version.swarm.spi>
+  <version.swarm.fraction-plugin>34</version.swarm.fraction-plugin>
 </properties>
 ----
 
-The SPI should be mixed into the `<dependencyManagement>` section, imported
-as a BOM.  Additionally, the components of the fraction itself can be managed
-in order to make cross-dependency specification in the lower-level `pom.xml`
-files easier:
+You can include all of the primary bits of WildFly Swarm using the
+`bom-all` artifact in a `<dependencyManagement>` import.
 
 [source,xml]
 ----
 <dependencyManagement>
   <dependencies>
-    <dependency>                                <!--1-->
+    <dependency>
       <groupId>org.wildfly.swarm</groupId>
-      <artifactId>spi</artifactId>
-      <version>${version.swarm.spi}</version>
+      <artifactId>bom-all</artifactId>
+      <version>${version.swarm}</version>
       <type>pom</type>
       <scope>import</scope>
-    </dependency>
-
-    <dependency>                                <!--2-->
-      <groupId>org.wildfly.swarm</groupId>
-      <artifactId>jolokia</artifactId>
-      <version>1.0.0.Beta3-SNAPSHOT</version>
-    </dependency>
-    <dependency>
-      <groupId>org.wildfly.swarm</groupId>
-      <artifactId>jolokia-api</artifactId>
-      <version>1.0.0.Beta3-SNAPSHOT</version>
-    </dependency>
-    <dependency>
-      <groupId>org.wildfly.swarm</groupId>
-      <artifactId>jolokia-modules</artifactId>
-      <version>1.0.0.Beta3-SNAPSHOT</version>
-    </dependency>
-    <dependency>
-      <groupId>org.wildfly.swarm</groupId>
-      <artifactId>jolokia-runtime</artifactId>
-      <version>1.0.0.Beta3-SNAPSHOT</version>
     </dependency>
   </dependencies>
 </dependencyManagement>
 ----
-<1> Import the SPI BOM
-<2> Manage all other components of this fraction
 
 Additionally, the `wildfly-swarm-fraction-plugin` should be configured
 within the parent `pom.xml` so that it fires for every sub-module:
@@ -139,158 +61,61 @@ within the parent `pom.xml` so that it fires for every sub-module:
 </build>
 ----
 
-Making a fraction available in the WildFly Swarm BOM requires a `exposed-components.json` to be defined:
+== What's in a Fraction
 
-[source,json]
+A "fraction" can include all or none of the following components. Ultimately
+a fraction contributes configuration or capabilities to a runtime system.
+
+=== Package Layout
+
+For a given fraction, a unique package root is required.  In the usual
+case of the core code, it matches the pattern of `org.wildfly.swarm._CAPABILITY_`,
+such as `org.wildfly.swarm.undertow` or `org.wildfly.swarm.naming`.
+
+Within the root may be two (or more) additional sub-packages, named
+'runtime' and 'deployment'.
+
+The `org.wildfly.swarm._CAPABILITY_.runtime` package holds classes that are
+considered "back-end" components, loaded via our internal CDI implementation
+in order to configure and setup the server.
+
+The `org.wildfly.swarm._CAPABILITY_.deployment` package holds other classes
+that should not be considered either part of the front-end API of the fraction
+exposed to users, nor a part of the back-end components to configure the
+server.  Instead, the `.deployment` package is a sidecar to hold additional
+classes that may be added to deployment archives.
+
+=== The `module.conf`
+
+Alongside your `pom.xm` you need at least an empty `module.conf` file to signal
+the plugin that your build is actually a fraction.
+
+This file is used to enumerate the JBoss-Modules dependencies your fraction
+may have, and helps produce the resulting `module.xml` files for your fraction.
+
+In this file, one per line, you may list the module dependencies you may have.
+If your fraction relies on runtime linking to other fractions, they should 
+typically be listed in this file.
+
+[source]
 ----
-{"Jolokia": [                                                     <!--1-->
-  {"name": "jolokia",              "doc": "jolokia-api"},         <!--2-->
-  {"name": "jolokia-modules"},                                    <!--3-->
-]}
+org.jboss.logging
+org.wildfly.swarm.undertow
 ----
-<1> Define the name to be used within generated javadocs
-<2> Define `name` as the Root module and `doc` as the API module
-<3> Define the `name` for the Modules module
-
-To ensure this JSON is available to the BOM generation process, we need to add the following into `pom.xml` as well:
-
-[source,xml]
-----
-<profile>
-  <id>attach-exposed-components</id>
-  <activation>
-    <file>
-      <exists>exposed-components.json</exists>
-    </file>
-  </activation>
-  <build>
-    <plugins>
-      <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>build-helper-maven-plugin</artifactId>
-        <executions>
-          <execution>
-            <id>add-exposed-components</id>
-            <phase>package</phase>
-            <goals>
-              <goal>attach-artifact</goal>
-            </goals>
-            <configuration>
-              <artifacts>
-                <artifact>
-                  <file>exposed-components.json</file>
-                  <type>json</type>
-                  <classifier>exposed-components</classifier>
-                </artifact>
-              </artifacts>
-            </configuration>
-          </execution>
-        </executions>
-      </plugin>
-    </plugins>
-  </build>
-</profile>
-----
-
-
-== The Root
-
-In our above example, `jolokia/jolokia/pom.xml` lives by itself, with no
-related source, but ties together the remaining bits, and is the artifact
-referenced by a user's application.  This is the _root_ artifact.
-
-The project, while it has `<packaging>jar</packaging>`, does not include
-any source.  Instead it provides transitive dependencies to the
-various other bits of the fraction, along with transitive dependencies
-to any other entire fractions required by this one.
-
-Jolokia, for instance, is deployed as a WAR file, and thus this fraction
-requires the `undertow` fraction also.
-
-For Jolokia to be available from within the http://wildfly-swarm.io/generator/[Project Generator] we need to make sure that some properties within `pom.xml` are set appropriately. The `<name>` and `<description>` will be displayed to a user, and `<swarm.fraction.tags>` defines which categories within the generator will show Jolokia as an option. If the fraction is not intended to be added as a direct dependency, such as a low level fraction which is included in others, then `<swarm.fraction.internal>` can be set to `true` to ensure it is not visible.
-
-[source,xml]
-----
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-
-  <modelVersion>4.0.0</modelVersion>
-
-  <parent>
-    <groupId>org.wildfly.swarm</groupId>
-    <artifactId>jolokia-parent</artifactId>
-    <version>1.0.0.Beta3-SNAPSHOT</version>
-    <relativePath>../</relativePath>
-  </parent>
-
-  <groupId>org.wildfly.swarm</groupId>
-  <artifactId>jolokia</artifactId>                                       <!--1-->
-
-  <name>Jolokia</name>                                                   <!--2-->
-  <description>Deploys the jolokia.war to activate JMX-HTTP bridge
-  as an alternative to JSR-160 connectors</description>                  <!--3-->
-
-  <packaging>jar</packaging>
-
-  <properties>
-    <swarm.fraction.tags>Management</swarm.fraction.tags>                <!--4-->
-  </properties>
-
-  <dependencies>
-    <dependency>                                                         <!--5-->
-      <groupId>org.wildfly.swarm</groupId>
-      <artifactId>jolokia-api</artifactId>
-    </dependency>
-    <dependency>                                                         <!--6-->
-      <groupId>org.wildfly.swarm</groupId>
-      <artifactId>jolokia-modules</artifactId>
-    </dependency>
-    <dependency>                                                         <!--7-->
-      <groupId>org.wildfly.swarm</groupId>
-      <artifactId>jolokia-runtime</artifactId>
-      <scope>provided</scope>
-    </dependency>
-
-    <dependency>                                                         <!--8-->
-      <groupId>org.wildfly.swarm</groupId>
-      <artifactId>undertow</artifactId>
-    </dependency>
-
-  </dependencies>
-
-</project>
-----
-<1> The `artifactId` is the simple, user-referencable name of the fraction.
-<2> Name of the fraction to be displayed in the Project Generator.
-<3> Description of the fraction to be displayed in the Project Generator.
-<4> The Categories that the fraction will be displayed under in the Project Generator.
-<5> The `-api` artifact is implicitly `<scope>compile</scope>`
-<6> The `-modules` artifact is implicitly `<scope>compile</scope>`
-<4> The `-runtime` artifact is explicitly `<scope>provided</scope>`
-<8> Any other required fractions are referenced by their simple _root_
-    `artifactId` with an implicit `<scope>compile</scope>`.
-
-Please note, the versions of each dependency are managed by the `-parent` POM
-described in the previous section.
-
-== API
-
-The `-api` artifact represents any user-facing configuration API, including
-the relevant `*Fraction.java` class.
 
 === The `*Fraction.java`
 
 If the fraction includes configuration capabilities, or otherwise alters
 the runtime system through deployments or adjustments to the server, it
-should include an implementation of `org.wildfly.swarm.spi.api.Fraction`.
+may include an implementation of `org.wildfly.swarm.spi.api.Fraction`.
 
 Any opaque POJO configuration details that are required may be added in
-the implementation, and will be passed to the back-end runtime portion
+the implementation, and will be made available to the back-end runtime portion
 during server boot-up to control configuration.
 
-In the event that no particular configuration values are required, a
-basic no-op `*Fraction.java` may be created.
+In the event that no particular configuration values are required, no
+`Fraction` implementation is required.  If provided, it should reside in the
+absolute root of the fraction java package, such as `org.wildfly.swarm.undertow.UndertowFraction`.
 
 [source,java]
 ----
@@ -320,154 +145,118 @@ public class CheeseFraction implements Fraction {
 }
 ----
 
-=== Exposing Transitive Dependencies to Users' Applications
+=== Runtime CDI Components
 
-If your fraction aims to enable some API or specification beyond the fraction
-itself (such as enabling usage of `javax.jms` for instance), the `-api` `pom.xml`
-should include such dependency as `<scope>compile</scope>`.
+Within the `runtime` sub-package of the fraction, a variety of CDI-enabled
+components may be used.  Within these classes, you can use typical CDI mechanisms
+such as `@Inject`, `@Produces`, and `Instance<>` in order to accomplish whatever
+is required for your fraction.  Typically these components would, at the minimum,
+inject their own fraction. They should each be marked as `@Singleton`.
 
-This allows for a user to reference only your fraction, and implicitly
-receive the JMS specification classes on their classpath.
-
-During fraction construction it will mark the specification artifact as
-_actually_ provided at runtime by the server, and shouldn't be considered
-a application dependency.
-
-== Runtime
-
-The `-runtime` artifact is responsible for taking the above `Fraction` implementation
-and effecting changes to the runtime server based upon its existance and configuration
-values.
-
-For every `*Fraction.java`, there should exist a matching `*Configuration.java`.  For the
-simplest cases, the `*Configuration.java` can actually be synthesized based upon
-Java annotations on the `*Fraction.java` itself.  If that suffices, the entire
-`-runtime` artifact may be avoided.
-
-=== Using only annotations within `-api`
-
-Usually only useful for fractions that are based upon the WildFly `config-api`
-and represent aspects of a usual `standalone.xml`
-
-The `org.wildfly.swarm.spi.api.annotations.Configuration` annotation may be applied
-directly to a `Fraction` implementation, with the following properties optionally set:
-
-[cols="2", options="header"]
-|===
-|Name
-|Description
-
-|`extension`
-|The WildFly module holding the extension. Maps directly to the `<extension>` element in `standalone.xml`
-
-|`marshal`
-|Boolean indicating if the `Fraction` should be marshalled using the `config-api` marshaller
-
-|`ignorable`
-|Boolean indicating if the fraction may be entirely ignored. I don't remember why we would want to. But it's there.
-
-|`parserFactoryClassName`
-|Name of the class (as a string) of the `ParserFactory` from the `-runtime` portion of the fraction
- to allow for parsing of `standalone.xml` fragments for this fraction.
-|===
-
-== Modules
-
-The `-modules` artifact is required to handle the variety of classloading aspects of each fraction.
-There are typically 3 modules in the tree related to the `-api` and `-runtime` portions of the fraction.
-General convention requires that the base module name is exactly the same as the package portion
-of the `*Fraction` implementation.
-
-For instance, if you have `com.mycorp.cheese.CheeseFraction`, then the base module name should be
-`com.mycorp.cheese`.
-
-=== The `:main` slot
-
-Will follow the format of:
-
-[source,xml]
+[source,java]
 ----
-<module xmlns="urn:jboss:module:1.3" name="com.mycorp.cheese">
-  <dependencies>
-    <!-- For when run with bonafide IDE classpath -->
-    <system export="true">
-      <paths>
-        <path name="com/mycorp/cheese"/>                                             <!--1-->
-        <path name="com/mycorp/cheese/sub"/>
-      </paths>
-    </system>
+@Singleton
+public class MyComponents implements Whatever {
 
-    <!-- For when bootstrapped through a fat-jar -->
-    <module name="com.mycorp.cheese" slot="api" export="true" services="export"/>    <!--2-->
-  </dependencies>
-</module>
+  @Inject
+  private MyFraction myFraction;
+  
+}
 ----
-<1> List all package paths within the API project, including sub paths.
-<2> Add the `:api` slot as a module dependency, ensuring to export classes and services.
 
-=== The `:api` slot
+==== `ArchivePreparer`
 
-Defines the artifact from the API project as a resource and declares any module dependencies that are required:
+If your fraction needs an opportunity to alter or otherwise prepare all deployed
+archives, you may implement the `org.wildfly.swarm.spi.api.ArchivePreparer` interface.
 
-[source,xml]
+[source,java]
 ----
-<module xmlns="urn:jboss:module:1.3" name="com.mycorp.cheese" slot="api">
-  <resources>
-    <artifact name="com.mycorp.cheese:cheese-api:${project.version}"/>     <!--1-->
-  </resources>
+@Singleton
+public class MyArchivePreparer implements ArchivePreparer {
 
-  <dependencies>
-    <module name="org.wildfly.swarm.container"/>                           <!--2-->
-    <module name="org.jboss.shrinkwrap"/>                                  <!--3-->
-  </dependencies>
-</module>
+  @Inject
+  private MyFraction myFraction;
+
+  public void prepareArchive(Archive<?> archive) {
+    archive.as( WARArchive.class ).setContextRoot( myFraction.getContextRoot() );
+  }
+}
 ----
-<1> The Maven artifact created from the API project.
-<2> Provides classes for Fraction and the Container.
-<3> Any additional module dependencies from WildFly or WildFly Swarm
 
-=== The `:runtime` slot
+==== `ArchiveMetadataProcessor`
 
-Defines the artifact from the Runtime project as a resource and declares any module dependencies that are required:
+If your fraction needs an opportunity to process the Jandex metadata of all deployed
+archives, you may implement the `org.wildfly.swarm.spi.api.ArchiveMetadataProcessor`
+interface.
 
-[source,xml]
+[source,java]
 ----
-<module xmlns="urn:jboss:module:1.3" name="com.mycorp.cheese" slot="runtime">
-  <resources>
-    <artifact name="com.mycorp.cheese:cheese-runtime:${project.version}"/>      <!--1-->
-  </resources>
+@Singleton
+public class MyArchiveMetadataProcessor implements ArchiveMetadataProcessor {
 
-  <dependencies>
-    <module name="com.mycorp.cheese"/>                                          <!--2-->
-    <module name="org.wildfly.swarm.container"/>                                <!--3-->
-    <module name="org.wildfly.swarm.container" slot="runtime"/>
-    <module name="org.jboss.shrinkwrap"/>                                       <!--4-->
-  </dependencies>
-</module>
+  @Inject
+  private MyFraction myFraction;
+
+  public void processArchive(Archive<?> archive, Index index) {
+    // ...
+  }
+}
+
 ----
-<1> The Maven artifact created from the Runtime project.
-<2> `:main` slot module of the fraction
-<3> `container` modules for `:main` and `:runtime` are needed.
-<4> Any additional module dependencies from WildFly or WildFly Swarm
 
+==== `Customizer`
 
-== Availability in WildFly Swarm BOM
+Most of the heavy-lifting of configuration may occur within implementations of
+`org.wildfly.swarm.spi.api.Customizer`.
 
-For the fraction to be available through the BOM, `pom.xml` in https://github.com/wildfly-swarm/wildfly-swarm needs to be updated to include it. This is done by adding another `<module>` entry to the `wildfly-swarm-fraction-plugin` such as:
+If your fraction is always present with other fractions, cross-fraction manipulation
+may be achieved.
 
-[source,xml]
+Two different executions of `Customizers` occur.  All customizers annotated with
+`@Pre` are fired, followed by all annotated with `@Post`.
+
+[source,java]
 ----
-<plugin>
-  <groupId>org.wildfly.swarm</groupId>
-  <artifactId>wildfly-swarm-fraction-plugin</artifactId>
-  <version>${version.swarm.fraction-plugin}</version>
-  <configuration>
-    <modules>
-...
-      <module>jolokia-parent:${version.swarm.jolokia}</module>
-...
-    </modules>
-  </configuration>
-</plugin>
-</plugins>
+@Post
+@Singleton
+public class MyCustomizer implements Customizer {
+
+  @Inject
+  private MyFraction myFraction;
+
+
+  @Inject
+  private UndertowFraction undertowFraction;
+
+  public void customize() {
+    if ( undertowHasSSL() ) {
+      doSomethingSpecialWithMyFraction()
+    }
+  }
+}
 ----
+
+==== `Archive` producers 
+
+In some cases, a fraction implicitly produces a deployment archive by its simple
+presence in the dependency graph.  For example, including `org.wildfly.swarm:jolokia`
+ensures that the Jolokia web-app is deployed.  This is accomplished by having a CDI
+component that `@Produces` a ShrinkWrap `Archive`.  No particular interface is required
+to be implemented.
+
+[source,java]
+----
+@Singleton
+public MyArchiveProducers {
+
+  @Inject
+  private MyFraction myFraction;
+  
+  @Produces Archive myManagementConsole() {
+    WARArchive archive = ...  // produces the Archive any way you like
+    archive.setContextRoot( myFraction.getContextRoot() );
+    return archive;
+  }
+}
+----
+
