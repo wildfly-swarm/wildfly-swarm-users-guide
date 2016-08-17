@@ -14,13 +14,13 @@ This fraction adds support for the Vert.x API in Java EE applications by enablin
 
 == Usage
 
-There is no need to configure the VertxFraction if you intend to use the default behavior (JCA adapter deployed and VertxConnectionFactory registered). 
+There is no need to configure the VertxFraction if you intend to use the default behavior (JCA adapter deployed and VertxConnectionFactory registered).
 
 Using the Java API you can inhibit the JCA adapter deployment (if you intend to use just the Vert.x APIs for example).
 
 [source,java]
 ----
-container.fraction(new VertxFraction()
+swarm.fraction(new VertxFraction()
                .inhibitAdapterDeployment()
 );
 ----
@@ -29,7 +29,7 @@ You can also modify the VertxConnectionFactory parameters using the same API
 
 [source,java]
 ----
-container.fraction(new VertxFraction()
+swarm.fraction(new VertxFraction()
                .jndiName("java:/eis/MyVertxConnectionFactory")
                .clusterHost("myhost")
                .clusterPort(1000)
@@ -54,7 +54,7 @@ Usage:
 @Resource(mappedName="java:/eis/VertxConnectionFactory")
 VertxConnectionFactory connFactory;
 
-public void sendMessage() throws Exception { 
+public void sendMessage() throws Exception {
     try (VertxConnection conn = connFactory.getVertxConnection()) {
         conn.vertxEventBus().send("tacos", "Hello from JCA");
     }

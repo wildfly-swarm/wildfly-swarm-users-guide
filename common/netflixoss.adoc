@@ -60,7 +60,7 @@ JAXRSArchive deployment = ShrinkWrap.create(JAXRSArchive.class, "recommendations
 deployment.as(TopologyArchive.class)
   .advertise();
 
-container.deploy( deployment );
+swarm.deploy( deployment );
 ----
 
 If you haven't named the archive, or wish to advertise it with a distinct service-name, there is a version of `advertise(...)` which can take the service name as an argument.
@@ -72,7 +72,7 @@ JAXRSArchive deployment = ShrinkWrap.create(JAXRSArchive.class);
 deployment.as(TopologyArchive.class)
   .advertise( "recommendations" );
 
-container.deploy( deployment );
+swarm.deploy( deployment );
 ----
 
 == Secured Ribbon
@@ -110,7 +110,7 @@ The following properties control ribbon options:
 
 [cols=3, options="header"]
 |===
-|Name 
+|Name
 |Description
 |Default
 

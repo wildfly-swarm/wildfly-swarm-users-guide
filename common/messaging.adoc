@@ -20,7 +20,7 @@ Additionally, you _must_ configure some destinations for the messaging broker to
 
 [source,java]
 ----
-container.subsystem(new MessagingFraction()
+swarm.subsystem(new MessagingFraction()
     .server(
             new MessagingServer()
                     .enableInVMConnector()

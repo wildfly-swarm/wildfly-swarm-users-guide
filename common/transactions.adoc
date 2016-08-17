@@ -18,7 +18,7 @@ By default Narayana uses two TCP ports for recovery and status information in a 
 
 [source,java]
 ----
-container.subsystem(new TransactionsFraction(4712, 4713));
+swarm.subsystem(new TransactionsFraction(4712, 4713));
 ----
 
 Note, if you change either or both of these values then you must ensure that all WildFly Swarm instances participating in the same transaction have these same values.

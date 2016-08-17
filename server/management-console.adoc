@@ -22,7 +22,7 @@ Using the Java API, you can change the management console context root (default 
 
 [source,java]
 ----
-container.fraction(new ManagementConsoleFraction()
+swarm.fraction(new ManagementConsoleFraction()
                 .contextRoot("/general-console")
 );
 ----

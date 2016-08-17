@@ -20,7 +20,7 @@ public class MyMain {
     public static void main(String...args) {
 
         // Instantiate the container
-        Swarm container = new Swarm();
+        Swarm swarm = new Swarm();
 
         // Create one or more deployments
         JAXRSArchive deployment = ShrinkWrap.create(JAXRSArchive.class);
@@ -29,8 +29,8 @@ public class MyMain {
         // Add resource to deployment
         deployment.addClass(MyResource.class);
 
-        container.start();
-        container.deploy(deployment);
+        swarm.start();
+        swarm.deploy(deployment);
     }
 }
 ----

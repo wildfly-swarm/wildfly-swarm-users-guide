@@ -109,7 +109,7 @@ This file is used to enumerate the JBoss-Modules dependencies your fraction
 may have, and helps produce the resulting `module.xml` files for your fraction.
 
 In this file, one per line, you may list the module dependencies you may have.
-If your fraction relies on runtime linking to other fractions, they should 
+If your fraction relies on runtime linking to other fractions, they should
 typically be listed in this file.
 
 [source]
@@ -141,7 +141,6 @@ import java.util.HashSet;
 import org.wildfly.swarm.spi.api.Fraction;
 
 public class CheeseFraction implements Fraction {
-
   // arbitrary configuration parameters are allowed
 
   public void cheese(String type) {
@@ -175,7 +174,7 @@ public class MyComponents implements Whatever {
 
   @Inject
   private MyFraction myFraction;
-  
+
 }
 ----
 
@@ -239,7 +238,6 @@ public class MyCustomizer implements Customizer {
   @Inject
   private MyFraction myFraction;
 
-
   @Inject
   private UndertowFraction undertowFraction;
 
@@ -251,7 +249,7 @@ public class MyCustomizer implements Customizer {
 }
 ----
 
-==== `Archive` producers 
+==== `Archive` producers
 
 In some cases, a fraction implicitly produces a deployment archive by its simple
 presence in the dependency graph.  For example, including `org.wildfly.swarm:jolokia`
@@ -266,8 +264,9 @@ public MyArchiveProducers {
 
   @Inject
   private MyFraction myFraction;
-  
-  @Produces Archive myManagementConsole() {
+
+  @Produces
+  Archive myManagementConsole() {
     WARArchive archive = ...  // produces the Archive any way you like
     archive.setContextRoot( myFraction.getContextRoot() );
     return archive;
@@ -308,4 +307,3 @@ your `pom.xml`
 
 By doing this, a user must only include your fraction, and the Undertow
 fraction will be dragged along implicitly into their application.
-
