@@ -1,6 +1,6 @@
 = Infinispan
 
-The Infinispan subsystem provides high-performance, clustered, transactional caching. For example, in a clustered web application, client session identifiers and/or data may need to be replicated across all nodes in the cluster. The failure of a session-oriented HTTP request requires that client session data is available on the new failover node. 
+The Infinispan subsystem provides high-performance, clustered, transactional caching. For example, in a clustered web application, client session identifiers and/or data may need to be replicated across all nodes in the cluster. The failure of a session-oriented HTTP request requires that client session data is available on the new failover node.
 
 == Including Infinispan Capabilities
 To use the Infinispan fraction, just add it to your `pom.xml`.
@@ -45,21 +45,21 @@ public class Main {
             .lockingComponent(new LockingComponent().isolation("REPEATABLE_READ"))
             .transactionComponent(new TransactionComponent().mode("BATCH"))
             .fileStore(new FileStore()));
-    
+
     // Create a new fraction, and add the cache container.
     // Using the default ctor to create a new InfinispanFraction
     // will provide no default caches.
     InfinispanFraction fraction = new InfinispanFraction();
     fraction.cacheContainer( webCache );
 
-    // Instantiate the swarm container and add our fraction
-    Container container = new Container();
-    container.fraction( fraction );
-    
+    // Instantiate Swarm and add our fraction
+    Swarm swarm = new Swarm();
+    swarm.fraction( fraction );
+
     // Start the container
-    container.start();
+    swarm.start();
   }
-  
+
 }
 ----
 

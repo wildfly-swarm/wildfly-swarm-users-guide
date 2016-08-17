@@ -10,7 +10,7 @@ To make use of such a file, you'd need to bootstrap the Container with a referen
 ClassLoader cl = Main.class.getClassLoader();
 URL xmlConfig = cl.getResource("standalone.xml");
 
-Container container = new Container(false)
+Swarm swarm = new Swarm(false)
         .withXmlConfig(xmlConfig);
 
 [...]

@@ -21,8 +21,8 @@ If you would like to configure where Jolokia is mounted, you can override the de
 
 [source,java]
 ----
-Container container = new Container();
-container.fraction( 
+Swarm swarm = new Swarm();
+swarm.fraction(
     new JolokiaFraction("/jmx")
 );
 ----

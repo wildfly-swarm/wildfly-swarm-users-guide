@@ -26,9 +26,8 @@
     * [Using the Java API](configuration/java_api.adoc)  
     * [Project Stages](configuration/project_stages.adoc)  
     * [Using XML](configuration/using_xml.adoc)      
-   * [Logging](configuration/logging.adoc)   
    * Testing your application
-     * [Using Arquillian](testing_with_arquillian.adoc)
+     * [Using Arquillian](testing/arquillian.adoc)
      * [Consumer Driven Testing](testing/consumer_driven.adoc)              
    * Running your application
     * [From within IDE](getting-started/running_ide.adoc)         
@@ -81,7 +80,7 @@
  * [Keycloak Server](security/keycloak_server.adoc)
  * [Swagger UI](server/swagger.adoc)
  * [Management Console](server/management-console.adoc)
-* [Additional Reading](reading.adoc) 
+* [Additional Reading](reading.adoc)
 * Getting Involved
   * [Contributing to WildFly Swarm](getting_involved.adoc)
   * [Implementation Details](implementation_details.adoc)

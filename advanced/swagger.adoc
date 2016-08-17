@@ -57,7 +57,7 @@ By default, `swagger` can be used with zero-configuration. This means you can si
 ----
     public static void main(String[] args) throws Exception {
 
-        Container container = new Container();
+        Swarm swarm = new Swarm();
 
         JAXRSArchive deployment = ShrinkWrap.create(JAXRSArchive.class, "swagger-app.war");
         deployment.addClass(TimeResource.class);
@@ -69,7 +69,7 @@ By default, `swagger` can be used with zero-configuration. This means you can si
         archive.setTitle("My Awesome Application");
 
         deployment.addAllDependencies();
-        container
+        swarm
                 .fraction(LoggingFraction.createDefaultLoggingFraction())
                 .start()
                 .deploy(deployment);

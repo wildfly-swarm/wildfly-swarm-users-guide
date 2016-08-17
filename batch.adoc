@@ -26,7 +26,7 @@ The ```batch-jberet``` fraction brings the batch APIs to your application throug
 
 [source,java]
 ----
-final Container container = new Container();
+final Swarm swarm = new Swarm();
 // Create a the default fraction
 final BatchFraction fraction = BatchFraction.createDefaultFraction();
 // Create a datasource for the default job repository
@@ -50,5 +50,5 @@ final JARArchive deployment = ShrinkWrap.create(JARArchive.class)
                 .addClasses(MyItemReader.class, MyItemWriter.class)
                 .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
 
-container.start().deploy(deployment);
+swarm.start().deploy(deployment);
 ----

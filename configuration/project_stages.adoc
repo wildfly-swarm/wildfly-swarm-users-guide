@@ -45,7 +45,7 @@ can be used to enable a stage.  To use these stage properties you'd need to expl
 ClassLoader cl = Main.class.getClassLoader();
 URL stageConfig = cl.getResource("project-stages.yml");
 
-Container container = new Container(false)
+Swarm swarm = new Swarm(false)
        .withStageConfig(stageConfig);
 [...]
 ----
@@ -134,10 +134,10 @@ The later case is intended for users to combine stage and fraction configuration
 
 [source,java]
 ----
-Container container = new Container(false)
+Swarm swarm = new Swarm(false)
               .withStageConfig(stageConfig);
 
-container.fraction(
+swarm.fraction(
   new DatasourcesFraction()
     .jdbcDriver("h2", (d) -> {
         d.driverClassName("org.h2.Driver");
@@ -150,7 +150,7 @@ container.fraction(
 
         ds.connectionUrl(
                 // referencing stage configuration values
-                container
+                swarm
                         .stageConfig()
                         .resolve("database.connection.url")
                         .getValue()

@@ -40,7 +40,8 @@ public class MyTest {
 
 This integrates the Arquillian lifecycle with the test-case.
 
-Next, you need to specify the deployment that should be wrapped up in the WildFly Swarm mechanism.  This is accomplished by using the `@Deployment` Arquillian annotation on a public static method that returns a ShrinkWrap archive.
+Next, you need to specify the deployment that should be wrapped up in the WildFly Swarm mechanism.
+This is accomplished by using the `@Deployment` Arquillian annotation on a public static method that returns a ShrinkWrap archive.
 
 [source,java]
 ----
@@ -64,7 +65,8 @@ public static Archive createDeployment() {
 }
 ----
 
-By default, all methods annotated with `@Test` will run _inside_ the application.  Depending on the functionality you include, you can use annotations such as `@Inject` (if you're using CDI) to inject components into your test-case class.
+By default, all methods annotated with `@Test` will run _inside_ the application.
+Depending on the functionality you include, you can use annotations such as `@Inject` (if you're using CDI) to inject components into your test-case class.
 
 If you wish to test your application from _outside_ (for instance, with a web client), you can use the `@RunAsClient` annotation on your method.
 
@@ -103,7 +105,7 @@ If the swarm container has to be configured (e.g. to configure the DataSource fr
 [source,java]
 ----
 @RunWith(Arquillian.class)
-public class MyTest implements ContainerFactory {
+public class MyTest {
     @Deployment(testable = false)
     public static Archive createDeployment() {
         JARArchive deployment = ShrinkWrap.create(JARArchive.class);
@@ -111,11 +113,11 @@ public class MyTest implements ContainerFactory {
         return deployment;
     }
 
-    @Override
-    public Container newContainer(String... args) throws Exception {
-        Container container = new Container();
-        // ... configure the container ...
-        return container;
+    @CreateSwarm
+    public static Swarm newContainer() throws Exception {
+        Swarm swarm = new Swarm();
+        // ... configure Swarm ...
+        return swarm;
     }
 
     @Test
