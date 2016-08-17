@@ -7,7 +7,7 @@ to relational databases.
 
 To use JPA in your application, you need to add one of the following dependencies:
 
-=== Default using H2-based Datasource
+=== Default using H2 JDBC Driver
 
 [source,xml]
 ----
@@ -17,63 +17,65 @@ To use JPA in your application, you need to add one of the following dependencie
 </dependency>
 ----
 
-=== Default using MySQL-based Datasource
+=== Default using MySQL JDBC Driver
 
 [source,xml]
 ----
 <dependency>
   <groupId>org.wildfly.swarm</groupId>
-  <artifactId>jpa-mysql</artifactId>
+  <artifactId>jpa</artifactId>
+  <exclusions>
+    <exclusion>
+      <groupId>org.wildfly.swarm</groupId>
+      <artifactId>h2</artifactId>
+    </exclusion>
+  </exclusions>
+</dependency>
+<dependency>
+  <groupId>org.wildfly.swarm</groupId>
+  <artifactId>mysql</artifactId>
 </dependency>
 ----
 
-=== Default using Postgres-based Datasource
+=== Default using Postgres JDBC Driver
 
 [source,xml]
 ----
 <dependency>
   <groupId>org.wildfly.swarm</groupId>
-  <artifactId>jpa-postgresql</artifactId>
+  <artifactId>jpa</artifactId>
+  <exclusions>
+    <exclusion>
+      <groupId>org.wildfly.swarm</groupId>
+      <artifactId>h2</artifactId>
+    </exclusion>
+  </exclusions>
+</dependency>
+<dependency>
+  <groupId>org.wildfly.swarm</groupId>
+  <artifactId>postgresql</artifactId>
 </dependency>
 ----
 
 == Usage
 
-The `jpa` (or `jpa-mysql` or `jpa-postgresql`) fraction makes the JPA APIs available to your application through a transitive dependency. 
+The `jpa` fraction makes the JPA APIs available to your application through a transitive dependency.
 There is no need to add them yourself.
 
 == Usage in a WAR Application
 
-By default, inclusion of one of the `jpa*` fractions will cause the
-creation of the default `ExampleDS` datasource for usage by your `persistence.xml`.
-The datasource is bound as the default datasource, so there is no
-need to reference it by name from your `persistence.xml`.
+By default, inclusion of the `jpa` fraction will cause the creation of the default `ExampleDS` datasource for usage by your `persistence.xml`.
+The datasource is bound as the default datasource, so there is no need to reference it by name from your `persistence.xml`.
 
 == Usage in a JAR application
 
-If you have a `.jar`-based application with a `main(...)`, you can
-configure multiple datasources for usage with JPA. 
+If you have a `.jar`-based application with a `main(...)`, you can configure multiple datasources for usage with JPA.
 
-Please see the <<datasources#,Datasources chapter>> for details
-on configuring datasources.
+Please see the <<datasources#,Datasources chapter>> for details on configuring datasources.
 
 == Configuration
 
-If multiple variants of `jpa*` fractions are included, a `main(...)` is
-currently required in order to prevent each from attempting to define
-the `ExampleDS`.
-
-This is accomplished using the `inhibitDefaultDatasource()` on each JPA
-fraction.
-
-[source,java]
-----
-container.fraction(new JPAFraction()
-                 .inhibitDefaultDatasource());
-----
-
-If the default datasource from a JPA variant is used, it may be configured
-using system properties to adjust it.
+If the default datasource for JPA is used, it may be configured using system properties.
 
 [cols=2, options="header"]
 |===
@@ -82,4 +84,3 @@ using system properties to adjust it.
 |`swarm.ds.username`|Username for authenticating the connection
 |`swarm.ds.password`|Password for authenticating the connection
 |`swarm.ds.name`|Simple name of the datasource, such as `ExampleDS`
-

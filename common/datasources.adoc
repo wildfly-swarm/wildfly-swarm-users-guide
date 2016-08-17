@@ -1,8 +1,7 @@
 = Datasource
 
-Datasources provide managed connections to relational databases.  While
-they may be used directly, typically they are consume through other
-frameworks, such as a <<jpa#,JPA>>.
+Datasources provide managed connections to relational databases.
+While they may be used directly, typically they are consumed through other frameworks, such as a <<jpa#,JPA>>.
 
 == Configuration
 
@@ -25,7 +24,7 @@ registering relevant JDBC drivers:
 
 [source,java]
 ----
-container.fraction(new DatasourcesFraction()
+swarm.fraction(new DatasourcesFraction()
                 .jdbcDriver("h2", (d) -> {
                     d.driverClassName("org.h2.Driver");
                     d.xaDatasourceClass("org.h2.jdbcx.JdbcDataSource");
@@ -40,6 +39,4 @@ container.fraction(new DatasourcesFraction()
 );
 ----
 
-If a variant of the <<jpa#,JPA>> fractions is used, by default it will create
-a default `ExampleDS`.
-
+If the <<jpa#,JPA>> fraction is used, by default it will create a default `ExampleDS`.
