@@ -22,7 +22,7 @@
   "variables": {
       "javadoc_url_preffix" : "http://wildfly-swarm.github.io/wildfly-swarm-javadocs/",
       "versions": {
-          "swarm": "2016.8.1",
+          "swarm": "2016.9-SNAPSHOT",
           "configuration": "0.4.4",
           "keycloak": "1.9.8.Final"
       }
