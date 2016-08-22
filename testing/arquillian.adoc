@@ -10,20 +10,35 @@ Once it is running, test code may run outside of the uberjar or within it, repor
 
 == Configuring
 
-To use the WildFly Swarm Arquillian adapter, you need to add a two dependencies to your project:
+To use the WildFly Swarm Arquillian adapter, you need to add the following into your `pom.xml`:
 
 [source,xml]
 ----
-<dependency>
-  <groupId>org.wildfly.swarm</groupId>
-  <artifactId>arquillian</artifactId>
-  <scope>test</scope>
-</dependency>
-<dependency>
-  <groupId>org.jboss.arquillian.junit</groupId>
-  <artifactId>arquillian-junit-container</artifactId>
-  <scope>test</scope>
-</dependency>
+<dependencyManagement>
+  <dependencies>
+    <dependency>
+      <groupId>org.jboss.arquillian</groupId>
+      <artifactId>arquillian-bom</artifactId>
+      <version>1.1.10.Final</version>
+      <type>pom</type>
+      <scope>import</scope>
+    </dependency>
+  </dependencies>
+</dependencyManagement>
+<dependencies>
+  <!-- Brought in via WildFly Swarm `bom` -->
+  <dependency>
+    <groupId>org.wildfly.swarm</groupId>
+    <artifactId>arquillian</artifactId>
+    <scope>test</scope>
+  </dependency>
+  <!-- Brought in via Arquillian BOM, see dependencyManagement section above -->
+  <dependency>
+    <groupId>org.jboss.arquillian.junit</groupId>
+    <artifactId>arquillian-junit-container</artifactId>
+    <scope>test</scope>
+  </dependency>
+</dependencies>
 ----
 
 == Writing a Test
