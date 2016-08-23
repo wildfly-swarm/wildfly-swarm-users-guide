@@ -124,10 +124,10 @@ properties following the standard java properties name syntax (i.e. `logger.leve
 
 It is available in two places:
 
-1. Through the `Fraction.InitContext`
-2. From the `Container`
+1. Injectable into Customizers, ArchivePreparers, etc
+2. From `Swarm`
 
-The first case is intended to be use by Fraction authors if they need to hook into the stage configuration
+The first case is intended to be used by Fraction authors if they need to hook into the stage configuration
 for the default configuration of a fraction itself.
 
 The later case is intended for users to combine stage and fraction configuration in a custom `Main()`:
