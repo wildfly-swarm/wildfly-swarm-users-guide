@@ -1,6 +1,6 @@
 == Configuration using the Java API
 
-The Java API is most straight forward way to configure fractions in WildFly Swarm. A typical example look like this:
+The Java API is most straight forward way to configure fractions in WildFly Swarm. A typical example looks like this:
 
 [source,java]
 ----
