@@ -136,4 +136,4 @@ Hello from WildFly Swarm!
 
 == Congratulations!
 
-You've just build your application using WildFly Swarm.
+You've just build your first application using WildFly Swarm.
