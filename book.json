@@ -8,15 +8,19 @@
       "splitter",
       "expandable-chapters",
       "edit-link",
-      "addcssjs"
+      "addcssjs",
+      "ga"
   ],
   "pluginsConfig": {
-           "edit-link": {
-               "base": "https://github.com/wildfly-swarm/wildfly-swarm-users-guide/tree/master/",
-               "label": "Edit This Page"
-           },
-           "addcssjs": {
+          "edit-link": {
+             "base": "https://github.com/wildfly-swarm/wildfly-swarm-users-guide/tree/master/",
+             "label": "Edit This Page"
+          },
+          "addcssjs": {
               "css": ["/styles/asciidoc.css"]
+          },
+          "ga": {
+              "token": "UA-83419890-1"
           }
    },
   "variables": {
