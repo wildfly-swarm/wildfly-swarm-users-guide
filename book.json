@@ -28,7 +28,7 @@
       "versions": {
           "swarm": "2016.9-SNAPSHOT",
           "configuration": "0.4.4",
-          "keycloak": "1.9.8.Final"
+          "keycloak": "2.1.0.Final"
       }
   }
 }
