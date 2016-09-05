@@ -49,12 +49,15 @@ You can install Wildfly Swarm Fractions by using the command `Wildfly-Swarm: Add
 +
 [source,java]
 ----
-[demo]$ wildfly-swarm-add-fraction --fractions
-bean-validation      ejb                  jaxrs-jaxb           jgroups              keycloak             msc                  security             undertow
-connector            ejb-remote           jaxrs-jsonp          jmx                  logging              naming               topology             webservices          
-container            hawkular             jaxrs-multipart      jolokia              logstash             remoting             topology-jgroups
-datasources          hibernate-validator  jaxrs-weld           jpa                  mail                 ribbon               topology-webapp
-ee                   infinispan           jca                  jsf                  messaging            ribbon-secured       transactions
+[demo]$ wildfly-swarm-add-fraction --fractions 
+arquillian           camel-jms            datasources          javafx               jdr                  logging              monitor              swagger              vertx                
+batch-jberet         camel-jmx            ejb                  jaxrs                jgroups              logstash             mysql                swagger-webapp       webservices          
+bean-validation      camel-jpa            ejb-remote           jaxrs-cdi            jmx                  mail                 postgresql           topology-consul      
+camel-cdi            camel-mail           h2                   jaxrs-jaxb           jolokia              management           remoting             topology-jgroups     
+camel-core           camel-other          hibernate-search     jaxrs-jsonp          jpa                  management-console   resource-adapters    topology-openshift   
+camel-cxf            camel-undertow       hibernate-validator  jaxrs-multipart      jsf                  messaging            ribbon               topology-webapp      
+camel-ejb            cdi                  hystrix              jaxrs-validator      keycloak             microprofile         ribbon-secured       transactions         
+camel-jaxb           cdi-ext              infinispan           jca                  keycloak-server      mod_cluster          spring               undertow             
 
 ----
 +
