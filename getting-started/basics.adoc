@@ -1,6 +1,9 @@
 = Basics of WildFly Swarm
 
-WildFly Swarm is a project that has taken the link:http://wildfly.org[WildFly Java Application Server] and deconstructed it into fine-grained parts. WildFly Swarm then allows the selective reconstitution of those parts back together with your application to allow building self-contained executable "uberjars".
+WildFly Swarm is a project that has taken the link:http://wildfly.org[WildFly Java Application Server {{book.versions.wildfly}}]
+and deconstructed it into fine-grained parts. WildFly Swarm then allows the 
+selective reconstitution of those parts back together with your application 
+to allow building self-contained executable "uberjars".
 
 The point of these machinations is to support microservices while providing just-enough-appserver to support whatever subset of traditional JavaEE APIs your application requires.
 
