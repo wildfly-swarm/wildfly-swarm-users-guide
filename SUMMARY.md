@@ -9,31 +9,31 @@
     * [Adding application code](first-steps/writing_code.adoc)
     * [Running the application](first-steps/running_the_app.adoc)   
 * Using WildFly Swarm
-   * [Build System](getting-started/_build_system.adoc)  
-    * [Dependency Management](getting-started/_dependency_management.adoc)    
+  * [Build System](getting-started/_build_system.adoc)  
+    <!-- * [Dependency Management](getting-started/_dependency_management.adoc) -->
     * [Maven](getting-started/tooling/maven-plugin.adoc)
       * [Advanced](getting-started/tooling/plugin_advanced.adoc)     
     * [Gradle](getting-started/tooling/gradle-plugin.adoc)            
    * Application Bootstrap
-    * [Container](getting-started/container.adoc)
-    * [Deployments using ShrinkWrap](getting-started/shrinkwrap.adoc)
-    * Packaging Types
-      * [WAR](getting-started/war-applications.adoc)
-      * [JAR](getting-started/jar-applications.adoc)
+     * [Container](getting-started/container.adoc)
+     * [Deployments using ShrinkWrap](getting-started/shrinkwrap.adoc)
+     * Packaging Types
+       * [WAR](getting-started/war-applications.adoc)
+       * [JAR](getting-started/jar-applications.adoc)
    * [Configuration](configuration/index.adoc)  
-    * [System Properties](configuration_properties.adoc)
-    * [Command line arguments](configuration/command_line.adoc)      
-    * [Using the Java API](configuration/java_api.adoc)  
-    * [Project Stages](configuration/project_stages.adoc)  
-    * [Using XML](configuration/using_xml.adoc)      
+     * [System Properties](configuration_properties.adoc)
+     * [Command line arguments](configuration/command_line.adoc)      
+     * [Using the Java API](configuration/java_api.adoc)  
+     * [Project Stages](configuration/project_stages.adoc)  
+     * [Using XML](configuration/using_xml.adoc)      
    * Testing your application
      * [Using Arquillian](testing/arquillian.adoc)
-     * [Consumer Driven Testing](testing/consumer_driven.adoc)              
-   * Running your application
-    * [From within IDE](getting-started/running_ide.adoc)         
-    * [Using the Maven plugin](getting-started/running_maven.adoc)         
-    * [Running the packaged application](getting-started/running_cmd.adoc)
-    * [Using HotSwap](getting-started/hotswap.adoc)      
+     <!-- * [Consumer Driven Testing](testing/consumer_driven.adoc) -->
+   <!-- * Running your Application -->
+     <!-- * [From within IDE](getting-started/running_ide.adoc)          -->
+     <!-- * [Using the Maven plugin](getting-started/running_maven.adoc)          -->
+     <!-- * [Running the packaged application](getting-started/running_cmd.adoc) -->
+     <!-- * [Using HotSwap](getting-started/hotswap.adoc)       -->
 * Features (Fractions)
    * Logging
     * [Logging](common/logging.adoc)
@@ -41,7 +41,7 @@
    * Data Access  
     * [JPA](common/jpa.adoc)
     * [Datasources](common/datasources.adoc)
-    * [Resource Adapters](common/resource_adapters.adoc)
+    <!-- * [Resource Adapters](common/resource_adapters.adoc) -->
    * REST/HTTP  
     * [JAX-RS](common/jax-rs.adoc)      
     * [Swagger](advanced/swagger.adoc)
@@ -52,9 +52,10 @@
    * Security     
      * [Security Realms](security/realms.adoc)
      * [Single Sign On](security/keycloak.adoc)
+     * [Keycloak Server](security/keycloak_server.adoc)
    * Stability Patterns  
     * [Circuit Breaker](common/netflixoss.adoc)
-    * [Client Side Load-balancing](common/load_balancing.adoc)
+    <!-- * [Client Side Load-balancing](common/load_balancing.adoc) -->
    * Reactive  
      * [Integration with Vert.x](reactive/vertx.adoc)     
    * [Service Discovery](advanced/topology.adoc)    
@@ -77,8 +78,9 @@
   * [Forge Add-on](getting-started/tooling/forge-addon.adoc)
   * [SwarmTool](getting-started/tooling/swarmtool.adoc)    
 * [Pre-built Servers](servers.adoc)
- * [Keycloak Server](security/keycloak_server.adoc)
- * [Swagger UI](server/swagger.adoc)
+ * [MicroProfile](server/microprofile.adoc)
+ * [Keycloak Server](server/keycloak.adoc)
+ * [Swagger UI](server/swagger_ui.adoc)
  * [Management Console](server/management-console.adoc)
 * [Additional Reading](reading.adoc)
 * Getting Involved

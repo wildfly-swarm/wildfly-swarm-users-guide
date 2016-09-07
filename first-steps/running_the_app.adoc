@@ -22,10 +22,10 @@ mvn wildfly-swarm:run
 [INFO] Webapp assembled in [28 msecs]
 [INFO] Building war: /Users/hbraun/Downloads/restful-endpoint/target/restful-endpoint.war
 [INFO]
-[INFO] --- wildfly-swarm-plugin:1.0.0.Final:package (default) @ restful-endpoint ---
+[INFO] --- wildfly-swarm-plugin:{{book.versions.swarm}}:package (default) @ restful-endpoint ---
 [INFO] Scanning for needed WildFly Swarm fractions with mode: when_missing
-[INFO] Detected fractions: jaxrs:1.0.2.Final
-[INFO] Adding fractions: container:1.0.2.Final, ee:1.0.2.Final, io:1.0.2.Final, jaxrs:1.0.2.Final, naming:1.0.2.Final, security:1.0.2.Final, undertow:1.0.2.Final
+[INFO] Detected fractions: jaxrs:{{book.versions.swarm}}
+[INFO] Adding fractions: container:{{book.versions.swarm}}, ee:{{book.versions.swarm}}, io:{{book.versions.swarm}}, jaxrs:{{book.versions.swarm}}, naming:{{book.versions.swarm}}, security:{{book.versions.swarm}}, undertow:{{book.versions.swarm}}
 
 [....]
 
@@ -72,10 +72,10 @@ mvn package
 [INFO] Webapp assembled in [26 msecs]
 [INFO] Building war: /Users/hbraun/Downloads/restful-endpoint/target/restful-endpoint.war
 [INFO]
-[INFO] --- wildfly-swarm-plugin:1.0.0.Final:package (default) @ restful-endpoint ---
+[INFO] --- wildfly-swarm-plugin:{{book.versions.swarm}}:package (default) @ restful-endpoint ---
 [INFO] Scanning for needed WildFly Swarm fractions with mode: when_missing
-[INFO] Detected fractions: jaxrs:1.0.2.Final
-[INFO] Adding fractions: container:1.0.2.Final, ee:1.0.2.Final, io:1.0.2.Final, jaxrs:1.0.2.Final, naming:1.0.2.Final, security:1.0.2.Final, undertow:1.0.2.Final
+[INFO] Detected fractions: jaxrs:{{book.versions.swarm}}
+[INFO] Adding fractions: container:{{book.versions.swarm}}, ee:{{book.versions.swarm}}, io:{{book.versions.swarm}}, jaxrs:{{book.versions.swarm}}, naming:{{book.versions.swarm}}, security:{{book.versions.swarm}}, undertow:{{book.versions.swarm}}
 [INFO] ------------------------------------------------------------------------
 [INFO] BUILD SUCCESS
 [INFO] ------------------------------------------------------------------------

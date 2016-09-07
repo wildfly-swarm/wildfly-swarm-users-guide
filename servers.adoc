@@ -1,63 +1,10 @@
 = Pre-built Servers
 
-The WildFly Swarm project has pre-built some standalone servers. The source for these reside in the https://github.com/wildfly-swarm/wildfly-swarm-servers[WildFly Swarm Servers repository].
+The WildFly Swarm project has pre-built some standalone servers. The source for these reside in the 
+https://github.com/wildfly-swarm/wildfly-swarm/tree/master/standalone-servers[standalone-servers] 
+portion of the repository.
 
-
-== Keycloak Server
-
-The WildFly Swarm project has built a standalone uberjar for running Keycloak Server.
-
-It's Maven coordinates are:
-
-[source,xml]
-----
-<dependency>
-  <groupId>org.wildfly.swarm.servers</groupId>
-  <artifactId>keycloak</artifactId>
-  <classifier>swarm</classifier>
-</dependency>
-----
-
-Download or otherwise obtain the `-swarm.jar` and simply execute it as any other service created with WildFly Swarm.
-
-[source]
-----
-java -jar keycloak-{{book.versions.swarm}}-swarm.jar
-----
-
-== Swagger UI Server
-Swagger UI is a dependency-free collection of HTML, Javascript, and CSS assets that dynamically generate documentation and sandbox from a Swagger-compliant API. WildFly Swarm provides an easily deployable and customizable version of this application.
-
-It's maven coordinates are:
-
-[source,xml]
-----
-<dependency>
-  <groupId>org.wildfly.swarm.servers</groupId>
-  <artifactId>swagger-ui</artifactId>
-  <classifier>swarm</classifier>
-</dependency>
-----
-
-Download the `-swarm.jar` and execute it with the `java` command.
-
-[source]
-----
-$ java -jar swarm-ui-{{book.versions.swarm}}-swarm.jar
-----
-
-You can customize any of the HTML, CSS, JavaScript or image assets provided by the server by specifying these on the command line. The command line will accept a path to a `jar` or `war` file on disk, a path to a directory on disk containing your web resources, or maven coordinates to a `jar` file.
-
-The `jar` file provided (or the directory on disk) will be overlaid on to the resources provided by `swagger-ui`. For example, to customize the main page, provide an `index.html` file at the root of the `jar` or `war` file, or in the top level of the directory provided.
-
-[source]
-----
-$ jar tvf my-custom-project.jar
-      0 Mon Feb 01 11:42:08 EST 2016 META-INF/
-     68 Mon Feb 01 11:42:08 EST 2016 META-INF/MANIFEST.MF
-    312 Mon Feb 01 11:41:58 EST 2016 index.html
-
-$ java -jar swarm-ui-{{book.versions.swarm}}-swarm.jar ./my-custom-resources.jar
-----
-
-This will cause the `index.html` file provided in `my-custom-resources.jar` to be served instead of the default provided by `swagger-ui`.
+* <<server/microprofile#,MicroProfile>>
+* <<server/keycloak#,Keycloak>>
+* <<server/swagger_ui#,Swagger UI>>
+* <<server/management_console#,Management Console>>

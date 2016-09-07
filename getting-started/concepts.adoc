@@ -2,6 +2,20 @@
 
 == Terminology
 
-Fraction:: A well-defined collection of capabilities to add.  In some cases, a _fraction_ maps directly to a _subsystem_ from WildFly, but in other cases (e.g. <<fake/../advanced/jolokia.adoc#,Jolokia>>) a fraction may involve different functionality.
+Fraction:: A well-defined collection of capabilities to add.  
+In some cases, a _fraction_ maps directly to a _subsystem_ 
+from WildFly, but in other cases (e.g. <<fake/../advanced/jolokia.adoc#,Jolokia>>) a 
+fraction may involve different functionality.
 
-Uberjar:: A self-contained, executable Java archive. In the case of WildFly Swarm uberjars, it is a single `.jar` file containing your application, the portions of WildFly required to support it, an internal Maven repository of dependencies, plus a shim to bootstrap it all.
+Uberjar:: A self-contained, executable Java archive. In the case of 
+WildFly Swarm uberjars, it is a single `.jar` file containing your 
+application, the portions of WildFly required to support it, an 
+internal Maven repository of dependencies, plus a shim to bootstrap it all.
+
+Hollow Uberjar:: A self-contained, executable Java archive that contains
+no application code.  Somewhat contradictory term. It is a container
+capable of deploying a particular type of application.
+
+Default Deployment:: The primary application artifact created
+by your Maven or Gradle build. This may be a `.war` in many cases
+or a `.jar`, depending on the `<packaging>` in your `pom.xml`

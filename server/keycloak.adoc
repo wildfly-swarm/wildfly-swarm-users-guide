@@ -1,0 +1,27 @@
+= Keycloak Server
+
+The WildFly Swarm project has built a standalone uberjar for running Keycloak Server.
+
+It's Maven coordinates are:
+
+[source,xml]
+----
+<dependency>
+  <groupId>org.wildfly.swarm.servers</groupId>
+  <artifactId>keycloak</artifactId>
+  <classifier>swarm</classifier>
+</dependency>
+----
+
+== Download
+
+http://repo2.maven.org/maven2/org/wildfly/swarm/servers/keycloak/{{book.versions.swarm}}/keycloak-{{book.versions.swarm}}-swarm.jar[Download]
+or otherwise obtain the `-swarm.jar` and simply execute it as any other service created with WildFly Swarm.
+
+== Usage
+
+[source]
+----
+java -jar keycloak-{{book.versions.swarm}}-swarm.jar
+----
+

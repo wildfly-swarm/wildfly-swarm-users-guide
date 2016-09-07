@@ -21,7 +21,7 @@ As you can see, it contains three notable elements:
   <packaging>war</packaging>
 
   <properties>
-    <version.wildfly.swarm>1.0.0.Final</version.wildfly.swarm>
+    <version.wildfly.swarm>{{book.versions.swarm}}</version.wildfly.swarm>
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
     <failOnMissingWebXml>false</failOnMissingWebXml>

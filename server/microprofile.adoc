@@ -1,0 +1,29 @@
+== MicroProfile 
+
+http://microprofile.io/[MicroProfile] is a new effort that is underway
+which attempts to refine the enterprise Java specifications for use
+in microservices.
+
+The currently included bits are:
+
+* JAX-RS
+* JSON-P
+* CDI
+
+= WildFly Swarm MicroProfile
+
+WildFly Swarm provides a hollow MicroProfile standalone server
+which can be used to deploy any compliant `.war` application.
+
+= Download
+
+You can download the server 
+http://repo2.maven.org/maven2/org/wildfly/swarm/servers/microprofile/{{book.versions.swarm}}/microprofile-{{book.versions.swarm}}-hollowswarm.jar[here].
+
+= Usage
+
+
+[code]
+----
+java -jar microprofile-{{book.versions.swarm}}-hollowswarm.jar myapp.war
+----
