@@ -54,7 +54,7 @@ NOTE: For a full set of supported options, please consult the documentation for 
 |Enables HTTPS and generates a self-signed certificate 
 |If true, generates a self-signed certificate for development purposes
 
-|`swarm.https.certificate.generate`
+|`swarm.https.certificate.generate.host`
 |The host used in the self-signed certificate if `swarm.https.certificate.generate` is true 
 |localhost
 
