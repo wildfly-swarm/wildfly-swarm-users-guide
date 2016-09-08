@@ -66,7 +66,7 @@ NOTE: For a full set of supported options, please consult the documentation for 
 
 == Databases
 
-For the H2, MySQL and Postgres databases fractions, the follow properties are supported
+For the H2, MySQL and Postgres database fractions, the follow properties are supported
 to configure the datasource.
 
 [cols=3, options="header"]
