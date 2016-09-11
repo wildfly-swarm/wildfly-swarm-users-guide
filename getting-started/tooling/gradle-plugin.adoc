@@ -2,7 +2,7 @@
 
 To assist in building WildFly Swarm projects, a Gradle plugin is available.  This plugin creates the ```-swarm.jar``` uberjar which contains your application along with the necessary parts of WildFly to support it.
 
-NOTE: Gradle doesn't get the same attention by the core developers as maven. If you wan't to be on the safe side, use maven. If you are interested in contributing to the gradle build system, please let use now!
+NOTE: Gradle doesn't get the same attention by the core developers as Maven. If you want to be on the safe side, use Maven. If you are interested in contributing to the Gradle build system, please let us know!
 
 == Packaging your application
 
