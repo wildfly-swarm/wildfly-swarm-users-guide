@@ -20,3 +20,28 @@ Including the above dependency will automatically configure reasonable INFO-leve
 
 If you wish to perform more advanced configuration, please see the
 http://wildfly-swarm.github.io/wildfly-swarm-javadocs/{{book.versions.swarm}}/apidocs/org/wildfly/swarm/config/logging/package-summary.html[JavaDocs for the Logging API].
+
+=== Logging to a file
+
+The file handler configuration requires you to specify both the "relative-path" and the "path" attribute for the file. 
+A full example for the configuration of a log file handler looks like this:
+
+[source,java]
+```
+Swarm container = new Swarm();
+container.fraction(new LoggingFraction()
+  .fileHandler("swarm-camel", f -> {
+
+    Map<String, String> fileProps = new HashMap<>();
+    fileProps.put("relative-to", System.getProperty("user.dir"));
+    fileProps.put("path", "swarm.log");
+    f.file(fileProps);
+    
+    f.level(Level.INFO);
+    f.formatter("%d{HH:mm:ss,SSS} %-5p [%c] (%t) %s%e%n");
+  })
+);
+container.start();
+
+[...]
+```
