@@ -28,19 +28,23 @@ A full example for the configuration of a log file handler looks like this:
 
 [source,java]
 ```
-Swarm container = new Swarm();
-container.fraction(new LoggingFraction()
-  .fileHandler("swarm-camel", f -> {
+String logFile = System.getProperty("user.dir") + File.separator + "swarm.log";
 
-    Map<String, String> fileProps = new HashMap<>();
-    fileProps.put("relative-to", System.getProperty("user.dir"));
-    fileProps.put("path", "swarm.log");
-    f.file(fileProps);
+Swarm container = new Swarm();
+container.fraction(
+  new LoggingFraction()
+    .fileHandler("FILE", f -> {
     
-    f.level(Level.INFO);
-    f.formatter("%d{HH:mm:ss,SSS} %-5p [%c] (%t) %s%e%n");
-  })
+      Map<String, String> fileProps = new HashMap<>();
+      fileProps.put("path", logFile);
+      f.file(fileProps);      
+      f.level(Level.INFO);
+      f.formatter("%d{HH:mm:ss,SSS} %-5p [%c] (%t) %s%e%n");
+      
+    })
+    .rootLogger(Level.INFO, "FILE")
 );
+
 container.start();
 
 [...]
