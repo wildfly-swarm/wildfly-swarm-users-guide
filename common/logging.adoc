@@ -23,7 +23,7 @@ http://wildfly-swarm.github.io/wildfly-swarm-javadocs/{{book.versions.swarm}}/ap
 
 === Logging to a file
 
-The file handler configuration requires you to specify both the "relative-path" and the "path" attribute for the file. 
+In order to log to a file, you'd need to specifiy a file handler and link it to the root logger. 
 A full example for the configuration of a log file handler looks like this:
 
 [source,java]
