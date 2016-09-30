@@ -1,23 +1,42 @@
 = Topology
 
-When building systems of many microservices, being able to locate, discovery and interact with them in an ever-changing deployment environment can become a challenge.  There are many solutions to managing a topology of services, each with this own trade-offs.
+When building systems of many microservices, being able to locate, discovery
+and interact with them in an ever-changing deployment environment can become a
+challenge.  There are many solutions to managing a topology of services, each
+with this own trade-offs.
 
-In a pure WildFly scenario, in an environment where multicast is available, many users rely upon JGroups to handle discovery and reliable communications between nodes.  In other scenarios, either due to the lack of multicast, heterogenuity of services, or scaling concerns, different service-discovery mechanisms are used.  These may include services such as Apache Zookeeper or Hashicorp's Consul.
+In a pure WildFly scenario, in an environment where multicast is available,
+many users rely upon JGroups to handle discovery and reliable communications
+between nodes.  In other scenarios, either due to the lack of multicast,
+heterogenuity of services, or scaling concerns, different service-discovery
+mechanisms are used.  These may include services such as Apache Zookeeper or
+Hashicorp's Consul.
 
-WildFly Swarm attempts to abstract away the many ways of handling service registration and discovery through its `topology` fraction.  The `topology` fraction only provides the abstractions and APIs.  It must work in concert with other specific implementations to actually provide information about the layout of your concrete services.
+WildFly Swarm attempts to abstract away the many ways of handling service
+registration and discovery through its `topology` fraction.  The `topology`
+fraction only provides the abstractions and APIs.  It must work in concert with
+other specific implementations to actually provide information about the layout
+of your concrete services.
 
 At the moment, two topology implementations are available:
 
 * JGroups
 * Consul
 
-Additionally, regardless of the topology implementation selected, WildFly Swarm provides a `topology-webapp` which helps bring the topology abstraction to your Javascript-centric applications running in the browser.
+Additionally, regardless of the topology implementation selected, WildFly Swarm
+provides a `topology-webapp` which helps bring the topology abstraction to your
+Javascript-centric applications running in the browser.
 
 == General Usage
 
 === Advertising Services
 
-When using `topology` in your application, your various archives can be turned into a `TopologyArchive` and subsequently `advertise()` themselves under a variety of names.  By default, a no-arg version of `advertise()` will advertise the deployed service using the base name of the archive.
+=== Via Deployment Archive
+
+When using `topology` in your application, your various archives can be turned
+into a `TopologyArchive` and subsequently `advertise()` themselves under a
+variety of names.  By default, a no-arg version of `advertise()` will advertise
+the deployed service using the base name of the archive.
 
 [source,java]
 ----
@@ -27,7 +46,8 @@ JAXRSArchive deployment = ShrinkWrap.create(JAXRSArchive.class, "events.war");
 deployment.as(TopologyArchive.class).advertise();
 ----
 
-Additionally, archives can advertise different names, especially in the case where you do not provide a name when creating the archive.
+Additionally, archives can advertise different names, especially in the case
+where you do not provide a name when creating the archive.
 
 [source,java]
 ----
@@ -37,15 +57,65 @@ JAXRSArchive deployment = ShrinkWrap.create(JAXRSArchive.class);
 deployment.as(TopologyArchive.class).advertise("events");
 ----
 
+=== Annotations
+
+If you wish to be more declarative in advertising services, the
+`org.wildfly.swarm.topology.Advertise` annotation may be applied
+to arbitrary classes.  Usually you would apply the annotation to
+a JAX-RS resource, a servlet, or some other reasonable component
+that exposes a discoverable service.  The annotation may be repeated
+in the event you wish to advertise a single service under multiple
+names.
+
+[source,java]
+----
+@Advertise("cheesemonger")
+@Advertise("cheese-seller")
+public class MyResource {
+  ...
+}
+----
+
+=== Runtime API
+
+If you only want some services to register when they are actually
+alive, or dynamically registered based upon runtime knowledge,
+the `Topology` interface provides a method, `advertise(...)`
+which can be used within your deployment to advertise a service
+during any arbitrary point of execution.  It returns an
+`AdvertisementHandle` which may be used to unadvertise the service.
+
+[source,java]
+----
+AdvertisementHandle handle = Topology.lookup().advertise("cheesemonger");
+...
+handle.unadvertise();
+----
+
+=== General
+
+With alladvertisement forms, the service will be registered
+with the current server's IP address, and the appropriate ports 
+for HTTP and HTTPS, if either or both are enabled. 
+
+Additionally, if the HTTP port is registered, the service will also
+be advertised with the tag of `http`, and likewise HTTPS services
+will be tagged as `https`.
+
 === Accessing Topology Information inside a WildFly Swarm Application
 
-The `Topology` is made available through JNDI, and provides a simple method for performing the retrieval of it from within your running application.
+The `Topology` is made available through JNDI, and provides a simple method for
+performing the retrieval of it from within your running application.
 
 [source,java]
 ----
 Topology topology = Topology.lookup();
 ----
 
-Once retrieved, your application and add or remove a `TopologyListener` in order to be informed about changes in the topology as services start and stop.
+Once retrieved, your application and add or remove a `TopologyListener` in
+order to be informed about changes in the topology as services start and stop.
 
-Additionally, the `Topology` class provides an `asMap()` method which returns the full current topology in a `Map` where the keys are the service names, and the values are a list of `Topology.Entry` items, providing access to the host and port.
+Additionally, the `Topology` class provides an `asMap()` method which returns
+the full current topology in a `Map` where the keys are the service names, and
+the values are a list of `Topology.Entry` items, providing access to the host
+and port.
