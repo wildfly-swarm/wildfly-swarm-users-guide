@@ -1,11 +1,14 @@
 = Jolokia
 
-https://jolokia.org/[Jolokia] is a small utility which provides a JSON-based JMX connector over HTTP.  WildFly Swarm supports a simple method for adding Jolokia to your application.
+https://jolokia.org/[Jolokia] is a small utility which provides a JSON-based
+JMX connector over HTTP.  WildFly Swarm supports a simple method for adding
+Jolokia to your application.
 
 
 == Adding Jolokia
 
-To bring Jolokia to your application, you need to add a dependency on the Jolokia fraction:
+To bring Jolokia to your application, you need to add a dependency on the
+Jolokia fraction:
 
 [source,xml]
 ----
@@ -15,9 +18,11 @@ To bring Jolokia to your application, you need to add a dependency on the Joloki
 </dependency>
 ----
 
-This is sufficient to bind an unsecured Jolokia to the context root of `/jolokia`.
+This is sufficient to bind an unsecured Jolokia to the context root of
+`/jolokia`.
 
-If you would like to configure where Jolokia is mounted, you can override the defaults within your `main(...)` method:
+If you would like to configure where Jolokia is mounted, you can override the
+defaults within your `main(...)` method:
 
 [source,java]
 ----
@@ -29,4 +34,34 @@ swarm.fraction(
 
 The above would make Jolokia available at the path of ```/jmx```.
 
-Adding the Jolokia fraction to your application will bring in the Undertow fraction implicitly if you have not already included it.
+Adding the Jolokia fraction to your application will bring in the Undertow
+fraction implicitly if you have not already included it.
+
+=== Securing
+
+If you need to secure your Jolokia endpoint (which is highly recommended),
+the `JolokiaFraction` class supports passing in a pre-existing
+`jolokia-access.xml` as a file or URL, or building it programmatically.
+
+[source,java]
+----
+swarm.fraction(
+  new JolokiaFraction()
+    .jolokiaAccess( "/path/to/jolokia-access.xml" )
+);
+----
+
+Or
+
+[source,java]
+----
+swarm.fraction(
+  new JolokiaFraction()
+    .jolokiaAccess( (access)->{
+      access.host( "localhost" );
+      access.strictChecking();
+    } )
+);
+----
+
+Please see the JavaDocs for `JolokiaAccess` and related classes.
