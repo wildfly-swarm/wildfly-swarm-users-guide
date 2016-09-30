@@ -1,12 +1,15 @@
 = Messaging
 
-The Messaging fraction brings support for JMS to your application. Currently, the messaging capability does _not_ span across multiple independent WildFly Swarm-based services, but is only available within a single service.
+The Messaging fraction brings support for JMS to your application. Currently,
+the messaging capability does _not_ span across multiple independent WildFly
+Swarm-based services, but is only available within a single service.
 
 The WildFly Swarm messaging broker is based upon ActiveMQ.
 
 == Configuration
 
-To enable messaging for your application, you need to include the following dependency:
+To enable messaging for your application, you need to include the following
+dependency:
 
 [source,xml]
 ----
@@ -16,18 +19,68 @@ To enable messaging for your application, you need to include the following depe
 </dependency>
 ----
 
-Additionally, you _must_ configure some destinations for the messaging broker to be useful.  This is done through your `main(...)` function.
+Additionally, you _must_ configure some destinations for the messaging broker
+to be useful.  This is done through your `main(...)` function.
 
 [source,java]
 ----
-swarm.subsystem(new MessagingFraction()
-    .server(
-            new MessagingServer()
-                    .enableInVMConnector()
-                    .topic("my-topic")
-                    .queue("my-queue")
-    )
+swarm.fraction(new MessagingFraction()
+    .defaultServer( (server)->{
+      server.topic("my-topic")
+      server.queue("my-queue");
+    } );
+  );
 );
 ----
 
-TODO: This is painful. We *must* improve that API.
+== Remote Message Broker
+
+While the above configures a message broker internal to your application,
+that is many times sub-optimal when working with microservices. A better
+approach may be to run your message broker as a separate, more persistent
+process, and simply connect all of your microservices to it.
+
+WildFly Swarm supports two separate methods for achieving that.
+
+=== Java API
+
+You can use the same Java API as above to create a remote connection to
+an outboard message broker, configuring the host, port, and JNDI name
+for the pooled connection factory.
+
+[source,java]
+----
+swarm.fraction( new MessagingFraction()
+    .defaultServer( (server)->{
+      server.remoteConnection( "remote-mq", (connection)->{
+        connection.host( "mq.mycorp.com" );
+        connection.port( 61616 );
+        connection.jndiName( "java:/jms/remote-mq" );
+      } );
+    } );
+  );
+----
+
+=== Configuration Properties
+
+Additionally, if you only need a single remote connection, it can 
+be completely configured using Java system properties, or configuration
+values from `project-stages.yml`.
+
+If any of the following properties are set, a remote connection will
+be created.  Any un-set properties will use their defaults, as long as
+at least the `swarm.messaging.remote` flag is set to true.  If any of
+the other values are configured explicitly, there is no need to also
+set `swarm.messaging.remote`.
+
+|===
+|Key|Default Value|Description
+
+|`swarm.messaging.remote`| _none_ | Flag (`true` or `false`) to signal installation of remote connection
+|`swarm.messaging.remote.name` | `remote-mq` | Base name of the remote connection. Used to build JNDI name if not otherwise specified
+|`swarm.messaging.remote.host` | `localhost` | Hostname of the remote message broker
+|`swarm.messaging.remote.port` | 61616 | Port of the remote message broker
+|`swarm.messaging.remote.jndi-name` | `java:/jms/remote-mq` | JNDI name of the remote pooled connection factory
+
+A combination of the two methods above may be used, where the configuration
+properties override the values set through the Java API.
