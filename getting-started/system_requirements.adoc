@@ -19,3 +19,5 @@ The link:../getting-started/tooling/maven-plugin.html[Maven Plugin], that perfor
 requires at maven 3.3.x:
 
 * https://maven.apache.org/download.cgi[Download Apache Maven]
+
+NOTE: If running WildFly Swarm from within the IDE, especially `mvn wildfly-swarm:run`, you will need to verify that the IDE uses this Maven version. Typically IDEs will be running a Maven version less than 3.2.x which will cause issues
