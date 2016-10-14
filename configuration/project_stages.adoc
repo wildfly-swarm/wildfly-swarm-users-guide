@@ -61,7 +61,7 @@ Two notable command-line switches are available to easily re-configure Swarm in 
 
 |swarm.project.stage
 |-Dswarm.project.stage=<stage name>
-|Enables a specific stage
+|Enables a specific stage (fallback to System environment variable `SWARM_PROJECT_STAGE` or `default` if neither exists)
 
 |swarm.project.stage.file
 |-Dswarm.project.stage.file=<URL>
