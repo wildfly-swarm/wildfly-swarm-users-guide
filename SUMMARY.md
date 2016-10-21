@@ -36,7 +36,7 @@
    * Data Access
        * [JPA](common/jpa.adoc)
        * [Datasources](common/datasources.adoc)
-       * Flyway Integration
+       * Flyway
    * REST/HTTP
        * [JAX-RS](common/jax-rs.adoc)
        * [Swagger](advanced/swagger.adoc)
