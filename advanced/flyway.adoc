@@ -1,0 +1,46 @@
+= Flyway
+
+Flyway is an open-source database migration tool. It strongly favors simplicity and convention over configuration. 
+
+Read more about how Flyway works in here: https://flywaydb.org/getstarted/how
+
+== Configuration
+
+To enable Flyway, the following dependency is required:
+
+[source,xml]
+----
+<dependency>
+  <groupId>org.wildfly.swarm</groupId>
+  <artifactId>flyway</artifactId>
+</dependency>
+----
+
+SQL Scripts should be placed under `src/main/resources/db/migration` and distributed inside the UberJar.
+
+== Customizing the Flyway Configuration
+
+The Flyway fraction will by default use the primary datasource, however you may use a specific JDBC configuration in a `main()` method. For example:
+
+[source,java]
+----
+public class Main {
+
+  public static void main(String...args) {
+
+    // Set the configuration for the Flyway migration
+    FlywayFraction fraction = new FlywayFraction()
+        .jdbcUrl("jdbc:oracle:oci8:@")
+        .jdbcUser("admin")
+        .jdbcPassword("password");
+
+    // Instantiate Swarm and add our fraction
+    Swarm swarm = new Swarm();
+    swarm.fraction( fraction );
+
+    // Start the container
+    swarm.start();
+  }
+
+}
+----
