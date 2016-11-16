@@ -1,0 +1,29 @@
+= Distributed Tracing using Zipkin
+
+The zipking fraction adds the instrumentation to JAX-RS resources to report tracing information to a Zipkin interoperable backend (i.e. Hawkular, or the Zipkin backend itself).
+== Configure
+
+=== Dependency
+To add zipkin instrumentation to your WildFly Swarm application, you need to add a dependency:
+
+[source,xml]
+----
+<dependency>
+  <groupId>org.wildfly.swarm</groupId>
+  <artifactId>zipkin-jaxrs</artifactId>
+</dependency>
+----
+
+=== Configuration
+
+To configure _where_ the zipkin backend can be found, you need to specify the reportUrl
+for the backend to store the tracing data, i.e. 'http://localhost:9411/api/v1/spans'
+
+[source,java]
+----
+swarm.fraction(
+   new ZipkinFraction(<SERVICE_NAME>)
+           .reportAsync("http://localhost:9411/api/v1/spans")
+           .sampleRate(0.1f) // keep 10%
+);
+----

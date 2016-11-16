@@ -66,6 +66,7 @@
        * [Jolokia](advanced/jolokia.adoc)
    * Monitoring
        * [Health Checks](advanced/monitoring.adoc)
+       * [Distributed Tracing](advanced/tracing-zipkin.adoc)
    * Clustering
        * [JGroups](advanced/jgroups.adoc)
        * [Infinispan](advanced/infinispan.adoc)
