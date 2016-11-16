@@ -33,6 +33,7 @@
    * Logging
        * [Logging](common/logging.adoc)
        * [Logstash](advanced/logstash.adoc)
+       * [FluentD](advanced/fluentd.adoc)
    * Data Access
        * [JPA](common/jpa.adoc)
        * [Datasources](common/datasources.adoc)
@@ -81,4 +82,3 @@
    * [Contributing to WildFly Swarm](getting_involved.adoc)
    * [Implementation Details](implementation_details.adoc)
    * [Fraction Authoring](fraction_authoring.adoc)
-

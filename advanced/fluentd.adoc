@@ -1,0 +1,36 @@
+= FluentD
+
+The FluentD project from http://www.fluentd.org/ provides for an open source data collector for a unified logging layer.
+The fluentd fraction installs a custom log handler that's capable of logging to a fluentd daemon, which filter, buffer and route logging information according to your needs.
+== Configure
+
+=== Dependency
+To add FluentD integration to your WildFly Swarm application, you need to add a dependency:
+
+[source,xml]
+----
+<dependency>
+  <groupId>org.wildfly.swarm</groupId>
+  <artifactId>fluentd</artifactId>
+</dependency>
+----
+
+=== Configuration
+
+To configure _where_ the FluentD daemon is running, the following two properties need to be set, either through plugin configuration or on the command-line using `-D...`
+Usually we would expect the daemon to run co-located with the Swarm process (i.e. same docker image).
+
+[cols=3, options="header"]
+|===
+| Name
+| Default value
+| Description
+
+| swarm.fluentd.hostname
+| localhost
+| The hostname of the FluentD daemon
+
+| swarm.fluentd.port
+| 24224
+| The port of the FluentD daemon
+|===
