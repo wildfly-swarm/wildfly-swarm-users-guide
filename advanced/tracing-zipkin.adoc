@@ -1,6 +1,7 @@
 = Distributed Tracing using Zipkin
 
 The zipking fraction adds the instrumentation to JAX-RS resources to report tracing information to a Zipkin interoperable backend (i.e. Hawkular, or the Zipkin backend itself).
+
 == Configure
 
 === Dependency
