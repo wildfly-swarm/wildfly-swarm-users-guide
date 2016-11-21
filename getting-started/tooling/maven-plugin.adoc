@@ -27,9 +27,27 @@ To use the plugin, you must add it to your `pom.xml`:
 
 == Packaging your application
 
+=== Default *uberjar*
+
 To produce the `_myapp_-swarm.jar`, simply perform a typical `mvn package` command after setting the `package` goal on the plugin:
 
     mvn package
+
+=== _Hollow_ *uberjar*
+
+To produce a _hollow_ uberjar, the same `mvn package` method is used, but either set the property `-Dswarm.hollow=true` or configure
+the plugin with `<hollow>true</hollow>` from within your `pom.xml`.
+
+A hollow uberjar will have the suffix of `-hollowswarm.jar` and will not include the actual application deployment. This may be
+useful if you are targetting layered Linux containers, where you wish to place the runtime on a lower layer, and the more
+frequently changing deployment on a higher layer.
+
+If using the hollow functionality, the command-line arguments to the uberjar shouldl point to one or more deployments that
+should be used.
+
+    java -jar myruntime-hollowjar.jar myapp.war
+
+An example of the hollow jar functionality may be seen in the <<fake/../../../../server/microprofile.adoc#,MicroProfile standalone server>>.
 
 == Running your application
 
@@ -92,6 +110,12 @@ The plugin accepts the following options:
 |A list of extra fractions to include when auto-detection is used, useful for fractions that can't be detected or user-provided fractions. Each fraction can be of the form `group:name:version`, `name:version`, or `name`. If no group is provided, `org.wildfly.swarm` is assumed. If no version is provided, the version is looked up from the WildFly Swarm BOM for the version of the plugin you are using.
 |
 |`package`, `run`, `start`
+
+|hollow
+|`swarm.hollow`
+|Boolean specifying if the resulting executable jar should be _hollow_ and not include the default deployment.
+|`false`
+|`multistart`, `run`, `start`
 
 |jvmArguments
 |`swarm.jvmArguments`
