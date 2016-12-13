@@ -5,9 +5,7 @@ to relational databases.
 
 == Configuration
 
-To use JPA in your application, you need to add one of the following dependencies:
-
-=== Default using H2 JDBC Driver
+To use JPA in your application, you need to add the JPA dependency:
 
 [source,xml]
 ----
@@ -17,42 +15,36 @@ To use JPA in your application, you need to add one of the following dependencie
 </dependency>
 ----
 
-=== Default using MySQL JDBC Driver
+and then specify the dependency for whichever JDBC Driver you need for your particular database.
+
+Examples include:
+
+=== H2 JDBC Driver
 
 [source,xml]
 ----
 <dependency>
-  <groupId>org.wildfly.swarm</groupId>
-  <artifactId>jpa</artifactId>
-  <exclusions>
-    <exclusion>
-      <groupId>org.wildfly.swarm</groupId>
-      <artifactId>h2</artifactId>
-    </exclusion>
-  </exclusions>
-</dependency>
-<dependency>
-  <groupId>org.wildfly.swarm</groupId>
-  <artifactId>mysql</artifactId>
+  <groupId>com.h2database</groupId>
+  <artifactId>h2</artifactId>
 </dependency>
 ----
 
-=== Default using Postgres JDBC Driver
+=== MySQL JDBC Driver
 
 [source,xml]
 ----
 <dependency>
-  <groupId>org.wildfly.swarm</groupId>
-  <artifactId>jpa</artifactId>
-  <exclusions>
-    <exclusion>
-      <groupId>org.wildfly.swarm</groupId>
-      <artifactId>h2</artifactId>
-    </exclusion>
-  </exclusions>
+  <groupId>mysql</groupId>
+  <artifactId>mysql-connector-java</artifactId>
 </dependency>
+----
+
+=== Postgres JDBC Driver
+
+[source,xml]
+----
 <dependency>
-  <groupId>org.wildfly.swarm</groupId>
+  <groupId>postgresql</groupId>
   <artifactId>postgresql</artifactId>
 </dependency>
 ----
