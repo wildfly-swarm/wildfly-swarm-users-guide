@@ -7,4 +7,4 @@ portion of the repository.
 * <<server/microprofile#,MicroProfile>>
 * <<server/keycloak#,Keycloak>>
 * <<server/swagger_ui#,Swagger UI>>
-* <<server/management_console#,Management Console>>
+* <<server/management-console#,Management Console>>
