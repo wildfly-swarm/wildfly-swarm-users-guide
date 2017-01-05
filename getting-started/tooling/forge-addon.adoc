@@ -62,3 +62,29 @@ camel-jaxb           cdi-ext              infinispan           jca              
 ----
 +
 NOTE: Installed fractions are not listed when you press <TAB> to auto-complete
+
+WildFly-Swarm Create Test Class::
+You can create a Java Test Class and adds Arquillian WildFly Swarm dependency. This test uses the @DefaultDeployment deployment approach and in case of specifying the flag `asClient` it sets this test as `testable` false and also enriches your test with current URL.
++
+[source, java]
+----
+[demo]$ wildfly-swarm-new-test --target-package org.example.rest --named HelloWorldEndpointTest
+***SUCCESS*** Test Class org.example.rest.HelloWorldEndpointTest was created
+[demo]$ cd src/test/java/org/example/rest/HelloWorldEndpointTest.java
+[HelloWorldEndpointTest.java]$ cat -c .
+package org.example.rest;
+
+import org.junit.runner.RunWith;
+import org.jboss.arquillian.junit.Arquillian;
+import org.wildfly.swarm.arquillian.DefaultDeployment;
+import org.junit.Test;
+
+@RunWith(Arquillian.class)
+@DefaultDeployment
+public class HelloWorldEndpointTest {
+
+	@Test
+	public void should_start_service() {
+	}
+}
+----
