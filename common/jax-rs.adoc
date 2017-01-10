@@ -32,17 +32,17 @@ If you are building a `.war`-based application, you must provide the `Applicatio
 
 == Using JAX-RS with CDI
 
-By default, JAX-RS does not provide CDI support.  To bring CDI support to your application, an additional dependency is required:
+By default, JAX-RS does not provide CDI support. To bring CDI support to your application, an additional dependency is required:
 
 [source,xml]
 ----
 <dependency>
   <groupId>org.wildfly.swarm</groupId>
-  <artifactId>jaxrs-cdi</artifactId>
+  <artifactId>cdi</artifactId>
 </dependency>
 ----
 
-In reality, this dependency will transitively bring in the core `jaxrs` dependency.
+With this fraction in place, you can inject dependencies into your JAX-RS endpoints using `@Inject`, benefit from CDI interceptors and more.
 
 == Using JAX-RS with multipart forms
 
