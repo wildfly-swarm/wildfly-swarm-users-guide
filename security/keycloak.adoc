@@ -39,3 +39,20 @@ deployment.as(Secured.class)
     .withMethod( "GET" )
     .withRoles( "admin" );
 ----
+
+If your appliction doesn't have main(), you can do it with link:../../configuration/project_stages.html[project-stages.yml].
+
+[source,yaml]
+----
+swarm.keycloak.security.constraints:
+  - url-pattern: /some-resource
+    methods: [GET]
+    roles: [admin]
+----
+
+== Configuration
+
+[cols=2, options="header"]
+|===
+|Property|Description
+|`swarm.keycloak.json.path`|External keycloak.json path. If this property specified, keycloak.json on classpath will be ignored.
