@@ -38,11 +38,11 @@ To produce the `_myapp_-swarm.jar`, simply perform a typical `mvn package` comma
 To produce a _hollow_ uberjar, the same `mvn package` method is used, but either set the property `-Dswarm.hollow=true` or configure
 the plugin with `<hollow>true</hollow>` from within your `pom.xml`.
 
-A hollow uberjar will have the suffix of `-hollowswarm.jar` and will not include the actual application deployment. This may be
+A hollow uberjar will have the suffix of `-hollow-swarm.jar` and will not include the actual application deployment. This may be
 useful if you are targetting layered Linux containers, where you wish to place the runtime on a lower layer, and the more
 frequently changing deployment on a higher layer.
 
-If using the hollow functionality, the command-line arguments to the uberjar shouldl point to one or more deployments that
+If using the hollow functionality, the command-line arguments to the uberjar should point to one or more deployments that
 should be used.
 
     java -jar myruntime-hollowjar.jar myapp.war
