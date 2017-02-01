@@ -16,7 +16,7 @@ provide your own configuration or want to to change the default behaviour. WildF
  * link:/using_xml.html[Using XML]
 
 == Environment specific changes
-Both of the above approaches are complemented using external configuration files (`project-stages.yml`),
+Both of the above approaches are complemented using external configuration files (`project-defaults.yml`),
 that carry overlays for specific configuration values that need to change between target environments:
 
  * link:/project_stages.html[Project Stages]

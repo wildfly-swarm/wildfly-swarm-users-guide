@@ -63,9 +63,9 @@ swarm.fraction( new MessagingFraction()
 
 === Configuration Properties
 
-Additionally, if you only need a single remote connection, it can 
+Additionally, if you only need a single remote connection, it can
 be completely configured using Java system properties, or configuration
-values from `project-stages.yml`.
+values from `project-defaults.yml`.
 
 If any of the following properties are set, a remote connection will
 be created.  Any un-set properties will use their defaults, as long as

@@ -277,7 +277,7 @@ public MyArchiveProducers {
 ==== The `@ConfigurationValue` annotation
 
 Any of your components can also `@Inject` configuration values that
-are sourced from either `project-stages.yml` based upon the currently
+are sourced from either `project-defaults.yml` based upon the currently
 active stage, or system properties if no project stage is available.
 
 [source,java]

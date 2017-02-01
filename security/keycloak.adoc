@@ -40,7 +40,7 @@ deployment.as(Secured.class)
     .withRoles( "admin" );
 ----
 
-If your appliction doesn't have main(), you can do it with link:../../configuration/project_stages.html[project-stages.yml].
+If your appliction doesn't have main(), you can do it with link:../../configuration/project_stages.html[project-defaults.yml].
 
 [source,yaml]
 ----

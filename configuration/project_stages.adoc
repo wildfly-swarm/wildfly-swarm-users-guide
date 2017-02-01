@@ -4,8 +4,8 @@ In some cases it may be desirable to extract some of the configuration propertie
 depending on the target environment. Project stages are a way to move environment specific configuration properties
 into an external file.
 
-==== project-stages.yml
-A stage configuration is represented in an external YAML file:
+==== project-default.yml
+Default configuration is represented in an external YAML file:
 
 [source,yaml]
 ----
@@ -34,23 +34,41 @@ swarm:
 
 ==== Project Stage Definitions
 
-In this example some of configuration values are kept externally. The file contains
-multiple yaml documents (separated by `---`) and the `project: stage: <name>` definition indicates which key
-can be used to enable a stage.  To use these stage properties you'd need to explicitly reference this file during Container bootstrap:
+To have separate configuration for different environments we could then have:
+
+.project-development.yml
+[source,yaml]
+----
+logger:
+    level: DEBUG
+swarm:
+  port:
+    offset: 50
+----
+
+.project-production.yml
+[source,yaml]
+----
+logger:
+    level: INFO
+swarm:
+  port:
+    offset: 100
+----
 
 ==== Container Bootstrap
 
 [source,java]
 ----
 ClassLoader cl = Main.class.getClassLoader();
-URL stageConfig = cl.getResource("project-stages.yml");
+URL stageConfig = cl.getResource("project-defaults.yml");
 
 Swarm swarm = new Swarm(false)
        .withStageConfig(stageConfig);
 [...]
 ----
 
-NOTE: Auto detection picks up project-stages.yml from `src/main/resources`
+NOTE: Auto detection picks up project-defaults.yml from `src/main/resources`
 
 ==== Command-line switches / System Properties
 
@@ -65,7 +83,7 @@ Two notable command-line switches are available to easily re-configure Swarm in 
 
 |swarm.project.stage.file
 |-Dswarm.project.stage.file=<URL>
-|Allows to reference a different project-stages.yml file
+|Allows to reference a different project-defaults.yml file
 |===
 
 ==== Referencing Stage Configuration Values
