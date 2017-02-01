@@ -27,8 +27,8 @@
       "javadoc_url_preffix" : "http://wildfly-swarm.github.io/wildfly-swarm-javadocs/",
       "versions": {
           "wildfly": "10.1.0.Final",
-          "swarm": "2017.2.0-SNAPSHOT",
-          "configuration": "0.4.9",
+          "swarm": "2017.2.0",
+          "configuration": "1.0.2.Final",
           "keycloak": "2.5.0.Final"
       }
   }
