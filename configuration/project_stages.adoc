@@ -4,7 +4,7 @@ In some cases it may be desirable to extract some of the configuration propertie
 depending on the target environment. Project stages are a way to move environment specific configuration properties
 into an external file.
 
-==== project-default.yml
+==== project-defaults.yml
 Default configuration is represented in an external YAML file:
 
 [source,yaml]
