@@ -143,6 +143,25 @@ public class MyTest {
 }
 ----
 
+=== Default Deployment
+
+In a world of microservices, this tends to not be the case, and the entire "application" represents one small microservice component.
+
+The `@DefaultDeployment` annotation has been provided to automatically create the deployment of the entire application.
+
+[source, java]
+----
+@RunWith(Arquillian.class)
+@DefaultDeployment
+public class InContainerTest {
+----
+
+Using the `@DefaultDeployment` annotation provided by WildFly Swarm’s Arquillian integration means you should *not* use the usual Arquillian `@Deployment` annotation on a static method returning an Archive.
+
+The `@DefaultDeployment` annotation looks at the package of the test, and it uses heuristics to include all of your other application classes residing in that package or deeper within the Java packaging hierarchy.
+
+`@DefaultDeployment` defaults to create a ShrinkWrap WAR archive.
+
 === Passing additional options to the -swarm.jar
 
 The Arquillian container for WildFly Swarm supports the following system properties in addition to those listed in
