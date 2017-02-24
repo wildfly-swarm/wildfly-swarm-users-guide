@@ -44,10 +44,13 @@ If your appliction doesn't have main(), you can do it with link:../../configurat
 
 [source,yaml]
 ----
-swarm.keycloak.security.constraints:
-  - url-pattern: /some-resource
-    methods: [GET]
-    roles: [admin]
+swarm:
+  keycloak:
+    security:
+      constraints:
+        - url-pattern: /some-resource
+          methods: [GET]
+          roles: [admin]
 ----
 
 == Configuration
