@@ -64,7 +64,7 @@ ClassLoader cl = Main.class.getClassLoader();
 URL stageConfig = cl.getResource("project-defaults.yml");
 
 Swarm swarm = new Swarm(false)
-       .withStageConfig(stageConfig);
+       .withConfig(stageConfig);
 [...]
 ----
 
