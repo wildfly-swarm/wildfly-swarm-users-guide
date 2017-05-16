@@ -9,7 +9,8 @@
       "expandable-chapters",
       "edit-link",
       "addcssjs",
-      "ga"
+      "ga",
+      "asciidoc-admonition-icons"
   ],
   "pluginsConfig": {
           "edit-link": {
