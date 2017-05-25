@@ -26,9 +26,7 @@ JAXRSArchive deployment = ShrinkWrap.create( JAXRSArchive.class );
 deployment.addResource( SomeResource.class );
 ----
 
-Additionally, the `JAXRSArchive` can provide a default `Application` with the `@ApplicationPath` annotation if you do not provide one when creating the deployment.  If you do provide an `Application` it will take precedence.
-
-If you are building a `.war`-based application, you must provide the `Application` implementation with the appropriate `@ApplicationPath` annotation.
+Use of the `jaxrs` fraction dependency provides a default `Application` with the `@ApplicationPath` annotation if you do not provide one when creating the deployment.  If you do provide an `Application` it will take precedence.
 
 == Using JAX-RS with CDI
 
