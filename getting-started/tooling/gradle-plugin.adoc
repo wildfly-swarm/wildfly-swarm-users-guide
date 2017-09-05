@@ -17,7 +17,7 @@ buildscript {
   }
 
   dependencies {
-    classpath "org.wildfly.swarm:wildfly-swarm-plugin:1.0.0.Alpha9-SNAPSHOT"
+    classpath "org.wildfly.swarm:wildfly-swarm-gradle-plugin:1.0.0.Alpha9-SNAPSHOT"
   }
 }
 
@@ -39,18 +39,23 @@ buildscript {
   }
 
   dependencies {
-    classpath "io.spring.gradle:dependency-management-plugin:0.5.6.RELEASE"
-    classpath "org.wildfly.swarm:wildfly-swarm-plugin:1.0.0.Alpha9-SNAPSHOT"
+    classpath "io.spring.gradle:dependency-management-plugin:1.0.3.RELEASE"
+    classpath "org.wildfly.swarm:wildfly-swarm-gradle-plugin:{{book.versions.swarm}}"
   }
 }
 
 apply plugin: "io.spring.dependency-management"
 apply plugin: 'wildfly-swarm'
+apply plugin: 'java'
 
+repositories {
+    mavenLocal()
+    mavenCentral()
+}
 
 dependencyManagement {
   imports {
-    mavenBom "org.wildfly.swarm:bom:1.0.0.Alpha9-SNAPSHOT"
+    mavenBom "org.wildfly.swarm:bom:{{book.versions.swarm}}"
   }
 }
 
