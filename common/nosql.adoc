@@ -1,0 +1,954 @@
+= wildfly-nosql native API integration
+
+The goal of wildfly-nosql, is to provide integration with NoSQL database native drivers.
+Database connection profiles are defined with a logical name,
+that the application code refers to (via @Inject or @Resource).  Application deployments specify
+the version of the NoSQL driver libraries to be used ("bring your own driver" style),
+as long as the driver library version is API compatible with the supported version.
+
+== Connection pooling
+
+Connections to NoSQL database servers are managed by the underlying native NoSQL drivers.
+Connection pooling is provided directly by the native NoSQL drivers.
+
+== Define NoSQL connection profiles
+Connections to NoSQL database servers are managed by the underlying native NoSQL drivers.
+Connection pooling is provided directly by the native NoSQL drivers.
+
+=== CDI Injection
+Each NoSQL connection profile uniquely names the profile *id*, which can be used to *@Inject @Named("id")*
+the NoSQL connection into your application code.
+
+[source,java]
+----
+   @Inject @Named("MyMongoDB") MongoDatabase database;
+   @Inject @Named("MyCassandra") Cluster cluster;
+   @Inject @Named("MyOrientDBPool") OPartitionedDatabasePool pool;
+   @Inject @Named("MyNeo4j") Driver database;
+----
+
+=== Custom module name
+Each NoSQL connection profile (optionally) specifies the *module* name that contains the native
+NoSQL driver classes, which is important for working with other software that may presume different
+NoSQL driver module names.  If the *module* is not specified, a default name is used.
+This improves integration with other NoSQL tools that expect certain module names.
+
+=== JNDI resource lookup
+Each NoSQL connection profile uniquely names the JNDI lookup *jndi-name*, which can be easily used by
+application code.
+[source,java]
+----
+   @Resource(lookup = "java:jboss/cassandra/MyDB")  Cluster cluster;
+   @Resource(lookup = "java:jboss/mongodb/MyDB") MongoDatabase database;
+   @Resource(lookup = "java:jboss/neo4j/MyDB") Driver database;
+   @Resource(lookup = "java:jboss/orientdb/MyDB")  OPartitionedDatabasePool pool;
+----
+
+
+=== Specify the NoSQL driver artifacts
+You get to bring your own NoSQL driver. In fact, you must bring your own NoSQL driver.
+All that’s required though is just adding Maven dependencies to your project (
+check the below Java driver version table to see which NoSQL driver versions are known to work).
+
+Example pom.xml dependencies for each NoSQL fraction:
+
+==== MongoDB driver dependencies example
+[source,xml]
+----
+  <dependencies>
+    <dependency>
+      <groupId>org.wildfly.swarm</groupId>
+      <artifactId>mongodb</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.mongodb</groupId>
+      <artifactId>mongo-java-driver</artifactId>
+      <version>${version.mongodb.driver}</version>
+    </dependency>
+  </dependencies>
+----
+==== Cassandra driver dependencies example
+[source,xml]
+----
+ <dependencies>
+    <dependency>
+      <groupId>org.wildfly.swarm</groupId>
+      <artifactId>cassandra</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.datastax.cassandra</groupId>
+      <artifactId>cassandra-driver-core</artifactId>
+      <version>${version.cassandra.driver}</version>
+    </dependency>
+  </dependencies>
+----
+
+==== Neo4j driver dependencies example
+[source,xml]
+----
+ <dependencies>
+    <dependency>
+      <groupId>org.wildfly.swarm</groupId>
+      <artifactId>neo4j</artifactId>
+ </dependency>
+    <dependency>
+      <groupId>org.neo4j.driver</groupId>
+      <artifactId>neo4j-java-driver</artifactId>
+      <version>${version.neo4j.driver}</version>
+    </dependency>
+ </dependencies>
+----
+
+==== OrientDB driver dependencies example
+[source,xml]
+----
+    <dependencies>
+        <dependency>
+            <groupId>org.wildfly.swarm</groupId>
+            <artifactId>orientdb</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.orientechnologies</groupId>
+            <artifactId>orientdb-core</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.orientechnologies</groupId>
+            <artifactId>orientdb-graphdb</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.orientechnologies</groupId>
+            <artifactId>orientdb-object</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.orientechnologies</groupId>
+            <artifactId>orientdb-client</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.tinkerpop.blueprints</groupId>
+            <artifactId>blueprints-core</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.googlecode.concurrentlinkedhashmap</groupId>
+            <artifactId>concurrentlinkedhashmap-lru</artifactId>
+        </dependency>
+----
+
+== Creating the connection profiles
+
+=== MongoDB Java driver versions
+
+.MongoDB Java driver (org.mongodb:mongo-java-driver).
+|===
+|  Version  |  WildFly  |  WildFly Swarm
+
+|3.0.3
+|NO
+|YES
+
+|3.2.2
+|YES
+|YES
+
+|3.3.0
+|NO
+|YES
+
+|3.4.2
+|NO
+|YES
+
+|===
+
+=== Example of connecting to MongoDB via MongoDBFraction
+
+==== project-defaults.yml
+[source,yml]
+----
+swarm:
+  mongodb:
+    mongos:
+      mongodbtestprofile:
+        database: mongotestdb
+        jndi-name:  java:jboss/mongodb/test
+        id: mongodbtestprofile
+        module:  org.mongodb.driver.custom
+        security-domain:  mongoRealm
+        hosts:
+          mongotesthost:
+            outbound-socket-binding-ref: mongotesthost
+
+  security:
+    security-domains:
+      mongoRealm:
+        cache-type:
+        classic-authentication:
+          login-modules:
+            ConfiguredIdentity:
+              code:  ConfiguredIdentity
+              flag:  required
+              ConfiguredIdentity:
+              module-options:
+                principal:  DBUSERID
+                password:  DBPASSWORD
+                username:  DBUSERID
+  network:
+    socket-binding-groups:
+      standard-sockets:
+        outbound-socket-bindings:
+              mongotesthost:
+                remote-host: localhost
+                remote-port: 27017
+
+----
+
+==== HelloWorldEndpoint.java
+[source,java]
+----
+
+import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
+import javax.inject.Named;
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.Response;
+
+import com.mongodb.client.MongoDatabase;
+
+@ApplicationScoped
+@Path("/hello")
+public class HelloWorldEndpoint {
+
+    @Inject @Named("mongodbtestprofile")
+    MongoDatabase database;
+
+    @GET
+    @Produces("text/plain")
+    public Response doGet() {
+        return Response.ok("Hello from WildFly Swarm! database = " + database).build();
+    }
+}
+----
+==== pom.xml
+[source,xml]
+----
+<!-- pom.xml -->
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>org.wildflynosql</groupId>
+  <artifactId>demo</artifactId>
+  <name>WildFly Swarm Example</name>
+  <version>1.0.0-SNAPSHOT</version>
+  <packaging>war</packaging>
+
+  <properties>
+    <version.wildfly.swarm>2017.6.0-SNAPSHOT</version.wildfly.swarm>
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
+    <failOnMissingWebXml>false</failOnMissingWebXml>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <version.mongodb.driver>3.2.2</version.mongodb.driver>
+    <version.org.glassfish.javax.json>1.0.3</version.org.glassfish.javax.json>
+  </properties>
+
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>org.wildfly.swarm</groupId>
+        <artifactId>bom-all</artifactId>
+        <version>${version.wildfly.swarm}</version>
+        <scope>import</scope>
+        <type>pom</type>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+
+  <build>
+    <finalName>demo</finalName>
+    <plugins>
+      <plugin>
+        <groupId>org.wildfly.swarm</groupId>
+        <artifactId>wildfly-swarm-plugin</artifactId>
+        <version>${version.wildfly.swarm}</version>
+        <configuration>
+          <mainClass>org.wildflynosql.demo.rest.Main</mainClass>
+        </configuration>
+
+        <executions>
+          <execution>
+            <goals>
+              <goal>package</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+
+  <dependencies>
+    <!-- Java EE 7 dependency -->
+    <dependency>
+      <groupId>javax</groupId>
+      <artifactId>javaee-api</artifactId>
+      <version>7.0</version>
+      <scope>provided</scope>
+    </dependency>
+    <!-- WildFly Swarm Fractions -->
+    <dependency>
+      <groupId>org.wildfly.swarm</groupId>
+      <artifactId>jaxrs-jsonp</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>org.wildfly.swarm</groupId>
+      <artifactId>jsonp</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>org.glassfish</groupId>
+      <artifactId>javax.json</artifactId>
+      <version>${version.org.glassfish.javax.json}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.wildfly.swarm</groupId>
+      <artifactId>mongodb</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.mongodb</groupId>
+      <artifactId>mongo-java-driver</artifactId>
+      <version>${version.mongodb.driver}</version>
+    </dependency>
+
+  </dependencies>
+</project>
+----
+==== beans.xml to enable CDI
+[source,xml]
+----
+<!-- empty beans.xml -->
+<beans xmlns="http://java.sun.com/xml/ns/javaee"
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xsi:schemaLocation="
+      http://java.sun.com/xml/ns/javaee
+      http://java.sun.com/xml/ns/javaee/beans_1_0.xsd">
+</beans>
+----
+
+=== Cassandra Java driver versions
+
+.Cassandra Java driver (com.datastax.cassandra:cassandra-driver-core).
+|===
+|  Version  |  WildFly  |  WildFly Swarm
+
+|3.0.0
+|YES
+|YES
+
+|===
+
+=== Example of connecting to Cassandra via CassandraFraction
+
+==== project-defaults.yml
+[source,yml]
+----
+swarm:
+  cassandradriver:
+    cassandras:
+      cassandratestprofile:
+        database:
+        jndi-name:  java:jboss/cassandradriver/test
+        id: cassandratestprofile
+        module:  org.cassandra.custom
+        security-domain:  cassandraRealm
+        hosts:
+          casstesthost:
+            outbound-socket-binding-ref: casstesthost
+  security:
+    security-domains:
+      cassandraRealm:
+        cache-type:
+        classic-authentication:
+          login-modules:
+            ConfiguredIdentity:
+              code:  ConfiguredIdentity
+              flag:  required
+              ConfiguredIdentity:
+              module-options:
+                principal:  DBUSERID
+                password:  DBPASSWORD
+                username:  DBUSERID
+  network:
+    socket-binding-groups:
+      standard-sockets:
+        outbound-socket-bindings:
+              casstesthost:
+                remote-host: localhost
+                remote-port: 9042
+----
+
+==== HelloWorldEndpoint.java
+[source,java]
+----
+
+import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
+import javax.inject.Named;
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.Response;
+
+import com.datastax.driver.core.Cluster;
+
+@ApplicationScoped
+@Path("/hello")
+public class HelloWorldEndpoint {
+
+    @Inject @Named("cassandratestprofile")
+    Cluster cluster;
+
+    @GET
+    @Produces("text/plain")
+    public Response doGet() {
+        return Response.ok("Hello from WildFly Swarm! cluster = " + cluster).build();
+    }
+}
+----
+==== pom.xml
+[source,xml]
+----
+<!-- pom.xml -->
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>org.wildflynosql</groupId>
+  <artifactId>demo</artifactId>
+  <name>WildFly Swarm Example</name>
+  <version>1.0.0-SNAPSHOT</version>
+  <packaging>war</packaging>
+
+  <properties>
+    <version.wildfly.swarm>2017.6.0-SNAPSHOT</version.wildfly.swarm>
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
+    <failOnMissingWebXml>false</failOnMissingWebXml>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <version.cassandra.driver>3.0.0</version.cassandra.driver>
+    <version.org.glassfish.javax.json>1.0.3</version.org.glassfish.javax.json>
+  </properties>
+
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>org.wildfly.swarm</groupId>
+        <artifactId>bom-all</artifactId>
+        <version>${version.wildfly.swarm}</version>
+        <scope>import</scope>
+        <type>pom</type>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+
+  <build>
+    <finalName>demo</finalName>
+    <plugins>
+      <plugin>
+        <groupId>org.wildfly.swarm</groupId>
+        <artifactId>wildfly-swarm-plugin</artifactId>
+        <version>${version.wildfly.swarm}</version>
+        <configuration>
+          <mainClass>org.wildflynosql.demo.rest.Main</mainClass>
+        </configuration>
+
+        <executions>
+          <execution>
+            <goals>
+              <goal>package</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+
+  <dependencies>
+    <!-- Java EE 7 dependency -->
+    <dependency>
+      <groupId>javax</groupId>
+      <artifactId>javaee-api</artifactId>
+      <version>7.0</version>
+      <scope>provided</scope>
+    </dependency>
+    <!-- WildFly Swarm Fractions -->
+    <dependency>
+      <groupId>org.wildfly.swarm</groupId>
+      <artifactId>jaxrs-jsonp</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>org.wildfly.swarm</groupId>
+      <artifactId>jsonp</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>org.glassfish</groupId>
+      <artifactId>javax.json</artifactId>
+      <version>${version.org.glassfish.javax.json}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.wildfly.swarm</groupId>
+      <artifactId>cassandra</artifactId>
+    </dependency>
+    <dependency>
+        <groupId>com.datastax.cassandra</groupId>
+        <artifactId>cassandra-driver-core</artifactId>
+        <version>${version.cassandra.driver}</version>
+    </dependency>
+
+  </dependencies>
+</project>
+----
+
+==== beans.xml to enable CDI
+[source,xml]
+----
+<!-- empty beans.xml -->
+<beans xmlns="http://java.sun.com/xml/ns/javaee"
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xsi:schemaLocation="
+      http://java.sun.com/xml/ns/javaee
+      http://java.sun.com/xml/ns/javaee/beans_1_0.xsd">
+</beans>
+----
+
+=== OrientDB Java driver versions
+
+.OrientDB Java driver (com.orientechnologies:orientdb-core, com.orientechnologies:orientdb-graphdb, com.orientechnologies:orientdb-object, com.orientechnologies:orientdb-client).
+|===
+|  Version  |  WildFly  |  WildFly Swarm
+
+|2.2.9
+|YES
+|YES
+
+|===
+
+=== Example of connecting to OrientDB via OrientDBFraction
+
+The *orientdb* subsystem may define multiple OrientDB connection profiles, that are used to obtain
+com.orientechnologies.orient.core.db.OPartitionedDatabasePool class instances that represent each defined profile.  The OPartitionedDatabasePool class
+is thread safe and can be shared by multiple deployed applications.
+
+WARNING: The OrientDB client API, is heavily dependent on keeping one OrientDB database open per Java thread.  When your application is done with the database, *you must close the OrientDB database* to disassociate it from the Java thread, or the open database will still be open by that Java thread, when the Java thread is returned to the Java thread pool.  A max of one OrientDB database can be open per Java thread, so if you open a different database, the current one will be automatically closed first.
+
+==== project-defaults.yml
+
+[source,yml]
+----
+swarm:
+  orientdb:
+    orients:
+      orienttesttprofile:
+        database: test
+        jndi-name:  java:jboss/orientdb/test
+        id: orienttesttprofile
+        module:  org.orientdb.custom
+        security-domain:  orientRealm
+        hosts:
+          orienttesthost:
+            outbound-socket-binding-ref: orienttesthost
+  security:
+    security-domains:
+      orientRealm:
+        cache-type:
+        classic-authentication:
+          login-modules:
+            ConfiguredIdentity:
+              code:  ConfiguredIdentity
+              flag:  required
+              ConfiguredIdentity:
+              module-options:
+                principal:  DBUSERID
+                password:  DBPASSWORD
+                username:  DBUSERID
+  network:
+    socket-binding-groups:
+      standard-sockets:
+        outbound-socket-bindings:
+              orienttesthost:
+                remote-host: localhost
+                remote-port: 2424
+
+----
+
+==== HelloWorldEndpoint.java
+
+[source,java]
+----
+import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
+import javax.inject.Named;
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.Response;
+
+import com.orientechnologies.orient.core.db.OPartitionedDatabasePool;
+
+@ApplicationScoped
+@Path("/hello")
+public class HelloWorldEndpoint {
+
+    @Inject @Named("orienttesttprofile")
+    OPartitionedDatabasePool databasePool;
+
+    @GET
+    @Produces("text/plain")
+    public Response doGet() {
+        return Response.ok("Hello from WildFly Swarm! databasePool= " + databasePool).build();
+    }
+}
+----
+==== pom.xml
+[source,xml]
+----
+<!-- pom.xml -->
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>org.wildflynosql</groupId>
+  <artifactId>demo</artifactId>
+  <name>WildFly Swarm Example</name>
+  <version>1.0.0-SNAPSHOT</version>
+  <packaging>war</packaging>
+
+  <properties>
+    <version.wildfly.swarm>2017.6.0-SNAPSHOT</version.wildfly.swarm>
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
+    <failOnMissingWebXml>false</failOnMissingWebXml>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <version.cassandra.driver>3.0.0</version.cassandra.driver>
+    <version.org.glassfish.javax.json>1.0.3</version.org.glassfish.javax.json>
+  </properties>
+
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>org.wildfly.swarm</groupId>
+        <artifactId>bom-all</artifactId>
+        <version>${version.wildfly.swarm}</version>
+        <scope>import</scope>
+        <type>pom</type>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+
+  <build>
+    <finalName>demo</finalName>
+    <plugins>
+      <plugin>
+        <groupId>org.wildfly.swarm</groupId>
+        <artifactId>wildfly-swarm-plugin</artifactId>
+        <version>${version.wildfly.swarm}</version>
+        <configuration>
+          <mainClass>org.wildflynosql.demo.rest.Main</mainClass>
+        </configuration>
+
+        <executions>
+          <execution>
+            <goals>
+              <goal>package</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+
+  <dependencies>
+    <!-- Java EE 7 dependency -->
+    <dependency>
+      <groupId>javax</groupId>
+      <artifactId>javaee-api</artifactId>
+      <version>7.0</version>
+      <scope>provided</scope>
+    </dependency>
+    <!-- WildFly Swarm Fractions -->
+    <dependency>
+      <groupId>org.wildfly.swarm</groupId>
+      <artifactId>jaxrs-jsonp</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>org.wildfly.swarm</groupId>
+      <artifactId>jsonp</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>org.glassfish</groupId>
+      <artifactId>javax.json</artifactId>
+      <version>${version.org.glassfish.javax.json}</version>
+    </dependency>
+    <dependency>
+        <groupId>org.wildfly.swarm</groupId>
+        <artifactId>orientdb</artifactId>
+    </dependency>
+    <dependency>
+        <groupId>com.orientechnologies</groupId>
+        <artifactId>orientdb-core</artifactId>
+    </dependency>
+
+    <dependency>
+        <groupId>com.orientechnologies</groupId>
+        <artifactId>orientdb-graphdb</artifactId>
+    </dependency>
+
+    <dependency>
+        <groupId>com.orientechnologies</groupId>
+        <artifactId>orientdb-object</artifactId>
+    </dependency>
+
+    <dependency>
+        <groupId>com.orientechnologies</groupId>
+        <artifactId>orientdb-client</artifactId>
+    </dependency>
+
+    <dependency>
+        <groupId>com.tinkerpop.blueprints</groupId>
+        <artifactId>blueprints-core</artifactId>
+    </dependency>
+
+    <dependency>
+        <groupId>com.googlecode.concurrentlinkedhashmap</groupId>
+        <artifactId>concurrentlinkedhashmap-lru</artifactId>
+    </dependency>
+  </dependencies>
+</project>
+----
+==== beans.xml to enable CDI
+[source,xml]
+----
+<!-- empty beans.xml -->
+<beans xmlns="http://java.sun.com/xml/ns/javaee"
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xsi:schemaLocation="
+      http://java.sun.com/xml/ns/javaee
+      http://java.sun.com/xml/ns/javaee/beans_1_0.xsd">
+</beans>
+----
+
+=== Neo4j Java driver versions
+
+.Neo4j Java driver (org.neo4j.driver:neo4j-java-driver).
+|===
+|  Version  |  WildFly  |  WildFly Swarm
+
+|1.2.1
+|YES
+|YES
+
+|===
+
+=== Example of connecting to Neo4j via Neo4jFraction
+
+==== project-defaults.yml
+[source,yml]
+----
+swarm:
+  neo4jdriver:
+    neo4js:
+      neo4jtestprofile:
+        jndi-name:  java:jboss/neo4jdriver/test
+        id: neo4jtestprofile
+        module:  org.neo4j.driver.custom
+        security-domain:  neo4jRealm
+        transaction:  1pc
+        hosts:
+          neo4jtesthost:
+            outbound-socket-binding-ref: neo4jtesthost
+  security:
+    security-domains:
+      neo4jRealm:
+        cache-type:
+        classic-authentication:
+          login-modules:
+            ConfiguredIdentity:
+              code:  ConfiguredIdentity
+              flag:  required
+              ConfiguredIdentity:
+              module-options:
+                principal:  DBUSERID
+                password:  DBPASSWORD
+                username:  DBUSERID
+  network:
+    socket-binding-groups:
+      standard-sockets:
+        outbound-socket-bindings:
+              neo4jtesthost:
+                remote-host: localhost
+                remote-port: 7687
+
+----
+==== HelloWorldEndpoint.java
+
+[source,java]
+----
+// HelloWorldEndpoint.java
+
+import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
+import javax.inject.Named;
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.Response;
+
+import org.neo4j.driver.v1.Driver;
+
+@ApplicationScoped
+@Path("/hello")
+public class HelloWorldEndpoint {
+
+    @Inject @Named("neo4jtestprofile")
+    Driver database;
+
+    @GET
+    @Produces("text/plain")
+    public Response doGet() {
+        return Response.ok("Hello from WildFly Swarm! database = " + database).build();
+    }
+}
+----
+==== pom.xml
+[source,xml]
+----
+<!-- pom.xml -->
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>org.wildflynosql</groupId>
+  <artifactId>demo</artifactId>
+  <name>WildFly Swarm Example</name>
+  <version>1.0.0-SNAPSHOT</version>
+  <packaging>war</packaging>
+
+  <properties>
+    <version.wildfly.swarm>2017.6.0-SNAPSHOT</version.wildfly.swarm>
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
+    <failOnMissingWebXml>false</failOnMissingWebXml>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <version.neo4j.driver>1.2.1</version.neo4j.driver>
+    <version.org.glassfish.javax.json>1.0.3</version.org.glassfish.javax.json>
+  </properties>
+
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>org.wildfly.swarm</groupId>
+        <artifactId>bom-all</artifactId>
+        <version>${version.wildfly.swarm}</version>
+        <scope>import</scope>
+        <type>pom</type>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+
+  <build>
+    <finalName>demo</finalName>
+    <plugins>
+      <plugin>
+        <groupId>org.wildfly.swarm</groupId>
+        <artifactId>wildfly-swarm-plugin</artifactId>
+        <version>${version.wildfly.swarm}</version>
+        <configuration>
+          <mainClass>org.wildflynosql.demo.rest.Main</mainClass>
+        </configuration>
+
+        <executions>
+          <execution>
+            <goals>
+              <goal>package</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+
+  <dependencies>
+    <!-- Java EE 7 dependency -->
+    <dependency>
+      <groupId>javax</groupId>
+      <artifactId>javaee-api</artifactId>
+      <version>7.0</version>
+      <scope>provided</scope>
+    </dependency>
+    <!-- WildFly Swarm Fractions -->
+    <dependency>
+      <groupId>org.wildfly.swarm</groupId>
+      <artifactId>jaxrs-jsonp</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>org.wildfly.swarm</groupId>
+      <artifactId>jsonp</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>org.glassfish</groupId>
+      <artifactId>javax.json</artifactId>
+      <version>${version.org.glassfish.javax.json}</version>
+    </dependency>
+      <dependency>
+      <groupId>org.wildfly.swarm</groupId>
+      <artifactId>neo4j</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.neo4j.driver</groupId>
+      <artifactId>neo4j-java-driver</artifactId>
+      <version>${version.neo4j.driver}</version>
+    </dependency>
+  </dependencies>
+</project>
+----
+
+[source,xml]
+----
+<!-- empty beans.xml -->
+<beans xmlns="http://java.sun.com/xml/ns/javaee"
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xsi:schemaLocation="
+      http://java.sun.com/xml/ns/javaee
+      http://java.sun.com/xml/ns/javaee/beans_1_0.xsd">
+</beans>
+----
+
+=== Logging categories
+
+org.wildfly.nosql - Enable NoSQL subsystem logging.
+
+org.wildfly.swarm.neo4j - Enable Neo4j fraction logging.
+
+org.wildfly.swarm.orientdb - Enable OrientDB fraction logging.
+
+org.wildfly.swarm.cassandra - Enable Cassandra fraction logging.
+
+org.wildfly.swarm.mongodb - Enable MongoDB fraction logging.
+
+=== Common issues
+1. Incorrectly spelled profile name causes CDI injection or JNDI lookup, to fail.  Correct to use
+correct spelling of NoSQL profile name.
+2.  Missing beans.xml leads to deployment failure
