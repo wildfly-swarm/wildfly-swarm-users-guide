@@ -94,9 +94,6 @@ Within the root the following additional sub-packages may be found:
 * internal
 * runtime
 
-The `org.wildfly.swarm._CAPABILITY_.detect` package holds classes code that will
-be incorporated into a deployment.
-
 The `org.wildfly.swarm._CAPABILITY_.detect` package holds classes that are
 used for determining if the fraction applies to a given deployment.
 
@@ -272,10 +269,15 @@ public class MyArchivePreparer implements DeploymentProcessor {
     private MyFraction myFraction;
 
     @Inject
-    public HttpSecurityPreparer(Archive archive) {
+    public MyArchivePreparer(Archive archive) {
         this.archive = archive;
     }
 
+    @Override
+    public void process() throws Exception {
+        WARArchive war = archive.as(WARArchive.class);
+        ...
+    }
 }
 ----
 
