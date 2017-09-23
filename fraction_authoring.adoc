@@ -14,8 +14,8 @@ of the WildFly Swarm SPI and fraction-plugin being used:
 [source,xml]
 ----
 <properties>
-  <version.swarm>2016.8</version.swarm.spi>
-  <version.swarm.fraction-plugin>34</version.swarm.fraction-plugin>
+  <version.swarm>2017.7.0</version.swarm.spi>
+  <version.swarm.fraction-plugin>57</version.swarm.fraction-plugin>
 </properties>
 ----
 
@@ -87,12 +87,19 @@ For a given fraction, a unique package root is required.  In the usual
 case of the core code, it matches the pattern of `org.wildfly.swarm._CAPABILITY_`,
 such as `org.wildfly.swarm.undertow` or `org.wildfly.swarm.naming`.
 
-Within the root may be two (or more) additional sub-packages, named
-'runtime' and 'deployment'.
+Within the root the following additional sub-packages may be found:
 
-The `org.wildfly.swarm._CAPABILITY_.runtime` package holds classes that are
-considered "back-end" components, loaded via our internal CDI implementation
-in order to configure and setup the server.
+* deployment
+* detect
+* internal
+* runtime
+
+The `org.wildfly.swarm._CAPABILITY_.detect` package holds classes that are
+used for determining if the fraction applies to a given deployment.
+
+The `org.wildfly.swarm._CAPABILITY_.runtime` and `org.wildfly.swarm._CAPABILITY_.internal`
+package holds classes that are considered "back-end" components, loaded via our
+internal CDI implementation in order to configure and setup the server.
 
 The `org.wildfly.swarm._CAPABILITY_.deployment` package holds other classes
 that should not be considered either part of the front-end API of the fraction
@@ -117,6 +124,74 @@ typically be listed in this file.
 org.jboss.logging
 org.wildfly.swarm.undertow
 ----
+
+==== Maven Artifact Dependencies
+You cannot specify maven artifact style dependencies in the module.conf file.
+If you have such dependencies, you need to create a JBoss-Modules module.xml
+descriptor in your fraction's src/main/resources/modules directory. For example,
+the org.wildfly.swarm:fluentd fraction includes the following
+src/main/resources/modules/org/fluentd/main/module.xml to declare dependencies
+on:
+
+* org.fluentd:fluent-logger:${fluentd.version}
+* org.msgpack:msgpack:0.6.8
+* com.googlecode.json-simple:json-simple:1.1.1
+* org.javassist:javassist:3.18.1-GA
+* org.slf4j:slf4j-api:1.7.7.jbossorg-1
+* org.jboss.logmanager:jboss-logmanager-ext:${version.jboss-logmanager-ext}
+
+
+
+```xml
+<?xml version="1.0" ?>
+<module xmlns="urn:jboss:module:1.3" name="org.fluentd">
+
+  <resources>
+    <artifact name="org.fluentd:fluent-logger:${fluentd.version}"/>
+    <artifact name="org.msgpack:msgpack:0.6.8"/>
+    <artifact name="com.googlecode.json-simple:json-simple:1.1.1"/>
+    <artifact name="org.javassist:javassist:3.18.1-GA"/>
+    <artifact name="org.slf4j:slf4j-api:1.7.7.jbossorg-1"/>
+    <artifact name="org.jboss.logmanager:jboss-logmanager-ext:${version.jboss-logmanager-ext}"/>
+  </resources>
+
+  <dependencies>
+    <module name="org.jboss.logmanager"/>
+    <module name="javax.json.api"/>
+    <module name="javax.xml.stream.api"/>
+  </dependencies>
+</module>
+```
+
+For more information on the syntax of the JBoss-Modules module.xml descriptor,
+see https://jboss-modules.github.io/jboss-modules/manual/.
+
+==== Generated modules
+The wildfly-swarm-fraction-plugin generates a number of module.xml descriptors
+depending on what features it has found in the faction. You may override
+any one of these descriptors by providing the corresponding module.xml in your
+src/main/resources/modules directory.
+
+* api: this is a module definition that depends on all modules specified in
+module.conf + swarm container and cdi modules, the fraction artifact, excluding
+the <fraction-root-package>/{runtime,deployment} packages if they exist. It is
+used to configure fractions, container, etc, when running in Uber jar mode when
+JBoss-Modules is fully active
+* deployment:  is a module definition that depends on all modules specified in
+module.conf, the fraction:main module, excluding the
+<fraction-root-package>/{runtime,META-INF} paths, the fraction artifact
+excluding the <fraction-root-package>/{runtime,internal,META-INF} packages.
+This module is automatically added as a module dependency to any deployments.
+It's a convenient way to had code into the user deployment for handling
+integrations with the container.
+* main: This is a module definition similar to API, but active when running
+from IDE or wildfly-swarm:run
+* runtime: this is a module definition that depends on the fraction artifact
+with the root excluded, the main module, swarm and cdi modules, and all modules
+in module.conf. This module is used to load the fraction and any of its runtime
+code. These modules are what JBoss Modules loads for use by the WF self
+contained server to make extensions, subsystems, etc available for the
+deployment.
 
 === The `*Fraction.java`
 
@@ -178,42 +253,61 @@ public class MyComponents implements Whatever {
 }
 ----
 
-==== `ArchivePreparer`
+==== `DeploymentProcessor`
 
 If your fraction needs an opportunity to alter or otherwise prepare all deployed
-archives, you may implement the `org.wildfly.swarm.spi.api.ArchivePreparer` interface.
+archives, you may implement the `org.wildfly.swarm.spi.api.DeploymentProcessor` interface.
 
 [source,java]
 ----
-@Singleton
-public class MyArchivePreparer implements ArchivePreparer {
+@DeploymentScoped
+public class MyArchivePreparer implements DeploymentProcessor {
 
-  @Inject
-  private MyFraction myFraction;
+    private final Archive archive;
 
-  public void prepareArchive(Archive<?> archive) {
-    archive.as( WARArchive.class ).setContextRoot( myFraction.getContextRoot() );
-  }
+    @Inject
+    private MyFraction myFraction;
+
+    @Inject
+    public MyArchivePreparer(Archive archive) {
+        this.archive = archive;
+    }
+
+    @Override
+    public void process() throws Exception {
+        WARArchive war = archive.as(WARArchive.class);
+        ...
+    }
 }
 ----
 
-==== `ArchiveMetadataProcessor`
+===== Useful Annotations
+There are a few additional annotations that you may include on your fraction class:
+
+* @WildFlyExtension(module = "org.keycloak.keycloak-adapter-subsystem"), if the fraction is installed, then the named WildFly Extension will also be installed.
+This is equivalent to the <extension> element in the WildFly standalone.xml.
+* @WildFlySubsystem("keycloak"), if the fraction is installed, then the named WildFly Subsystem will also be included.
+This is equivalent to the <subsystem> element in the WildFly standalone.xml.
+* @DeploymentModule(name = "org.keycloak.keycloak-core") adds the indicated module dependency to the deployment archives that are appropriate to a fraction.
+
+==== `Injecting IndexView`
 
 If your fraction needs an opportunity to process the Jandex metadata of all deployed
-archives, you may implement the `org.wildfly.swarm.spi.api.ArchiveMetadataProcessor`
-interface.
+archives, you can inject  `org.jboss.jandex.IndexView` into your DeploymentProcessor
+instance, e.g.
 
 [source,java]
 ----
-@Singleton
-public class MyArchiveMetadataProcessor implements ArchiveMetadataProcessor {
+@DeploymentScoped
+public class ServiceClientProcessor implements DeploymentProcessor {
+    private final Archive<?> archive;
+    private final IndexView index;
 
-  @Inject
-  private MyFraction myFraction;
-
-  public void processArchive(Archive<?> archive, Index index) {
-    // ...
-  }
+    @Inject
+    public ServiceClientProcessor(Archive archive, IndexView index) {
+        this.archive = archive;
+        this.index = index;
+    }
 }
 
 ----
