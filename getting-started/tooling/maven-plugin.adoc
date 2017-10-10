@@ -121,7 +121,7 @@ in your uberjar, you are simply required to enumerate them as
 normal Maven dependencies in your `pom.xml`. By using a BOM, you
 can avoid having to specify the version of each dependency you include.
 
-For instanfe, to ensure your application is built to support JAX-RS 
+For instance, to ensure your application is built to support JAX-RS 
 and CDI, the following dependencies could be added to your `pom.xml`.
 In addition to bringing in the WildFly Swarm dependencies, these each
 bring in the appropriate API specification dependencies to allow for
