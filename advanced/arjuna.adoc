@@ -38,3 +38,53 @@ B.abort();
 
 A.commit();
 ----
+
+== Nested Top-Level Transactions
+
+In addition to normal top-level and nested atomic actions, we can also support independent top-level actions (often called nested top-level transactions), which can be used to relax strict serializability in a controlled manner. An independent top-level action can be executed from anywhere within another atomic action, no matter how deeply nested, and behaves exactly like a normal top-level action. Its results are made permanent when it commits and will not be undone if any of the actions within which it was originally nested abort.
+
+As show below, to use nested top-level transactions with Arjuna there is a slightly modified syntax (a different class needs to be be used). It has all of the same methods as the AtomicAction class, however.
+
+[source,java]
+----
+AtomicAction A = new AtomicAction();
+AtomicAction B = new AtomicAction();
+AtomicAction C = new AtomicAction();
+
+A.begin();
+B.begin();
+
+// do some work
+
+C.begin();
+
+// do some more work
+
+TopLevelAction D = new TopLevelAction();
+
+D.begin();
+
+/*
+ * Do some work that we do not want to be changed by however the
+ * enclosing transactions may decide to terminate.
+ */
+
+D.commit();
+
+// now let's do a bit more work and commit C
+
+C.commit();
+
+// now let's abort B (because we can)
+
+B.abort();
+
+/*
+ * At this stage all of the work C did has also been undone by the fact
+ * B rolled back. However, the work D did has been committed and remains so.
+ */
+
+// now end the top-level transaction
+
+A.commit();
+----
