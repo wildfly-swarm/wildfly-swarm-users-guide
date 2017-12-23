@@ -4,7 +4,7 @@ The JTA and JTS subsystems within WildFly Swarm (and hence WildFly) are based on
 
 Note, although Arjuna transactions can be used in conjunction with transactional resources such as JDBC drivers, at present they are not integrated with distributed invocations and as such should be used only for local applications.
 
-==Nested Transactions
+== Nested Transactions
 
 With Arjuna, transactions can be arbitrarily nested in a parent-child relationship. Nested Transactions (subtransactions) are good because:
 
