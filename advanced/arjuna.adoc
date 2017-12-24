@@ -88,3 +88,8 @@ B.abort();
 
 A.commit();
 ----
+
+== Other Capabilities
+In general AtomicAction shares many of the same capabilities as a standard JTA transaction. For instance, you can associate a timeout
+with one when created such that it will be rolled back automatically if the timeout expires; you can also suspend and resume the transaction
+context on the calling thread etc. For more information on these capabilities you should read the Narayana documentation.
