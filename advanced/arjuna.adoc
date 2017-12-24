@@ -1,0 +1,95 @@
+= Arjuna Transactions
+
+The JTA and JTS subsystems within WildFly Swarm (and hence WildFly) are based on the Narayana tranasction project (http://narayana.io/docs/project/index.html), which has a long history and was once known as the Arjuna Transaction system (http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.83.7057&rep=rep1&type=pdf). Arjuna offers many extensions above and beyond standard JTA and JTS, some of which we will discuss here. More details can be found on the Narayana home pages.
+
+Note, although Arjuna transactions can be used in conjunction with transactional resources such as JDBC drivers, at present they are not integrated with distributed invocations and as such should be used only for local applications.
+
+== Nested Transactions
+
+With Arjuna, transactions can be arbitrarily nested in a parent-child relationship. Nested Transactions (subtransactions) are good because:
+
+- fault-isolation: if subtransaction rolls back (e.g., because an object it was using fails) then this does not require the enclosing transaction to rollback, thus undoing all of the work performed so far.
+
+- modularity: if there is already a transaction associated with a call when a new transaction is begun, then the transaction will be nested within it. Therefore, a programmer who knows that an object require transactions can use them within the object: if the object’s methods are invoked without a client transaction, then the object’s transactions will simply be top-level; otherwise, they will be nested within the scope of the client’s transactions. Likewise, a client need not know that the object is transactional, and can begin its own transaction.
+
+There is no special syntax for creating nested transactions. You simply create a transaction and the system will take care of whether it is nested or top level automatically.
+
+[source,java]
+----
+AtomicAction A = new AtomicAction();
+AtomicAction B = new AtomicAction();
+
+A.begin(); // this is a top-level transaction
+
+// do some work
+
+B.begin(); // this is a nested transaction
+
+/*
+ * Do some work and maybe decide that we want to roll back.
+ */
+
+B.abort();
+
+/*
+ * Do more work within the context of the top-level transaction because
+ * it is not affected by the abort of the child transaction (in this case).
+ */
+
+A.commit();
+----
+
+== Nested Top-Level Transactions
+
+In addition to normal top-level and nested atomic actions, we can also support independent top-level actions (often called nested top-level transactions), which can be used to relax strict serializability in a controlled manner. An independent top-level action can be executed from anywhere within another atomic action, no matter how deeply nested, and behaves exactly like a normal top-level action. Its results are made permanent when it commits and will not be undone if any of the actions within which it was originally nested abort.
+
+As show below, to use nested top-level transactions with Arjuna there is a slightly modified syntax (a different class needs to be be used). It has all of the same methods as the AtomicAction class, however.
+
+[source,java]
+----
+AtomicAction A = new AtomicAction();
+AtomicAction B = new AtomicAction();
+AtomicAction C = new AtomicAction();
+
+A.begin();
+B.begin();
+
+// do some work
+
+C.begin();
+
+// do some more work
+
+TopLevelAction D = new TopLevelAction();
+
+D.begin();
+
+/*
+ * Do some work that we do not want to be changed by however the
+ * enclosing transactions may decide to terminate.
+ */
+
+D.commit();
+
+// now let's do a bit more work and commit C
+
+C.commit();
+
+// now let's abort B (because we can)
+
+B.abort();
+
+/*
+ * At this stage all of the work C did has also been undone by the fact
+ * B rolled back. However, the work D did has been committed and remains so.
+ */
+
+// now end the top-level transaction
+
+A.commit();
+----
+
+== Other Capabilities
+In general AtomicAction shares many of the same capabilities as a standard JTA transaction. For instance, you can associate a timeout
+with one when created such that it will be rolled back automatically if the timeout expires; you can also suspend and resume the transaction
+context on the calling thread etc. For more information on these capabilities you should read the Narayana documentation.
