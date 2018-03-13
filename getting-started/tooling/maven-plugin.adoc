@@ -1,10 +1,26 @@
 = Maven Plugin
 
-To assist in building WildFly Swarm projects, a Maven plugin is available.  This plugin creates the `-swarm.jar` uberjar which contains your application along with the necessary parts of WildFly to support it.
+To assist in building WildFly Swarm projects, a Maven plugin is available.  This plugin 
+is used to create the `-swarm.jar` uberjar which contains your application along with 
+the necessary parts of WildFly to support it. It may additionally be used to create
+_hollow_ WildFly Swarm jars, which are suitable for use with container technologies
+such as Docker.
+
 
 == Configuration
 
-To use the plugin, you must add it to your `pom.xml`:
+Generally when using WildFly Swarm from Maven, it's appropriate to define a
+property in your `pom.xml` to manage the version you are using.
+
+[source,xml]
+----
+<properties>
+  <version.wildfly-swarm>{{book.versions.swarm}}</version.wildfly-swarm>
+</properties>
+----
+
+To use the plugin, you must add it to your `pom.xml` and configure
+one execution to invoke the `package` goal of the WildFly Swarm Maven plugin:
 
 [source,xml]
 ----
@@ -13,6 +29,7 @@ To use the plugin, you must add it to your `pom.xml`:
     <plugin>
       <groupId>org.wildfly.swarm</groupId>
       <artifactId>wildfly-swarm-plugin</artifactId>
+      <version>${version.wildfly-swarm}</version>
       <executions>
         <execution>
           <goals>
@@ -29,21 +46,54 @@ To use the plugin, you must add it to your `pom.xml`:
 
 === Default *uberjar*
 
-To produce the `_myapp_-swarm.jar`, simply perform a typical `mvn package` command after setting the `package` goal on the plugin:
+To produce the `_myapp_-swarm.jar`, simply perform a typical 
+`mvn package` command after setting the `package` goal on the plugin:
 
     mvn package
 
+The normal build of your `.jar` or `.war` application will occur, followed
+by the packaging of that into a customized executable _uberjar_. The output
+resulting from this step will be a `_myapp_-swarm.jar` which is entirely
+self-contained and can be executed using `java -jar`.
+
+    java -jar myapp-swarm.jar
+
 === _Hollow_ *uberjar*
 
-To produce a _hollow_ uberjar, the same `mvn package` method is used, but either set the property `-Dswarm.hollow=true` or configure
-the plugin with `<hollow>true</hollow>` from within your `pom.xml`.
+To produce a _hollow_ uberjar, the same `mvn package` method is used, but 
+either set the property `-Dswarm.hollow=true` or configure the plugin with 
+`<hollow>true</hollow>` from within your `pom.xml`:
 
-A hollow uberjar will have the suffix of `-hollow-swarm.jar` and will not include the actual application deployment. This may be
-useful if you are targetting layered Linux containers, where you wish to place the runtime on a lower layer, and the more
-frequently changing deployment on a higher layer.
+[source,xml]
+----
+<build>
+  <plugins>
+    <plugin>
+      <groupId>org.wildfly.swarm</groupId>
+      <artifactId>wildfly-swarm-plugin</artifactId>
+      <version>${version.wildfly-swarm}</version>
+      <executions>
+        <execution>
+          <goals>
+            <goal>package</goal>
+          </goals>
+          <configuration>
+            <hollow>true</hollow>
+          </configuration>
+        </execution>
+      </executions>
+    </plugin>
+  </plugins>
+</build>
+----
 
-If using the hollow functionality, the command-line arguments to the uberjar should point to one or more deployments that
-should be used.
+A hollow uberjar will have the suffix of `-hollow-swarm.jar` and will *not* 
+include the actual application deployment. This may be useful if you are targetting 
+layered Linux containers, where you wish to place the runtime on a lower layer, and the more
+frequently changing application deployment on a higher layer.
+
+If using the hollow functionality, the command-line arguments to the uberjar should 
+point to one or more deployments that should be used.
 
     java -jar myruntime-hollowjar.jar myapp.war
 
@@ -51,17 +101,58 @@ An example of the hollow jar functionality may be seen in the <<fake/../../../..
 
 == Running your application
 
-To execute your application, you may use the `wildfly-swarm:run` goal:
+To execute your application directly from Maven, you may use the `wildfly-swarm:run` goal:
 
     mvn wildfly-swarm:run
 
-This will execute your application within the WildFly Swarm runtime directly from the Maven command-line, and wait for it to exit.
+This will execute your application within the WildFly Swarm 
+runtime directly from the Maven command-line, and wait for it to exit.
 
-Both of these goals will perform the same type of fraction detection as the `package` task if no WildFly Swarm dependencies are found.
+Both of these goals will perform the same type of fraction 
+detection (see below) as the `package` task if no WildFly Swarm dependencies 
+are found.
 
-== Fraction detection
+== Fraction Detection
 
-If the plugin doesn't detect any WildFly Swarm dependencies in your `pom.xml`, it will attempt to auto-detect needed fractions by scanning the application. This is mostly useful for WAR-based applications that you are migrating to WildFly Swarm - you only need to add the plugin to your configuration, and not any other WildFly Swarm dependencies. You can control fraction detection by setting `<fractionDetectMode>`. See the configuration options below for more details.
+=== Explicit Fractions
+
+If you choose to explicitly select which fractions are included
+in your uberjar, you are simply required to enumerate them as
+normal Maven dependencies in your `pom.xml`. By using a BOM, you
+can avoid having to specify the version of each dependency you include.
+
+For instance, to ensure your application is built to support JAX-RS 
+and CDI, the following dependencies could be added to your `pom.xml`.
+In addition to bringing in the WildFly Swarm dependencies, these each
+bring in the appropriate API specification dependencies to allow for
+compiling JAX-RS and CDI-based applications.
+
+[source,xml]
+----
+<dependencies>
+  <dependency>
+    <groupId>org.wildfly.swarm</groupId>
+    <artifactId>jaxrs</artifactId>
+  </dependency>
+  <dependency>
+    <groupId>org.wildfly.swarm</groupId>
+    <artifactId>cdi</artifactId>
+  </dependency>
+</dependencies>
+----
+
+=== Auto-detected Fractions
+
+If the plugin doesn't detect any WildFly Swarm dependencies in your `pom.xml`, 
+it will attempt to auto-detect needed fractions by scanning the application. 
+This is mostly useful for WAR-based applications that you are migrating to 
+WildFly Swarm; you only need to add the plugin to your configuration, 
+and not any other WildFly Swarm dependencies. This assumes your application
+has already brought in dependencies for the relevant specifications (such as
+JAX-RS or CDI) using the normal `<scope>provided</scope> facilities of Maven.
+
+You can exert additional control over fraction detection by 
+setting `<fractionDetectMode>`. See the configuration options below for more details.
 
 == Plugin Configuration Options
 
@@ -175,13 +266,23 @@ The plugin accepts the following options:
 
 === Properties
 
-Many properties may be used to configure execution and affect the packaging or running of your application.
+Many properties may be used to configure execution and affect the packaging 
+or running of your application.
 
-If you add a `<properties>` or `<propertiesFile>` section to the `<configuration>` of the plugin, the properties will be used when running your application via `mvn wildfly-swarm:run`.  Additionally, those same properties will be added to your `_myapp_-swarm.jar` to affect subsequent executions of the uberjar.  Any properties loaded from `<propertiesFile>` will override same-named properties from `<properties>`.
+If you add a `<properties>` or `<propertiesFile>` section to the `<configuration>` 
+of the plugin, the properties will be used when running your application via 
+`mvn wildfly-swarm:run`.  Additionally, those same properties will be added to 
+your `_myapp_-swarm.jar` to affect subsequent executions of the uberjar.  Any 
+properties loaded from `<propertiesFile>` will override same-named properties from `<properties>`.
 
-Any properties added to the uberjar can of course be overridden at runtime using the traditional `-Dname=value` mechanism of `java`.
+Any properties added to the uberjar can of course be overridden at 
+runtime using the traditional `-Dname=value` mechanism of `java` or
+the YAML-based configuration facilities.
 
-Only properties specified outside of `<properties>` or `<propertiesFile>` that start with `jboss.`, `wildfly.`, `swarm.`, or `maven.`, or override a property specified in `<properties>` or `<propertiesFile>` are added to the uberjar at package time.
+Only properties specified outside of `<properties>` or `<propertiesFile>` 
+that start with `jboss.`, `wildfly.`, `swarm.`, or `maven.`, or override a 
+property specified in `<properties>` or `<propertiesFile>` are 
+added to the uberjar at package time.
 
 
 Please see <<fake/../../../configuration_properties.adoc#,Configuration Properties>> for a non-exhaustive list of useful properties.
