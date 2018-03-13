@@ -7,8 +7,8 @@ To use the monitor fraction in your application, you need to add the following d
 [source,xml]
 ----
 <dependency>
-  <groupId>org.wildfly.swarm</groupId>
-  <artifactId>monitor</artifactId>
+    <groupId>org.wildfly.swarm</groupId>
+    <artifactId>microprofile-health</artifactId>
 </dependency>
 ----
 
@@ -30,12 +30,12 @@ The runtime information is exposed through a HTTP interface and gives access fol
 +++
 <pre>
 {
-      "name" : "macbook-pro-2",
+      "name" : "macbook-pro-thomas",
       "server-state" : "running",
       "suspend-state" : "RUNNING",
       "running-mode" : "NORMAL",
       "uuid" : "a8100296-573d-4b40-9648-e82bdb0041d9",
-      "wfs-version" : "fixme"
+      "swarm-version" : "2018.3.0"
 }
 </pre>
 +++
@@ -84,6 +84,16 @@ The runtime information is exposed through a HTTP interface and gives access fol
 |/health
 |A list of available health endpoints
 |application/json
+
+3+|
++++
+<pre>
+{
+  "outcome": "UP",
+  "checks": []
+}
+</pre>
++++
 
 |===
 
