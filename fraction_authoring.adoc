@@ -14,7 +14,7 @@ of the WildFly Swarm SPI and fraction-plugin being used:
 [source,xml]
 ----
 <properties>
-  <version.swarm>2017.7.0</version.swarm.spi>
+  <version.swarm>2017.7.0</version.swarm>
   <version.swarm.fraction-plugin>57</version.swarm.fraction-plugin>
 </properties>
 ----
